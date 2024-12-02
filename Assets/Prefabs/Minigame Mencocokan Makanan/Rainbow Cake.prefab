@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c800f9684c98f234fb5b5f87c347174e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumable: {fileID: 11400000, guid: 256d78e2426889c4292d0415ea89e79c, type: 2}
+  itemSO: {fileID: 11400000, guid: 4df7e5b4851721542b5d66807b6cb65f, type: 2}

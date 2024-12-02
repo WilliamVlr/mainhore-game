@@ -6,7 +6,7 @@ public class DraggableItem : MonoBehaviour
 {
     private bool isDragging = false; // To track if the object is being dragged
     private Camera mainCamera; // Reference to the main camera
-    public SO_Consumable consumable;
+    public SO_Item itemSO;
     // Start is called before the first frame update
     void Start()
     {
@@ -84,11 +84,12 @@ public class DraggableItem : MonoBehaviour
         {
             // Handle the logic for serving the food to the customer
             // For example, you can destroy the food item and give points to the player
-            //Customer customer = other.GetComponent<Customer>();
-            //if (customer != null)
-            //{
-            //    customer.CheckOrder(this); // Pass the food object to the customer
-            //}
+            Customer customer = other.GetComponent<Customer>();
+            if (customer != null)
+            {
+                Debug.Log("Called from on trigger enter 2D draggable object");
+                customer.CheckOrder(this); // Pass the food object to the customer
+            }
             Destroy(gameObject); // Destroy the food item
             //Destroy(other.gameObject);
         }

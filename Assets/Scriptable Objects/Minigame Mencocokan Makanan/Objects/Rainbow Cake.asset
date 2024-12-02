@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rainbow Cake
   m_EditorClassIdentifier: 
   itemName: Rainbow Cake
-  sprite: {fileID: 0}
+  sprite: {fileID: 566753133, guid: 547f74db34fe89346a5e32ac9c5fa1e1, type: 3}
   price: 10
+  place: 0
   energy: -1
