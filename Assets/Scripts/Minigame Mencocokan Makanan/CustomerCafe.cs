@@ -24,8 +24,9 @@ public class CustomerCafe : MonoBehaviour
 
     //Waiting Time and Order Flag
     private float waitTimeInterval;
-    private float maxWaitTime = 5f;
-    private float waitTimeMultiplier = 1.5f;
+    private float waitTimeMin = 2f;
+    private float waitTimeMax = 4f;
+    private float waitTimeMultiplier = 2f;
     private bool orderFinished = false;
 
     //Destroyable
@@ -57,7 +58,8 @@ public class CustomerCafe : MonoBehaviour
     private void setWaitTimeInterval(float dur, float mult)
     {
         waitTimeInterval = dur * mult;
-        if(waitTimeInterval > maxWaitTime) waitTimeInterval = maxWaitTime;
+        if(waitTimeInterval > waitTimeMax) waitTimeInterval = waitTimeMax;
+        else if (waitTimeInterval < waitTimeMin) waitTimeInterval = waitTimeMin;
     }
 
     private void generateRandomOrder()
@@ -74,6 +76,7 @@ public class CustomerCafe : MonoBehaviour
                 var randomItem = cafeItems[Random.Range(0, cafeItems.Count)];
                 orderedItems.Add(randomItem);
             }
+
 
         }
         else
@@ -176,7 +179,7 @@ public class CustomerCafe : MonoBehaviour
         
         for (int i = 1; i < chosenCustomerSpriteSet.customerSpriteSet.Count; i++)
         {
-            setWaitTimeInterval(this.orderedItems.Count, waitTimeMultiplier);
+            setWaitTimeInterval(this.orderedItems.Count, waitTimeMultiplier/i);
             yield return new WaitForSeconds(waitTimeInterval);
             if (!orderFinished)
             {
