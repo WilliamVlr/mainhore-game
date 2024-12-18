@@ -76,24 +76,4 @@ public class Draggable : MonoBehaviour
             CafeItemSpawner.isOriginalFoodClicked = false; // Reset the flag after starting to drag
         }
     }
-
-    //Give food to the customer when collides
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    // Check if the food item is dragged to a customer
-    //    if (other.CompareTag("Customer"))
-    //    {
-    //        // Handle the logic for serving the food to the customer
-    //        // For example, you can destroy the food item and give points to the player
-    //        Customer customer = other.GetComponent<Customer>();
-    //        if (customer != null)
-    //        {
-    //            Debug.Log("Called from on trigger enter 2D draggable object");
-    //            customer.CheckOrder(this); // Pass the food object to the customer
-    //        }
-    //        Destroy(gameObject); // Destroy the food item
-    //        //Destroy(other.gameObject);
-    //    }
-    //}
-
 }
