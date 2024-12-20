@@ -139,6 +139,7 @@ public class CustomerCafe : MonoBehaviour
             else
             {
                 customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[2];
+                orderFinished = true;
                 ShowResponseAndDestroy("Pesanan Salah!"); // Wrong order message
             }
 
