@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,15 +11,24 @@ public abstract class Minigame : MonoSingleton<Minigame>
     [SerializeField] private TextMeshProUGUI currentScoreTXT;
     [SerializeField] private TextMeshProUGUI targetScoreTXT;
     private int currentScore;
-    private int targetScore;
+    [SerializeField] private int targetScore;
     private bool isWin;
 
     //Timer
 
     //Layouts
 
-    //Awake function
-    
+    public override void Init()
+    {
+        setTargetScoreTxt();
+        resetScore();
+        resetIsWin();
+    }
+
+    private void resetIsWin()
+    {
+        isWin = false;
+    }
 
     public void resetScore()
     {
@@ -40,10 +50,17 @@ public abstract class Minigame : MonoSingleton<Minigame>
     {
         currentScore++;
         setCurrentScoreTxt();
+        if (!isWin)
+        {
+            checkScore();
+        }
     }
 
     public virtual void checkScore() {
-        if(currentScore >= targetScore) isWin = true;
+        if (currentScore >= targetScore)
+        {
+            isWin = true;
+        }
     }
 
 

@@ -54,7 +54,7 @@ public class CafeItemSpawner : MonoBehaviour
                 // Check if the mouse is over this GameObject
                 if (hitCollider != null && hitCollider.gameObject == gameObject)
                 {
-                    Debug.Log("Masuk ifnya");
+                    //Debug.Log("Masuk ifnya");
                     isOriginalFoodClicked = true; // Set the flag to true
                     SpawnFood(); // Spawn a new food item
                     //Debug.Log($"{gameObject.name} clicked and food spawned.");
