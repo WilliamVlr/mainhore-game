@@ -130,40 +130,24 @@ public class CustomerCafe : MonoBehaviour
             //Debug.Log($"item: {item.name}, SOitem: {itemSO}");
             bool isInOrder = orderedItems.Contains(itemSO);
 
-            // If the orderedFood list has more than one item
-            if (orderedItems.Count > 1)
+            if (isInOrder)
             {
-                if (isInOrder)
-                {
-                    // Remove the food item from the orderedFood list
-                    orderedItems.Remove(itemSO);
-                    DestroyItemUIImage(itemSO.name); //Destroy ordered item image in orderBox
-                    Destroy(item); // Destroy the draggable item GameObject
-                }
-                else
-                {
-                    customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[2]; // Change to angry sprite
-                    ShowResponseAndDestroy("Pesanan Salah!"); // Wrong order 
-                }
+                orderedItems.Remove(itemSO);
+                DestroyItemUIImage(itemSO.name);
+                Destroy(item);
+            } 
+            else
+            {
+                customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[2];
+                ShowResponseAndDestroy("Pesanan Salah!"); // Wrong order message
             }
-            // If the orderedItems list has only one item
-            else if (orderedItems.Count == 1)
+
+            if(orderedItems.Count == 0)
             {
-                if (isInOrder)
-                {
-                    // Remove the food item from the orderedFood list
-                    orderFinished = true;
-                    orderedItems.Remove(itemSO);
-                    DestroyItemUIImage(itemSO.name);
-                    //Destroy(foodImageRenderer); // Destroy the food image renderer
-                    Destroy(item); // Destroy the food GameObject
-                    ShowResponseAndDestroy("Terima kasih!"); // Thank you message
-                }
-                else
-                {
-                    customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[2];
-                    ShowResponseAndDestroy("Pesanan Salah!"); // Wrong order message
-                }
+                MinigameCafeManager.Instance.addScore();
+                customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[0];
+                orderFinished = true;
+                ShowResponseAndDestroy("Terima kasih!"); // Thank you message
             }
         }
         else
@@ -191,6 +175,7 @@ public class CustomerCafe : MonoBehaviour
         {
             orderFinished = true;
             //Hapus semua imagenya atau nonaktifkan orderBox
+            transform.GetComponent<BoxCollider2D>().enabled = false;
             orderPanel.SetActive(false);
 
             //Show Response terlalu lama
