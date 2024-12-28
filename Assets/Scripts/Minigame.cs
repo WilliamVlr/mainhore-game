@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Handle layers in minigame scene, handle scoring & target, and coin gained
 public abstract class Minigame : MonoSingleton<Minigame>
@@ -18,13 +21,22 @@ public abstract class Minigame : MonoSingleton<Minigame>
     [SerializeField] private TextMeshProUGUI coinGainedTXT;
     private int coinGained;
 
-    //Layouts
+    ////Layouts/layers
+    //[SerializeField]
+    //private GameObject FirstLayout;
+    //[SerializeField]
+    //private GameObject InstructionLayout;
+    //[SerializeField]
+    //private GameObject PauseLayout;
+    //[SerializeField]
+    //private GameObject PlayLayout;
 
     public override void Init()
     {
         setTargetScoreTxt();
         resetScore();
         resetIsWin();
+        Time.timeScale = 0f;
     }
 
     private void resetIsWin()
@@ -75,5 +87,25 @@ public abstract class Minigame : MonoSingleton<Minigame>
         coinGainedTXT.text = $"+{coinGained}";
     }
 
+    public void showLayout(GameObject layout)
+    {
+        layout.SetActive(true);
+    }
+
+    public void hideLayout(GameObject layout)
+    {
+        layout.SetActive(false);
+    }
+
+    public void startMinigame()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void restartMinigame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Restarting Minigame");
+    }
 
 }
