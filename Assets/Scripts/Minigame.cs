@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-//Handle layers in minigame scene, handle timer, handle scoring & target
+//Handle layers in minigame scene, handle scoring & target, and coin gained
 public abstract class Minigame : MonoSingleton<Minigame>
 {
     //Scoring
     [SerializeField] private TextMeshProUGUI currentScoreTXT;
     [SerializeField] private TextMeshProUGUI targetScoreTXT;
-    private int currentScore;
-    [SerializeField] private int targetScore;
-    private bool isWin;
+    protected int currentScore;
+    [SerializeField] protected int targetScore;
+    protected bool isWin;
 
-    //Timer
+    //Coin gained
+    [SerializeField] private TextMeshProUGUI coinGainedTXT;
+    private int coinGained;
 
     //Layouts
 
@@ -63,7 +65,15 @@ public abstract class Minigame : MonoSingleton<Minigame>
         }
     }
 
+    public virtual int coinGainedCalculation()
+    {
+        return coinGained;
+    }
 
+    private void setCoinGainedTxt()
+    {
+        coinGainedTXT.text = $"+{coinGained}";
+    }
 
 
 }

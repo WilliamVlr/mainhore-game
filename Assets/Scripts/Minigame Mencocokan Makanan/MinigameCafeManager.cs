@@ -6,6 +6,18 @@ using UnityEngine;
 //Handle layers in minigame scene, handle timer, handle scoring & target
 public class MinigameCafeManager : Minigame
 {
+    [SerializeField]
+    private GameObject targetPanel;
+
+    public override void checkScore()
+    {
+        if (currentScore >= targetScore)
+        {
+            isWin = true;
+            targetPanel.GetComponent<Animator>().SetBool("targetAccomplished", true);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
