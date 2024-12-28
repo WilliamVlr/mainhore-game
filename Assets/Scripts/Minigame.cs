@@ -37,12 +37,17 @@ public abstract class Minigame : MonoSingleton<Minigame>
     //Layouts
     [SerializeField] private MinigameLayouts layouts;
 
+    //Animation Scripts
+    private Fader fader;
+    public float fadeDuration = 1.0f;
+
     public override void Init()
     {
         setTargetScoreTxt();
         resetScore();
         resetIsWin();
         Time.timeScale = 0f;
+        fader = FindObjectOfType<Fader>();
     }
 
     private void resetIsWin()
@@ -96,11 +101,13 @@ public abstract class Minigame : MonoSingleton<Minigame>
     public void showLayout(GameObject layout)
     {
         layout.SetActive(true);
+        StartCoroutine(fader.FadeInGameObject(layout, fadeDuration));
     }
 
     public void hideLayout(GameObject layout)
     {
         layout.SetActive(false);
+        StartCoroutine(fader.FadeOutGameObject(layout, fadeDuration));
     }
 
     public void startMinigame()
