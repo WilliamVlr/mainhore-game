@@ -7,6 +7,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class MinigameLayouts
+{
+    public GameObject playLayout;
+    public GameObject endLayout;
+    public GameObject winLayout;
+    public GameObject loseLayout;
+    public GameObject baseButtonLayout;
+}
+
 //Handle layers in minigame scene, handle scoring & target, and coin gained
 public abstract class Minigame : MonoSingleton<Minigame>
 {
@@ -19,17 +29,13 @@ public abstract class Minigame : MonoSingleton<Minigame>
 
     //Coin gained
     [SerializeField] private TextMeshProUGUI coinGainedTXT;
-    private int coinGained;
+    protected int coinGained;
 
-    ////Layouts/layers
-    //[SerializeField]
-    //private GameObject FirstLayout;
-    //[SerializeField]
-    //private GameObject InstructionLayout;
-    //[SerializeField]
-    //private GameObject PauseLayout;
-    //[SerializeField]
-    //private GameObject PlayLayout;
+    //Timer object
+    [SerializeField] private TextMeshProUGUI timerText;
+
+    //Layouts
+    [SerializeField] private MinigameLayouts layouts;
 
     public override void Init()
     {
@@ -77,7 +83,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
         }
     }
 
-    public virtual int coinGainedCalculation()
+    public virtual int calculateCoinGained()
     {
         return coinGained;
     }
@@ -108,4 +114,23 @@ public abstract class Minigame : MonoSingleton<Minigame>
         Debug.Log("Restarting Minigame");
     }
 
+    private void Update()
+    {
+        if(Time.timeScale == 1f && timerText.text == "00")
+        {
+            hideLayout(layouts.playLayout);
+            showLayout(layouts.endLayout);
+            showLayout(layouts.baseButtonLayout);
+            if (isWin)
+            {
+                coinGained = calculateCoinGained();
+                setCoinGainedTxt();
+                showLayout(layouts.winLayout);
+            } 
+            else
+            {
+                showLayout(layouts.loseLayout);
+            }
+        }
+    }
 }

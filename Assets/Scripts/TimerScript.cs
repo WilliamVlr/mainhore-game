@@ -46,10 +46,8 @@ public class TimerScript : MonoBehaviour
 
     public void updateText(int tm)
     {
-        Debug.Log("Masuk update text");
         if (tm >= 10)
         {
-            Debug.Log("Masuk tm >= 10");
             timerTxt.text = tm.ToString();
         }
         else
