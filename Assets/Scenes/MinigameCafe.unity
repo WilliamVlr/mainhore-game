@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Instruction Here!
+  m_text: '
 
 '
   m_isRightToLeft: 0
@@ -5189,7 +5189,7 @@ MonoBehaviour:
   imagePlaceholder: {fileID: 857024523}
   instructionAreaObject: {fileID: 293020987}
   isInstructionActive: 0
-  fadeDuration: 1
+  fadeDuration: 0.5
 --- !u!114 &1461576307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8591,7 +8591,7 @@ MonoBehaviour:
     winLayout: {fileID: 80954363}
     loseLayout: {fileID: 1400317181}
     baseButtonLayout: {fileID: 934030278}
-  fadeDuration: 1
+  fadeDuration: 0.3
   targetPanel: {fileID: 1826729453}
 --- !u!4 &2144937601
 Transform:
