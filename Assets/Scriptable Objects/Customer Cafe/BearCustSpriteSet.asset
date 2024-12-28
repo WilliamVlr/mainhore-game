@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2235356df1ded946b8dc5437f65f52d, type: 3}
+  m_Name: BearCustSpriteSet
+  m_EditorClassIdentifier: 
+  customerSpriteSet:
+  - {fileID: 21300000, guid: e0ff17d66f5173c4d99316ae008ae539, type: 3}
+  - {fileID: 21300000, guid: 9740e93c334f1ca42b7aa85a8136c6af, type: 3}
+  - {fileID: 21300000, guid: 09b3635f42c6fe146a20aa688fc6f525, type: 3}
+  position: {x: 0, y: -1.2, z: 0}
