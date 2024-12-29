@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ public class InstructionManager : MonoBehaviour
 
     //Animation Scripts
     private Fader fader;
-    public float fadeDuration = 1.0f;
+    public float fadeDuration;
 
 
     private void Awake()
@@ -33,6 +34,7 @@ public class InstructionManager : MonoBehaviour
     public void StartInstruction(Instruction instruction)
     {
         isInstructionActive = true;
+        currentLine = null;
         instructions.Clear();
 
         foreach (InstructionLine line in instruction.instructionLines)
@@ -93,15 +95,18 @@ public class InstructionManager : MonoBehaviour
         yield return fadeOutImagePlaceholder;
         yield return fadeOutInstructionArea;
 
+        //Clear instruction panel
+        clearInstruction();
+
         // Set the new text for the instruction
         InstructionLine currentLineValue = currentLine.Value;
         instructionArea.text = currentLineValue.instruction.ToString();
 
         // Clear old images
-        foreach (Transform child in imagePlaceholder.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        //foreach (Transform child in imagePlaceholder.transform)
+        //{
+        //    Destroy(child.gameObject);
+        //}
 
         // Add new instruction images
         foreach (Sprite image in currentLineValue.instructionImages)
@@ -131,4 +136,18 @@ public class InstructionManager : MonoBehaviour
         yield return fadeInInstructionArea;
     }
 
+    public void closeInstruction()
+    {
+        currentLine = null;
+        clearInstruction();
+    }
+
+    private void clearInstruction()
+    {
+        instructionArea.text = "";
+        foreach (Transform child in imagePlaceholder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }

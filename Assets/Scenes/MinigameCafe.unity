@@ -3178,7 +3178,7 @@ GameObject:
   - component: {fileID: 894103045}
   - component: {fileID: 894103044}
   m_Layer: 0
-  m_Name: Close Button
+  m_Name: Close Button Instruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3278,6 +3278,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 934030278}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1461576306}
+        m_TargetAssemblyTypeName: InstructionManager, Assembly-CSharp
+        m_MethodName: closeInstruction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
