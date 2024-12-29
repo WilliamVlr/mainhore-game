@@ -16,8 +16,6 @@ public class InstructionManager : MonoBehaviour
     private LinkedList<InstructionLine> instructions;
     private LinkedListNode<InstructionLine> currentLine;
 
-    public bool isInstructionActive = false;
-
     //Animation Scripts
     private Fader fader;
     public float fadeDuration;
@@ -33,7 +31,6 @@ public class InstructionManager : MonoBehaviour
 
     public void StartInstruction(Instruction instruction)
     {
-        isInstructionActive = true;
         currentLine = null;
         instructions.Clear();
 
@@ -82,7 +79,34 @@ public class InstructionManager : MonoBehaviour
 
     public void DisplayCurrentLine()
     {
-        StartCoroutine(FadeOutAndUpdateContent());
+        //StartCoroutine(FadeOutAndUpdateContent());
+        DisplayCurrentLineInstant();
+    }
+
+    private void DisplayCurrentLineInstant()
+    {
+        //Clear instruction panel
+        clearInstruction();
+
+        // Set the new text for the instruction
+        InstructionLine currentLineValue = currentLine.Value;
+        instructionArea.text = currentLineValue.instruction.ToString();
+
+        // Add new instruction images
+        foreach (Sprite image in currentLineValue.instructionImages)
+        {
+            GameObject insImg = new GameObject("InstructionImage");
+            insImg.transform.SetParent(imagePlaceholder.transform);
+
+            // Add image component
+            Image img = insImg.AddComponent<Image>();
+            img.sprite = image;
+            img.SetNativeSize();
+
+            // Scale proportionally
+            RectTransform rect = insImg.GetComponent<RectTransform>();
+            rect.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
     }
 
     private IEnumerator FadeOutAndUpdateContent()
