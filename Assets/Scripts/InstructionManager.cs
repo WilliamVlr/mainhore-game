@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,9 @@ public class InstructionManager : MonoBehaviour
     private LinkedList<InstructionLine> instructions;
     private LinkedListNode<InstructionLine> currentLine;
 
-    public bool isInstructionActive = false;
-
     //Animation Scripts
     private Fader fader;
-    public float fadeDuration = 1.0f;
+    public float fadeDuration;
 
 
     private void Awake()
@@ -32,7 +31,7 @@ public class InstructionManager : MonoBehaviour
 
     public void StartInstruction(Instruction instruction)
     {
-        isInstructionActive = true;
+        currentLine = null;
         instructions.Clear();
 
         foreach (InstructionLine line in instruction.instructionLines)
@@ -80,7 +79,34 @@ public class InstructionManager : MonoBehaviour
 
     public void DisplayCurrentLine()
     {
-        StartCoroutine(FadeOutAndUpdateContent());
+        //StartCoroutine(FadeOutAndUpdateContent());
+        DisplayCurrentLineInstant();
+    }
+
+    private void DisplayCurrentLineInstant()
+    {
+        //Clear instruction panel
+        clearInstruction();
+
+        // Set the new text for the instruction
+        InstructionLine currentLineValue = currentLine.Value;
+        instructionArea.text = currentLineValue.instruction.ToString();
+
+        // Add new instruction images
+        foreach (Sprite image in currentLineValue.instructionImages)
+        {
+            GameObject insImg = new GameObject("InstructionImage");
+            insImg.transform.SetParent(imagePlaceholder.transform);
+
+            // Add image component
+            Image img = insImg.AddComponent<Image>();
+            img.sprite = image;
+            img.SetNativeSize();
+
+            // Scale proportionally
+            RectTransform rect = insImg.GetComponent<RectTransform>();
+            rect.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
     }
 
     private IEnumerator FadeOutAndUpdateContent()
@@ -93,15 +119,18 @@ public class InstructionManager : MonoBehaviour
         yield return fadeOutImagePlaceholder;
         yield return fadeOutInstructionArea;
 
+        //Clear instruction panel
+        clearInstruction();
+
         // Set the new text for the instruction
         InstructionLine currentLineValue = currentLine.Value;
         instructionArea.text = currentLineValue.instruction.ToString();
 
         // Clear old images
-        foreach (Transform child in imagePlaceholder.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        //foreach (Transform child in imagePlaceholder.transform)
+        //{
+        //    Destroy(child.gameObject);
+        //}
 
         // Add new instruction images
         foreach (Sprite image in currentLineValue.instructionImages)
@@ -131,4 +160,18 @@ public class InstructionManager : MonoBehaviour
         yield return fadeInInstructionArea;
     }
 
+    public void closeInstruction()
+    {
+        currentLine = null;
+        clearInstruction();
+    }
+
+    private void clearInstruction()
+    {
+        instructionArea.text = "";
+        foreach (Transform child in imagePlaceholder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }
