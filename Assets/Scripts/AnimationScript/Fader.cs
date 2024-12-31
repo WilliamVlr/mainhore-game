@@ -331,7 +331,7 @@ public class Fader : MonoBehaviour
                 if (kvp.Key is SpriteRenderer sr)
                 {
                     Color color = kvp.Value;
-                    color.a = (sr.gameObject.CompareTag("Background")) ? Mathf.Min(alpha, 0.4f) : alpha;
+                    color.a = (sr.gameObject.CompareTag("Background")) ? Mathf.Min(alpha, 0.6f) : alpha;
                     sr.color = color;
                 }
                 else if (kvp.Key is Text text)
@@ -349,7 +349,7 @@ public class Fader : MonoBehaviour
                 else if (kvp.Key is Image img)
                 {
                     Color color = kvp.Value;
-                    color.a = (img.gameObject.CompareTag("Background")) ? Mathf.Min(alpha, 0.4f) : alpha;
+                    color.a = (img.gameObject.CompareTag("Background")) ? Mathf.Min(alpha, 0.6f) : alpha;
                     img.color = color;
                 }
             }
@@ -377,7 +377,7 @@ public class Fader : MonoBehaviour
             if (kvp.Key is SpriteRenderer sr)
             {
                 Color color = kvp.Value;
-                color.a = (sr.gameObject.CompareTag("Background")) ? 0.4f : 1f;
+                color.a = (sr.gameObject.CompareTag("Background")) ? 0.6f : 1f;
                 sr.color = color;
             }
             else if (kvp.Key is Text text)
@@ -395,7 +395,7 @@ public class Fader : MonoBehaviour
             else if (kvp.Key is Image img)
             {
                 Color color = kvp.Value;
-                color.a = (img.gameObject.CompareTag("Background")) ? 0.4f : 1f;
+                color.a = (img.gameObject.CompareTag("Background")) ? 0.6f : 1f;
                 img.color = color;
             }
         }

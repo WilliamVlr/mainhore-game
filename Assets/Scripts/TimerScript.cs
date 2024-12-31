@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI timerTxt;
+    [SerializeField] private Text text;
+    [SerializeField] private TextMeshProUGUI timerTxt;
     [SerializeField] private float timer;
     private int timeDeficit = 1;
     private float maxtime;
@@ -48,28 +48,40 @@ public class TimerScript : MonoBehaviour
     {
         if (tm >= 10)
         {
-            timerTxt.text = tm.ToString();
+            if (timerTxt)
+            {
+                timerTxt.text = tm.ToString();
+            }
+            
+            if (text)
+            {
+                text.text = tm.ToString();
+            }
         }
         else
         {
-            timerTxt.text = 0 + tm.ToString();
+            if (timerTxt)
+            {
+                timerTxt.text = 0 + tm.ToString();
+            }
+            if (text)
+            {
+                text.text = 0 + tm.ToString();
+            }
         }
     }
 
     public void updateColor()
     {
-        float progress = timer / maxtime; // Progress is a normalized value between 0 and 1
-
-        if (progress > 0.5f)
+        float progress = timer / maxtime;
+        if (progress > 0.6f)
         {
-            // From green to yellow
-            float t = (1 - progress) * 2; // Normalize to [0, 1] within the first half
+            float t = 2 * (1 - progress); // Normalize to [0, 1]
             timerSliderFill.color = Color.Lerp(new Color(0, 1, 0), new Color(1, 1, 0), t);
         }
         else
         {
-            // From yellow to red
-            float t = (0.5f - progress) * 2; // Normalize to [0, 1] within the second half
+            float t = 2 * (0.5f - progress); // Normalize to [0, 1]
             timerSliderFill.color = Color.Lerp(new Color(1, 1, 0), new Color(1, 0, 0), t);
         }
     }
