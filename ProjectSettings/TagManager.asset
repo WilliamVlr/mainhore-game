@@ -6,6 +6,18 @@ TagManager:
   tags:
   - Customer
   - Background
+  - SettingsButton
+  - HomeButton
+  - mulaiButton
+  - StoreButton
+  - RestartButton
+  - preRoundTimer
+  - PauseInterface
+  - Timer
+  - PlayButton
+  - PauseButton
+  - Virus
+  - Instruksi_Button
   layers:
   - Default
   - TransparentFX

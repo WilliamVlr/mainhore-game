@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e00e8f40637517428df11225ba3079b, type: 3}
+  m_Name: MovingAnimList
+  m_EditorClassIdentifier: 
+  movinglistAnim:
+  - {fileID: 11400000, guid: c581bc4cc82868d49bfd0dfb4659ec17, type: 2}
+  - {fileID: 11400000, guid: dcbfa55871a39fb42a9d80e86eff737c, type: 2}
+  - {fileID: 11400000, guid: 8a264388846e65d4cbc8d98e53621681, type: 2}
