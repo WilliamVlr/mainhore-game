@@ -51,13 +51,13 @@ public class VirusMove : MonoBehaviour
         if (_chk == 0) // di kiri
         {
             targetX = 8f;
-            currentScale.x = 0.23f;
+            currentScale.x = 0.3f;
             temp = 1;
 
         } else if( _chk == 1) // di kanan
         {
             targetX = -8f;
-            currentScale.x = -0.23f;
+            currentScale.x = -0.3f;
             temp = 0;
         }
         else
@@ -66,13 +66,13 @@ public class VirusMove : MonoBehaviour
             if (Random.Range(0, 2) == 0)
             {
                 targetX = -8f;
-                currentScale.x = -0.23f;
+                currentScale.x = -0.3f;
                 temp = 0;
             }
             else
             {
                 targetX = 8f; 
-                currentScale.x = 0.23f;
+                currentScale.x = 0.3f;
                 temp = 1;
             }
         }
