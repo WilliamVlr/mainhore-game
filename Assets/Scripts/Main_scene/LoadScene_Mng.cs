@@ -8,12 +8,14 @@ public class LoadScene_Mng : MonoBehaviour
     public GameObject pintu1;
     public GameObject pintu2;
     public GameObject pintu3;
+    public GameObject pintu4;
     public GameObject RightBtn;
 
     Collider2D col_player;
     Collider2D col_pintu1;
     Collider2D col_pintu2;
     Collider2D col_pintu3;
+    Collider2D col_pintu4;
 
     SpriteRenderer spr_RightBtn;
 
@@ -28,6 +30,7 @@ public class LoadScene_Mng : MonoBehaviour
         col_pintu1 = pintu1.GetComponent<Collider2D>();
         col_pintu2 = pintu2.GetComponent<Collider2D>();
         col_pintu3 = pintu3.GetComponent<Collider2D>();
+        col_pintu4 = pintu4.GetComponent<Collider2D>();
         spr_RightBtn = RightBtn.GetComponent<SpriteRenderer>();
         spr_RightBtn.enabled = false;
     }
@@ -55,7 +58,13 @@ public class LoadScene_Mng : MonoBehaviour
             colliderCheck(col_pintu3, _so_listSO.listSO[2]);
         }
 
-        if (!col_pintu1.IsTouching(col_player) && !col_pintu2.IsTouching(col_player) && !col_pintu3.IsTouching(col_player))
+        if (col_pintu4.IsTouching(col_player) && checking == 0)
+        {
+            Debug.Log("Load Scene 4");
+            colliderCheck(col_pintu4, _so_listSO.listSO[3]);
+        }
+
+        if (!col_pintu1.IsTouching(col_player) && !col_pintu2.IsTouching(col_player) && !col_pintu3.IsTouching(col_player) && !col_pintu4.IsTouching(col_player))
         {
             checking = 0;
             spr_RightBtn.enabled = false;
