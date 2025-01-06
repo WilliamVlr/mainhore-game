@@ -383,9 +383,7 @@ Transform:
   m_Children:
   - {fileID: 8898162766324842324}
   - {fileID: 794509482}
-  - {fileID: 1479705726}
-  - {fileID: 982358775}
-  - {fileID: 1044905290}
+  - {fileID: 1453489178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187758782
@@ -1636,7 +1634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InstructionLayout: {fileID: 4209343850220495812}
-  InstructionParent: {fileID: 159451941}
+  InstructionParent: {fileID: 1453489177}
 --- !u!1 &941044072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,12 +1737,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982358774}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2.2, z: 0}
   m_LocalScale: {x: 0.21, y: 0.21, z: 0.21}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 159451942}
+  m_Father: {fileID: 1453489178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &982358776
 SpriteRenderer:
@@ -1882,7 +1880,7 @@ Transform:
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.11733332}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 159451942}
+  m_Father: {fileID: 1453489178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1044905291
 CapsuleCollider2D:
@@ -3081,6 +3079,40 @@ RectTransform:
   m_AnchoredPosition: {x: -0, y: 0}
   m_SizeDelta: {x: -27.007, y: -1.8588}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1453489177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453489178}
+  m_Layer: 0
+  m_Name: _Instruksi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453489178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453489177}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1479705726}
+  - {fileID: 982358775}
+  - {fileID: 1044905290}
+  m_Father: {fileID: 159451942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461264913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,12 +3374,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479705725}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6, y: -3.2, z: 0}
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 159451942}
+  m_Father: {fileID: 1453489178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1479705727
 SpriteRenderer:
@@ -3452,7 +3484,7 @@ MonoBehaviour:
   clickedSprite: {fileID: 21300000, guid: 0bcebff64cd4ef848a84f558fbd6f1a7, type: 3}
   myButtonSpriteRenderer: {fileID: 1479705727}
   InstruksiLayout: {fileID: 4209343850220495812}
-  InstruksiParent: {fileID: 159451941}
+  InstruksiParent: {fileID: 1453489177}
   InstruksiPanel: {fileID: 7701447537668358890}
 --- !u!1 &1629911017
 GameObject:
