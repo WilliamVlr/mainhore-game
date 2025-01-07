@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183eb38d828b8d241aaba70227749c48, type: 3}
   m_Name: Salad Kiwi
   m_EditorClassIdentifier: 
+  itemId: 0003
   itemName: Salad Kiwi
   sprite: {fileID: 21300000, guid: a30e1661ca19f724d94cba0edd7baa14, type: 3}
   price: 12

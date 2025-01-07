@@ -9,13 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 183eb38d828b8d241aaba70227749c48, type: 3}
-  m_Name: Jus Jeruk
+  m_Script: {fileID: 11500000, guid: 30574b4ae622fab4bb91a80dccbd51bf, type: 3}
+  m_Name: Table 1
   m_EditorClassIdentifier: 
-  itemId: 0002
-  itemName: Jus Jeruk
-  sprite: {fileID: 21300000, guid: e0b1caf5d8614b8498318c60d47114c2, type: 3}
-  price: 10
-  desc: Kaya akan vitamin C
-  place: 1
-  energy: 6
+  itemId: 0006
+  itemName: 
+  sprite: {fileID: 0}
+  price: 0
+  desc: 
+  place: 0
+  sellPrice: 0
+  scale_inSlot: 0
+  scale_inBackground: 0
+  isUserHas: 0
+  isInBackground: 0
+  position: []

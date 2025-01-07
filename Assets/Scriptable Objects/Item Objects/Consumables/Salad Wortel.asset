@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183eb38d828b8d241aaba70227749c48, type: 3}
   m_Name: Salad Wortel
   m_EditorClassIdentifier: 
+  itemId: 0005
   itemName: Salad Wortel
   sprite: {fileID: 21300000, guid: 86a4e33b9cad60b4a8894e507fc5f9a4, type: 3}
   price: 15

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183eb38d828b8d241aaba70227749c48, type: 3}
   m_Name: Salad Tomat
   m_EditorClassIdentifier: 
+  itemId: 0004
   itemName: Salad Tomat
   sprite: {fileID: 21300000, guid: 247d1f96157cf3946bab47da528c5f3a, type: 3}
   price: 10
