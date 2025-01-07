@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183eb38d828b8d241aaba70227749c48, type: 3}
   m_Name: Jus Apel
   m_EditorClassIdentifier: 
-  itemId: 0001
   itemName: Jus Apel
   sprite: {fileID: 21300000, guid: ce9d58cd216911b46a1a8755950a9f8b, type: 3}
   price: 8

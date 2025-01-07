@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183eb38d828b8d241aaba70227749c48, type: 3}
   m_Name: Jus Jeruk
   m_EditorClassIdentifier: 
-  itemId: 0002
   itemName: Jus Jeruk
   sprite: {fileID: 21300000, guid: e0b1caf5d8614b8498318c60d47114c2, type: 3}
   price: 10

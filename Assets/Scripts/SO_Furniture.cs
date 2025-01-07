@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "ScriptableObjects/Item/Furniture")]
 public class SO_Furniture : SO_item
 {
     public int sellPrice;
