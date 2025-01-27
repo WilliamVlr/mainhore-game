@@ -14,6 +14,7 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     public Button sellButton;      // Sell button
     public Button secondButton;      // Second button
     protected SO_item currentItem;   // The item assigned to this slot
+    public static SlotUI activeSlot; // To keep track of the currently active slot
     //public SO_item currentItem;
 
     private void Start()
@@ -31,10 +32,10 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     {
         currentItem = item;
         icon.sprite = item.sprite;
-        icon.SetNativeSize();
+        //icon.SetNativeSize();
         RectTransform rect = icon.GetComponent<RectTransform>();
         //Nanti ini bisa disesuaikan stlh Minigamenya kelar semua ya
-        if(item is SO_Furniture furniture)
+        if (item is SO_Furniture furniture)
         {
             rect.localScale = new Vector3(furniture.scale_inSlot, furniture.scale_inSlot, furniture.scale_inSlot);
         }
@@ -49,13 +50,19 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     // Called when the slot is touched or clicked (pointer down event)
     public void OnPointerDown(PointerEventData eventData)
     {
-        OnSlotTouched();  // Highlight the slot when it's touched
+        if (activeSlot != null && activeSlot != this)
+        {
+            activeSlot.OnSlotUntouched(); // Hide the previously active slot
+        }
+
+        activeSlot = this; // Mark this slot as active
+        OnSlotTouched();
     }
 
     // Called when the pointer exits the slot (for hover effects)
     public void OnPointerExit(PointerEventData eventData)
     {
-        OnSlotUntouched();  // Un-highlight the slot when the pointer exits
+        //OnSlotUntouched();  // Un-highlight the slot when the pointer exits
     }
 
     // Called when slot is touched
