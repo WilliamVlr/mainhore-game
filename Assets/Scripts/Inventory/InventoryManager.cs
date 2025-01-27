@@ -4,24 +4,59 @@ using UnityEngine.Events;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance; // Singleton instance
     public List<SO_item> playerInventory = new List<SO_item>(); // Bag inventory
     public SO_itemList itemDatabase; // Reference to the item database
     public UnityEvent<SO_Furniture> OnUnpackFurniture = new UnityEvent<SO_Furniture>();  // Event to trigger furniture unpacking
 
+    public int maxCapacity = 10; // Maximum inventory capacity
+    private int upgradeCount = 0; // Number of times the player has upgraded the inventory size
+    private const int initialUpgradeCost = 300; // Initial cost for the first upgrade
+    private const int slotsPerUpgrade = 5; // Number of slots added per upgrade
+
+    private void Awake()
+    {
+        // Singleton pattern to ensure only one instance exists
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy this object if there's already an existing instance
+        }
+        else
+        {
+            Instance = this; // Set this as the singleton instance
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+        }
+    }
     private void Start()
     {
-        FindObjectOfType<InventoryUI>().RefreshInventory(playerInventory);
+        // Check if InventoryUI exists in the scene
+        InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshInventory(playerInventory, maxCapacity); // Only call if InventoryUI exists
+        }
+        else
+        {
+            Debug.LogWarning("InventoryUI not found in the scene. Make sure to add it if needed.");
+        }
     }
 
     // Add an item to the inventory
     public bool AddItem(SO_item item)
     {
+        if (playerInventory.Count >= maxCapacity)
+        {
+            Debug.Log("Inventory is full! Expand your inventory by purchasing more space.");
+            return false; // Return false if inventory is full
+        }
+
         if (!playerInventory.Contains(item))
         {
             playerInventory.Add(item);
             UpdateUI();
             return true;
         }
+
         Debug.Log("Item already in inventory!");
         return false;
     }
@@ -66,7 +101,47 @@ public class InventoryManager : MonoBehaviour
     // Update the inventory UI
     private void UpdateUI()
     {
-        // Call the UI manager to refresh slots
-        FindObjectOfType<InventoryUI>().RefreshInventory(playerInventory);
+        InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshInventory(playerInventory, maxCapacity); // Only update if InventoryUI exists
+        }
+    }
+
+    // Purchase more inventory space with coins
+    public bool PurchaseInventorySlot()
+    {
+        // Calculate the cost of the next upgrade
+        int nextUpgradeCost = CalculateUpgradeCost();
+        //bool enoughCoin = PlayerManager.Instance.SubtractCoins(nextUpgradeCost);
+        bool enoughCoin = true;
+
+        // Check if the player has enough coins
+        if (enoughCoin)
+        {
+            maxCapacity += slotsPerUpgrade; // Increase the inventory capacity by 5 slots
+            upgradeCount++; // Increment the number of upgrades purchased
+            Debug.Log("Purchased " + slotsPerUpgrade + " inventory slots for " + nextUpgradeCost + " coins!");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not enough coins to purchase more slots!");
+            return false;
+        }
+    }
+
+    // Calculate the cost for the next inventory upgrade
+    private int CalculateUpgradeCost()
+    {
+        if (upgradeCount == 0)
+        {
+            return initialUpgradeCost; // First upgrade cost is 300 coins
+        }
+        else
+        {
+            // Multiply the cost by 2.5 for each subsequent upgrade
+            return Mathf.CeilToInt(initialUpgradeCost * Mathf.Pow(2.5f, upgradeCount));
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,9 +7,11 @@ public class InventoryUI : MonoBehaviour
 {
     public GameObject slotPrefab; // Prefab for inventory slots
     public Transform slotContainer; // Parent object for slots
+    public TextMeshProUGUI invMax;
+    public TextMeshProUGUI invCapacity;
 
     // Refresh the UI slots
-    public void RefreshInventory(List<SO_item> inventory)
+    public void RefreshInventory(List<SO_item> inventory, int max)
     {
         // Clear existing slots
         foreach (Transform child in slotContainer)
@@ -22,6 +25,9 @@ public class InventoryUI : MonoBehaviour
             GameObject slot = Instantiate(slotPrefab, slotContainer);
             slot.GetComponent<SlotUI>().Setup(item);
         }
+
+        invMax.text = max.ToString();
+        invCapacity.text = inventory.Count.ToString();
     }
 
     private void Update()
