@@ -1,10 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InventoryManager : MonoBehaviour
 {
     public List<SO_item> playerInventory = new List<SO_item>(); // Bag inventory
     public SO_itemList itemDatabase; // Reference to the item database
+    public UnityEvent<SO_Furniture> OnUnpackFurniture = new UnityEvent<SO_Furniture>();  // Event to trigger furniture unpacking
+
+    private void Start()
+    {
+        FindObjectOfType<InventoryUI>().RefreshInventory(playerInventory);
+    }
 
     // Add an item to the inventory
     public bool AddItem(SO_item item)
@@ -24,6 +31,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerInventory.Contains(item))
         {
+            Debug.Log("Removed " + item.itemName + " (from Inventory Manager)");
             playerInventory.Remove(item);
             UpdateUI();
         }

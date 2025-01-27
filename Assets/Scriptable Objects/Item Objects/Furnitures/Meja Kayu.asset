@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30574b4ae622fab4bb91a80dccbd51bf, type: 3}
+  m_Name: Meja Kayu
+  m_EditorClassIdentifier: 
+  id: Meja Kayu
+  itemName: Meja Kayu
+  sprite: {fileID: 21300000, guid: 2f88113643fb1fe43a7922dbf5d48b57, type: 3}
+  price: 30
+  desc: '-'
+  place: 0
+  sellPrice: 25
+  scale_inSlot: 1
+  scale_inBackground: 0.1
+  furniturePrefab: {fileID: 4783289533127699667, guid: 576943f1b5cded14e8a3f554f8fc1a31, type: 3}
+  dropBehavior: {fileID: 11400000, guid: 85dec9b158984174d9d132d89eee4a6b, type: 2}

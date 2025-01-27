@@ -1,25 +1,29 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotUI : MonoBehaviour
+public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 {
     public Image backgroundImageDefault;  // Reference to the background image default
     public Image backgroundImageClicked;  // Reference to the background image clicked
     public Image icon;             // Icon of the item
+    public GameObject itemLabel;
     public TextMeshProUGUI itemName;          // Name of the item
     public Button sellButton;      // Sell button
-    public Button unpackButton;      // Sell button
-    private SO_item currentItem;   // The item assigned to this slot
+    public Button secondButton;      // Second button
+    protected SO_item currentItem;   // The item assigned to this slot
+    //public SO_item currentItem;
 
     private void Start()
     {
         OnSlotUntouched();
+        //Setup(currentItem);
 
         // Assign the sell and unpack button behavior
         sellButton.onClick.AddListener(SellItem);
-        unpackButton.onClick.AddListener(unpackItem);
+        secondButton.onClick.AddListener(secondAction);
     }
 
     // Set up the slot with an item
@@ -27,11 +31,35 @@ public class SlotUI : MonoBehaviour
     {
         currentItem = item;
         icon.sprite = item.sprite;
+        icon.SetNativeSize();
+        RectTransform rect = icon.GetComponent<RectTransform>();
+        //Nanti ini bisa disesuaikan stlh Minigamenya kelar semua ya
+        if(item is SO_Furniture furniture)
+        {
+            rect.localScale = new Vector3(furniture.scale_inSlot, furniture.scale_inSlot, furniture.scale_inSlot);
+        }
+        else
+        {
+            rect.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        }
+
         itemName.text = item.itemName;
     }
 
+    // Called when the slot is touched or clicked (pointer down event)
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        OnSlotTouched();  // Highlight the slot when it's touched
+    }
+
+    // Called when the pointer exits the slot (for hover effects)
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnSlotUntouched();  // Un-highlight the slot when the pointer exits
+    }
+
     // Called when slot is touched
-    public void OnSlotTouched()
+    public virtual void OnSlotTouched()
     {
         Debug.Log("Touched: " + currentItem.itemName);
 
@@ -39,33 +67,26 @@ public class SlotUI : MonoBehaviour
         backgroundImageClicked.gameObject.SetActive(true);
 
         // Show item name and sell button
-        itemName.gameObject.SetActive(true);
+        itemLabel.gameObject.SetActive(true);
         sellButton.gameObject.SetActive(true);
-        unpackButton.gameObject.SetActive(true);
     }
 
     // Called to un-highlight the slot
     public void OnSlotUntouched()
     {
         backgroundImageClicked.gameObject.SetActive(false); // Hide clicked layout by default
-        itemName.gameObject.SetActive(false); // Hide item name by default
+        itemLabel.gameObject.SetActive(false); // Hide item name by default
         sellButton.gameObject.SetActive(false); // Hide sell button by default
-        unpackButton.gameObject.SetActive(false); // Hide sell button by default
+        secondButton.gameObject.SetActive(false); // Hide sell button by default
     }
 
     // Sell the item
     private void SellItem()
     {
         Debug.Log("Selling: " + currentItem.itemName);
-        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
         // Optionally, add logic to refund in-game currency
     }
 
-    //Place item in house
-    private void unpackItem()
-    {
-        Debug.Log("Placing: " + currentItem.itemName);
-        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
-        // add logic to instantiate game object and add the item to house inventory
-    }
+    public abstract void secondAction();
 }
