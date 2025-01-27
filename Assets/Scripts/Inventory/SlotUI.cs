@@ -39,9 +39,9 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
         {
             rect.localScale = new Vector3(furniture.scale_inSlot, furniture.scale_inSlot, furniture.scale_inSlot);
         }
-        else
+        else if (item is SO_Skin skin)
         {
-            rect.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            rect.localScale = new Vector3(skin.scale_inSlot, skin.scale_inSlot, skin.scale_inSlot);
         }
 
         itemName.text = item.itemName;

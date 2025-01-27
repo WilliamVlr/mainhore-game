@@ -108,6 +108,22 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public List<SO_item> GetFilteredInventory(System.Type itemType)
+    {
+        List<SO_item> filteredItems = new List<SO_item>();
+
+        // Loop through the player's inventory and check the type of each item
+        foreach (SO_item item in playerInventory)
+        {
+            if (item.GetType() == itemType)
+            {
+                filteredItems.Add(item); // Add item if it matches the desired type
+            }
+        }
+
+        return filteredItems;
+    }
+
     // Purchase more inventory space with coins
     public bool PurchaseInventorySlot()
     {
