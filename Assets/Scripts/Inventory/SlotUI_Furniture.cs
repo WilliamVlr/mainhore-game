@@ -8,7 +8,7 @@ public class SlotUI_Furniture : SlotUI
     public override void OnSlotTouched()
     {
         base.OnSlotTouched();
-        if(SceneManager.GetActiveScene().name == "House")
+        if(FindObjectOfType<HouseManager>().IsInDecorationMode)
         {
             secondButton.gameObject.SetActive(true);
         }
@@ -24,5 +24,6 @@ public class SlotUI_Furniture : SlotUI
         Debug.Log("Placing: " + currentItem.itemName);
         //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
         // add logic to instantiate game object and add the item to house inventory
+        FindObjectOfType<InventoryManager>().OnUnpackFurniture.Invoke(currentItem as SO_Furniture);
     }
 }

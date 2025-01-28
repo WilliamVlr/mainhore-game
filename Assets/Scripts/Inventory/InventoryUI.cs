@@ -89,7 +89,7 @@ public class InventoryUI : MonoBehaviour
         return false;
     }
 
-    private void ShowFurniture()
+    public void ShowFurniture()
     {
         // Get filtered furniture items and update the UI
         List<SO_item> furnitureItems = InventoryManager.Instance.GetFilteredInventory(typeof(SO_Furniture));
@@ -98,7 +98,7 @@ public class InventoryUI : MonoBehaviour
         SetButtonInactive(skinButton);
     }
 
-    private void ShowSkins()
+    public void ShowSkins()
     {
         // Get filtered skin items and update the UI
         List<SO_item> skinItems = InventoryManager.Instance.GetFilteredInventory(typeof(SO_Skin));
