@@ -165,7 +165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 244}
   m_Pivot: {x: 0.000000037718564, y: 0.5}
 --- !u!114 &23209402
@@ -877,7 +877,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 850876615}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 907800005}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Open
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &850876615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,7 +1009,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 879638882}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 907800005}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Close
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &879638882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,6 +1155,7 @@ GameObject:
   - component: {fileID: 907800002}
   - component: {fileID: 907800003}
   - component: {fileID: 907800004}
+  - component: {fileID: 907800005}
   m_Layer: 5
   m_Name: Inventory UI
   m_TagString: Untagged
@@ -1193,6 +1218,27 @@ MonoBehaviour:
   skinButton: {fileID: 1409274967}
   inactiveColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 0.8679245, g: 0.83681023, b: 0.81606734, a: 1}
+--- !u!95 &907800005
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907800001}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 540c90d17d8305e48bac5f30e92a2654, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &908331101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,7 +1506,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.9833, y: 0}
+  m_AnchoredPosition: {x: -10.983276, y: 0}
   m_SizeDelta: {x: -21.9666, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046668211
