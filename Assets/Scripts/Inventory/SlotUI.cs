@@ -32,11 +32,11 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     {
         currentItem = item;
         icon.sprite = item.sprite;
-        //icon.SetNativeSize();
         RectTransform rect = icon.GetComponent<RectTransform>();
         //Nanti ini bisa disesuaikan stlh Minigamenya kelar semua ya
         if (item is SO_Furniture furniture)
         {
+            icon.SetNativeSize();
             rect.localScale = new Vector3(furniture.scale_inSlot, furniture.scale_inSlot, furniture.scale_inSlot);
         }
         else if (item is SO_Skin skin)
