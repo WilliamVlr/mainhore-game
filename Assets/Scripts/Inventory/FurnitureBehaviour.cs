@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class FurnitureBehavior : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class FurnitureBehavior : MonoBehaviour
     private Camera mainCamera;
     private Vector3 originalPosition;   // Store the original position when the item is first placed
     private Rigidbody2D rb;
+    private Transform transformer;
+
+    // The Y value where the fall should stop (e.g., -2.6)
+    private float stopFallAtY = -2.6f;
 
     public void Initialize(SO_Furniture item)
     {
         furnitureData = item;
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody2D>();
-
+        
         // Disable physics by default
         if (rb != null)
         {
@@ -28,6 +33,17 @@ public class FurnitureBehavior : MonoBehaviour
         mainCamera = Camera.main;
         // Record the original position when the furniture is placed
         originalPosition = transform.position;
+        transformer = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody2D>();
+
+        // Disable physics by default
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
+
+        // Freeze rotation on the Z-axis to prevent the object from rotating
+        rb.freezeRotation = true;
     }
 
     void Update()
@@ -38,7 +54,7 @@ public class FurnitureBehavior : MonoBehaviour
             draggingEnabled = house.IsInDecorationMode;
         }
 
-        if( draggingEnabled )
+        if(draggingEnabled)
         {
             // Handle dragging logic
             if (isDragging)
@@ -59,6 +75,7 @@ public class FurnitureBehavior : MonoBehaviour
                     if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touch.position))
                     {
                         isDragging = true;
+                        rb.isKinematic = true;
                     }
                 }
                 else if (touch.phase == TouchPhase.Ended)
@@ -67,6 +84,7 @@ public class FurnitureBehavior : MonoBehaviour
                     if (isDragging)
                     {
                         isDragging = false;
+                        rb.isKinematic = false;
                         CheckForOverlappingFurniture();
                     }
                 }
@@ -78,12 +96,28 @@ public class FurnitureBehavior : MonoBehaviour
                 if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
                 {
                     isDragging = true;
+                    rb.isKinematic = true;
                 }
             }
             else if (Input.GetMouseButtonUp(0) && isDragging)
             {
                 isDragging = false;
+                rb.isKinematic = false;
                 CheckForOverlappingFurniture();
+            }
+        }
+
+        if (!isDragging)
+        {
+            // If the Y position is below the threshold, hold it at that Y value
+            if (transformer.position.y <= stopFallAtY)
+            {
+                // Hold the position at the specified Y value
+                transformer.position = new Vector2(transform.position.x, stopFallAtY);
+
+                // Optionally, stop physics interactions
+                rb.isKinematic = true;
+                //rb.velocity = Vector2.zero; // Optional: prevent residual velocity if needed
             }
         }
     }

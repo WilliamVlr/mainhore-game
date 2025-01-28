@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ec66ae7ccd900bd47aa70ab153f80a17
+guid: f5f5d99b7592c8a4e88f50a32238a03b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,22 +123,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Books 2_0
+      name: Sofa 2_0
       rect:
         serializedVersion: 2
-        x: 275
-        y: 455
-        width: 530
-        height: 424
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 27
+        y: 404
+        width: 1028
+        height: 464
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71f5afbc554a1004fa88ab2af74113de
-      internalID: 77489226
+      spriteID: e42aba97ffca1ba428a9ad471dbefaf6
+      internalID: 1213613658
       vertices: []
       indices: 
       edges: []
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Books 2_0: 77489226
+      Sofa 2_0: 1213613658
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

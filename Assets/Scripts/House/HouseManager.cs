@@ -51,9 +51,12 @@ public class HouseManager : MonoBehaviour
             Vector3 cameraBottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
             Vector3 cameraTopRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
 
+            // Define a range for the top spawn position, e.g., 10% below the top of the camera view
+            float topSpawnMargin = 0.1f; // 10% margin below the top edge
+
             // Get random position within the camera bounds
             float randomX = Random.Range(cameraBottomLeft.x, cameraTopRight.x);
-            float randomY = Random.Range(cameraBottomLeft.y, cameraTopRight.y);
+            float randomY = Random.Range(cameraTopRight.y - (cameraTopRight.y - cameraBottomLeft.y) * topSpawnMargin, cameraTopRight.y);
 
             // Create the random position
             Vector3 randomPosition = new Vector3(randomX, randomY, 0); // Assuming it's a 2D game, so z = 0
