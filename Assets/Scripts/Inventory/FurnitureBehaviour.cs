@@ -5,6 +5,7 @@ public class FurnitureBehavior : MonoBehaviour
     public SO_Furniture furnitureData; // Reference to the furniture's ScriptableObject
 
     private bool isDragging = false;
+    private bool draggingEnabled;
     private Camera mainCamera;
     private Vector3 originalPosition;   // Store the original position when the item is first placed
     private Rigidbody2D rb;
@@ -31,50 +32,59 @@ public class FurnitureBehavior : MonoBehaviour
 
     void Update()
     {
-        // Handle dragging logic
-        if (isDragging)
+        HouseManager house = FindAnyObjectByType<HouseManager>();
+        if(house != null )
         {
-            Vector3 touchPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            touchPosition.z = 0;  // Set Z to 0 for 2D view
-            transform.position = touchPosition;
+            draggingEnabled = house.IsInDecorationMode;
         }
 
-        // Handle touch/mouse input for dragging
-        if (Input.touchCount > 0)
+        if( draggingEnabled )
         {
-            Touch touch = Input.GetTouch(0);  // Get the first touch
-
-            if (touch.phase == TouchPhase.Began)
+            // Handle dragging logic
+            if (isDragging)
             {
-                // Start dragging if the player touches the furniture
-                if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touch.position))
+                Vector3 touchPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                touchPosition.z = 0;  // Set Z to 0 for 2D view
+                transform.position = touchPosition;
+            }
+
+            // Handle touch/mouse input for dragging
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);  // Get the first touch
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    // Start dragging if the player touches the furniture
+                    if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touch.position))
+                    {
+                        isDragging = true;
+                    }
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    // End the drag and check for overlap when the touch ends
+                    if (isDragging)
+                    {
+                        isDragging = false;
+                        CheckForOverlappingFurniture();
+                    }
+                }
+            }
+
+            // Handle mouse input for dragging (for testing on desktop)
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
                 {
                     isDragging = true;
                 }
             }
-            else if (touch.phase == TouchPhase.Ended)
+            else if (Input.GetMouseButtonUp(0) && isDragging)
             {
-                // End the drag and check for overlap when the touch ends
-                if (isDragging)
-                {
-                    isDragging = false;
-                    CheckForOverlappingFurniture();
-                }
+                isDragging = false;
+                CheckForOverlappingFurniture();
             }
-        }
-
-        // Handle mouse input for dragging (for testing on desktop)
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
-            {
-                isDragging = true;
-            }
-        }
-        else if (Input.GetMouseButtonUp(0) && isDragging)
-        {
-            isDragging = false;
-            CheckForOverlappingFurniture();
         }
     }
 

@@ -44,8 +44,22 @@ public class HouseManager : MonoBehaviour
     {
         if (item.furniturePrefab != null)
         {
-            // Instantiate the furniture prefab in the house
-            GameObject newFurniture = Instantiate(item.furniturePrefab, furnitureContainer);
+            // Get the Camera (Main Camera in this case)
+            Camera mainCamera = Camera.main;
+
+            // Calculate the camera's visible bounds in world space
+            Vector3 cameraBottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+            Vector3 cameraTopRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
+
+            // Get random position within the camera bounds
+            float randomX = Random.Range(cameraBottomLeft.x, cameraTopRight.x);
+            float randomY = Random.Range(cameraBottomLeft.y, cameraTopRight.y);
+
+            // Create the random position
+            Vector3 randomPosition = new Vector3(randomX, randomY, 0); // Assuming it's a 2D game, so z = 0
+
+            // Instantiate the furniture at the random position
+            GameObject newFurniture = Instantiate(item.furniturePrefab, randomPosition, Quaternion.identity, furnitureContainer);
             newFurniture.name = item.itemName;
 
             // Initialize the furniture with the appropriate behavior
