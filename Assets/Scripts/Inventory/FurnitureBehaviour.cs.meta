@@ -3,7 +3,10 @@ guid: b03239e528a3df0409e02596ed4d5be8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - furnitureData: {instanceID: 0}
+  - sellButtonPrefab: {fileID: 2727510813983886859, guid: e10ee375549856243af11225e9cb577c, type: 3}
+  - unpackButtonPrefab: {fileID: 2030193538285991530, guid: 7bd4fbdc8616cd240ae2005184274e65, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

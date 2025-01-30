@@ -4,6 +4,8 @@ using static UnityEditor.Progress;
 public class FurnitureBehavior : MonoBehaviour
 {
     public SO_Furniture furnitureData; // Reference to the furniture's ScriptableObject
+    public GameObject sellButtonPrefab;
+    public GameObject packButtonPrefab;
 
     private bool isDragging = false;
     private bool draggingEnabled;
@@ -13,6 +15,9 @@ public class FurnitureBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private Transform transformer;
     private SpriteRenderer spriteRenderer;
+
+    private GameObject sellBtn;
+    private GameObject packBtn;
 
     // The Y value where the fall should stop (e.g., -2.6)
     private float stopFallAtY = -2.6f;
@@ -48,6 +53,9 @@ public class FurnitureBehavior : MonoBehaviour
 
         // Freeze rotation on the Z-axis to prevent the object from rotating
         rb.freezeRotation = true;
+
+        // Initialize buttons (spawned but inactive)
+        CreateButtons();
     }
 
     void Update()
@@ -139,7 +147,7 @@ public class FurnitureBehavior : MonoBehaviour
     private void AdjustSortingOrder()
     {
         // Find the object beneath this furniture item
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f); // Adjust radius as necessary
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f); // Adjust radius as necessary
         int highestSortingOrder = 0;
 
         // Check for any other furniture objects and get the highest sorting order
@@ -187,6 +195,36 @@ public class FurnitureBehavior : MonoBehaviour
         {
             transform.position = originalPosition;
         }
+        else
+        {
+            // Update original position to the new position if no overlap
+            originalPosition = transform.position;
+        }
     }
 
+    private void CreateButtons()
+    {
+        // Create buttons and position them relative to the parent (FurnitureBehavior gameObject)
+        packBtn = Instantiate(packButtonPrefab, transform.position - new Vector3(0.5f, 0, 0), Quaternion.identity);
+        packBtn.transform.SetParent(transform);
+        //packBtn.transform.localPosition = new Vector3(0, -1f, 0); // Adjust the Y position relative to the furniture (set to -1f for 1 unit below)
+        packBtn.SetActive(false);
+
+        sellBtn = Instantiate(sellButtonPrefab, transform.position - new Vector3(-0.5f, 0, 0), Quaternion.identity);
+        sellBtn.transform.SetParent(transform);
+        sellBtn.SetActive(false);
+    }
+
+    private void OnMouseUp()
+    {
+        if (isDragging) return; // Don't toggle buttons if the furniture is being dragged
+
+        // Toggle button visibility
+        if (packBtn != null && sellBtn != null)
+        {
+            bool isActive = packBtn.activeSelf;  // Check if buttons are already active
+            packBtn.SetActive(!isActive);
+            sellBtn.SetActive(!isActive);
+        }
+    }
 }
