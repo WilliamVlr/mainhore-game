@@ -23,7 +23,7 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
         //Setup(currentItem);
 
         // Assign the sell and unpack button behavior
-        sellButton.onClick.AddListener(SellItem);
+        sellButton.onClick.AddListener(onSellItem);
         secondButton.onClick.AddListener(secondAction);
     }
 
@@ -88,11 +88,30 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     }
 
     // Sell the item
-    private void SellItem()
+    private void onSellItem()
+    {
+        ConfirmationManager confMng = FindAnyObjectByType<ConfirmationManager>();
+        ConfirmationBehavior confirmationPanel = confMng.confirmationPanel;
+
+        if (confirmationPanel != null)
+        {
+            confirmationPanel.showConfirmSellingPanel(
+                currentItem.price,
+                currentItem.sprite,
+                () => confirmSell(),
+                () => Debug.Log("Cancel selling")
+            );
+        } else
+        {
+            Debug.Log("Confirmation panel not found!");
+        }
+
+    }
+
+    private void confirmSell()
     {
         Debug.Log("Selling: " + currentItem.itemName);
         //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
-        // Optionally, add logic to refund in-game currency
     }
 
     public abstract void secondAction();
