@@ -8,6 +8,7 @@ public class SellButton_House : MonoBehaviour
     public Sprite clickedSprite;
     private int isClicked;
     private Collider2D myCollider;
+    protected SO_item currentItem;
     FurnitureBehavior furniture;
     SpriteRenderer spriteRenderer;
 
@@ -23,10 +24,11 @@ public class SellButton_House : MonoBehaviour
 
         furniture = GetComponentInParent<FurnitureBehavior>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        currentItem = furniture.furnitureData;
 
         if (furniture != null)
         {
-            Debug.Log("The parent is " + furniture.furnitureData.itemName);
+            Debug.Log("The parent is " + currentItem.itemName);
         }
     }
 
@@ -60,9 +62,35 @@ public class SellButton_House : MonoBehaviour
         if(isClicked == 2)
         {
             //Add functionality here
-
+            onSellItem();
             isClicked = 0;
         }
 
+    }
+
+    private void onSellItem()
+    {
+        ConfirmationManager confMng = FindAnyObjectByType<ConfirmationManager>();
+        ConfirmationBehavior confirmationPanel = confMng.confirmationPanel;
+
+        if (confirmationPanel != null)
+        {
+            confirmationPanel.showConfirmSellingPanel(
+                currentItem.price,
+                currentItem.sprite,
+                () => confirmSell(),
+                () => Debug.Log("Cancel selling")
+            );
+        }
+        else
+        {
+            Debug.Log("Confirmation panel not found!");
+        }
+    }
+
+    private void confirmSell()
+    {
+        Debug.Log("Selling: " + currentItem.itemName);
+        //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
     }
 }
