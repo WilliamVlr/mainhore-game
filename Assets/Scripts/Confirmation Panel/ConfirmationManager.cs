@@ -8,6 +8,6 @@ public class ConfirmationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        confirmationPanel.gameObject.SetActive(false);
+        confirmationPanel.gameObject.SetActive(true);
     }
 }

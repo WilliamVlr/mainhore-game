@@ -36,7 +36,7 @@ public class HouseManager : MonoBehaviour
         decorationModeButton.SetActive(true);
         characterUI.SetActive(true);
         otherButtons.SetActive(true);
-        confirmationPanel.SetActive(false);  
+        //confirmationPanel.SetActive(false);  
         exitPanel.SetActive(false);
     }
 
@@ -113,29 +113,32 @@ public class HouseManager : MonoBehaviour
     public void OnExitDecorationMode()
     {
         // Show the confirmation panel (overlay)
-        confirmationPanel.SetActive(true);
-    }
+        //confirmationPanel.SetActive(true);
+        //ConfirmationManager confMng = FindAnyObjectByType<ConfirmationManager>();
+        ConfirmationBehavior confirmationBehavior = confirmationPanel.GetComponent<ConfirmationBehavior>();
 
-    public void ConfirmExitDecorationMode(bool saveChanges)
-    {
-        if (saveChanges)
+        if (confirmationBehavior != null)
         {
-            // Save the positions of all placed furniture
-            //SaveFurniturePositions();
+            confirmationBehavior.showConfirmDecorationPanel(
+                SaveFurniturePosition,
+                ResetFurniturePosition
+            );
         }
         else
         {
-            // Reset to original furniture positions
-            //ResetFurniturePositions();
+            Debug.Log("Confirmation panel not found!");
         }
+    }
 
-        // Hide the confirmation panel after decision
-        confirmationPanel.SetActive(false);
-
-        // Reset to house state (exit decoration mode)
+    public void SaveFurniturePosition()
+    {
         OnExitDecorationModeCleanup();
     }
 
+    public void ResetFurniturePosition()
+    {
+        OnExitDecorationModeCleanup();
+    }
     void OnExitDecorationModeCleanup()
     {
         isInDecorationMode = false;
