@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30574b4ae622fab4bb91a80dccbd51bf, type: 3}
+  m_Name: Buku Klasik
+  m_EditorClassIdentifier: 
+  id: Buku Klasik
+  itemName: Buku Klasik
+  sprite: {fileID: 1232692274, guid: 566675aa07b85fa4787461e76bc4e38c, type: 3}
+  price: 30
+  desc: 
+  place: 0
+  sellPrice: 20
+  scale_inSlot: 0.45
+  scale_inBackground: 0.35
+  furniturePrefab: {fileID: 7768025071352284469, guid: 709c57b7a78f83d49ad1a6f0e07f07c4, type: 3}
+  dropBehavior: {fileID: 11400000, guid: 85dec9b158984174d9d132d89eee4a6b, type: 2}

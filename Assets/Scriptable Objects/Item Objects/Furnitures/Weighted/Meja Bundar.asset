@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30574b4ae622fab4bb91a80dccbd51bf, type: 3}
+  m_Name: Meja Bundar
+  m_EditorClassIdentifier: 
+  id: Meja Bundar
+  itemName: Meja Bundar
+  sprite: {fileID: 109871389, guid: 45515d0386e585f47993f24b3f7b2039, type: 3}
+  price: 50
+  desc: 
+  place: 0
+  sellPrice: 35
+  scale_inSlot: 0.18
+  scale_inBackground: 1.2
+  furniturePrefab: {fileID: 5593743361023268854, guid: 79f4aef77ae4a9443aff24f4f0f088db, type: 3}
+  dropBehavior: {fileID: 11400000, guid: 85dec9b158984174d9d132d89eee4a6b, type: 2}

@@ -1,0 +1,141 @@
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class InventoryUI : MonoBehaviour
+{
+    public GameObject slotPrefabFurniture; // Prefab for inventory slots
+    public GameObject slotPrefabSkin;
+    public Transform slotContainer; // Parent object for slots
+    public TextMeshProUGUI invMax;
+    public TextMeshProUGUI invCapacity;
+
+    // Add references to the buttons that will filter the inventory
+    public Button furnitureButton;
+    public Button skinButton;
+    public Color inactiveColor = Color.white;
+    public Color activeColor = new Color(0.878f, 0.835f, 0.800f, 1f);
+
+    private void Start()
+    {
+        // Set up button click listeners
+        furnitureButton.onClick.AddListener(ShowFurniture);
+        skinButton.onClick.AddListener(ShowSkins);
+        SetButtonInactive(furnitureButton);
+        SetButtonInactive(skinButton);
+
+        // Initially display all items (no filter)
+        //ShowAllItems();
+        ShowFurniture();
+    }
+
+    // Refresh the UI slots
+    public void RefreshInventory(List<SO_item> inventory, int max)
+    {
+        // Clear existing slots
+        foreach (Transform child in slotContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create new slots
+        foreach (SO_item item in inventory)
+        {
+            GameObject slot = null;
+            if (item is SO_Furniture)
+            {
+                slot = Instantiate(slotPrefabFurniture, slotContainer);
+            } else
+            {
+                slot = Instantiate(slotPrefabSkin, slotContainer);
+            }
+            slot.GetComponent<SlotUI>().Setup(item);
+        }
+
+        invMax.text = InventoryManager.Instance.maxCapacity.ToString();
+        invCapacity.text = InventoryManager.Instance.playerInventory.Count.ToString();
+    }
+
+    private void Update()
+    {
+        // Handle mobile touch and desktop mouse clicks
+        if (IsGlobalClickDetected())
+        {
+            if (SlotUI.activeSlot != null)
+            {
+                SlotUI.activeSlot.OnSlotUntouched(); // Close the active slot
+                SlotUI.activeSlot = null;           // Clear the active slot
+            }
+        }
+    }
+
+    // Detects global clicks or touches outside UI
+    private bool IsGlobalClickDetected()
+    {
+        // For mobile: Check touch input
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            return !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+        }
+
+        // For desktop: Check mouse click
+        if (Input.GetMouseButtonDown(0))
+        {
+            return !EventSystem.current.IsPointerOverGameObject();
+        }
+
+        return false;
+    }
+
+    public void ShowFurniture()
+    {
+        // Get filtered furniture items and update the UI
+        List<SO_item> furnitureItems = InventoryManager.Instance.GetFilteredInventory(typeof(SO_Furniture));
+        RefreshInventory(furnitureItems, InventoryManager.Instance.maxCapacity);
+        SetButtonActive(furnitureButton);
+        SetButtonInactive(skinButton);
+    }
+
+    public void ShowSkins()
+    {
+        // Get filtered skin items and update the UI
+        List<SO_item> skinItems = InventoryManager.Instance.GetFilteredInventory(typeof(SO_Skin));
+        RefreshInventory(skinItems, InventoryManager.Instance.maxCapacity);
+        SetButtonActive(skinButton);
+        SetButtonInactive(furnitureButton);
+    }
+
+    private void ShowAllItems()
+    {
+        // Show all items if no filter is applied
+        RefreshInventory(InventoryManager.Instance.playerInventory, InventoryManager.Instance.maxCapacity);
+    }
+
+    // Helper method to set a button to its active state (e.g., change color)
+    private void SetButtonActive(Button button)
+    {
+        Image img = button.GetComponent<Image>();
+        if (img != null)
+        {
+            img.color = activeColor;
+        }
+        //ColorBlock colorBlock = button.colors;
+        //colorBlock.normalColor = activeColor;
+        //button.colors = colorBlock;
+    }
+
+    // Helper method to set a button to its inactive state (e.g., revert color)
+    private void SetButtonInactive(Button button)
+    {
+        Image img = button.GetComponent<Image>();
+        if (img != null)
+        {
+            img.color = inactiveColor;
+        }
+        //ColorBlock colorBlock = button.colors;
+        //colorBlock.normalColor = inactiveColor;
+        //button.colors = colorBlock;
+    }
+}
