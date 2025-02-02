@@ -111,7 +111,7 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     private void confirmSell()
     {
         Debug.Log("Selling: " + currentItem.itemName);
-        //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
     }
 
     public abstract void secondAction();

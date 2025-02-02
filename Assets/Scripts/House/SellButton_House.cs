@@ -91,6 +91,6 @@ public class SellButton_House : MonoBehaviour
     private void confirmSell()
     {
         Debug.Log("Selling: " + currentItem.itemName);
-        //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        FindObjectOfType<HouseManager>().RemoveFurniture(furniture);
     }
 }

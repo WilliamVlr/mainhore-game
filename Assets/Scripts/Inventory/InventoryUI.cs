@@ -55,7 +55,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         invMax.text = InventoryManager.Instance.maxCapacity.ToString();
-        invCapacity.text = InventoryManager.Instance.playerInventory.Capacity.ToString();
+        invCapacity.text = InventoryManager.Instance.playerInventory.Count.ToString();
     }
 
     private void Update()

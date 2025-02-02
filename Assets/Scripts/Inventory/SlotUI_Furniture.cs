@@ -22,8 +22,7 @@ public class SlotUI_Furniture : SlotUI
     private void unpackItem()
     {
         Debug.Log("Placing: " + currentItem.itemName);
-        //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
-        // add logic to instantiate game object and add the item to house inventory
         FindObjectOfType<InventoryManager>().OnUnpackFurniture.Invoke(currentItem as SO_Furniture);
+        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
     }
 }

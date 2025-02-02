@@ -68,7 +68,17 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log("Removed " + item.itemName + " (from Inventory Manager)");
             playerInventory.Remove(item);
+            Debug.Log("Player inventory capacity: " + playerInventory.Capacity);
+            Debug.Log("Count: " + playerInventory.Count);
             UpdateUI();
+            InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
+            if (item is SO_Furniture)
+            {
+                inventoryUI.ShowFurniture();
+            } else
+            {
+                inventoryUI.ShowSkins();
+            }
         }
     }
 

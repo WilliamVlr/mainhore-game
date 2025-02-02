@@ -40,9 +40,11 @@ public class PackButtonBehavior : MonoBehaviour
                 // Check if the hit object is this object (i.e. the one this script is attached to)
                 if (hit.collider == myCollider)
                 {
-                    Debug.Log("Clicked on the GameObject: " + gameObject.name);
-                    Debug.Log(gameObject.name + " for " + furniture.furnitureData.itemName);
+                    //Debug.Log("Clicked on the GameObject: " + gameObject.name);
+                    //Debug.Log(gameObject.name + " for " + furniture.furnitureData.itemName);
                     // Add your logic here for when the object is clicked
+                    InventoryManager.Instance.AddItem(furniture.furnitureData);
+                    FindAnyObjectByType<HouseManager>().RemoveFurniture(furniture);
                 }
             }
         }

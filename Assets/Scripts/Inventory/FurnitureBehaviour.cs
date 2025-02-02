@@ -96,6 +96,16 @@ public class FurnitureBehavior : MonoBehaviour
                         // Set the sorting order to be above the object below it
                         AdjustSortingOrder();
                     }
+                    else
+                    {
+                        // Check if the touch is outside the furniture and within the specified range
+                        Vector2 touchPosWorld = Camera.main.ScreenToWorldPoint(touch.position);
+                        if (Vector2.Distance(touchPosWorld, transform.position) > 1.5f)
+                        {
+                            hideButton();  // Hide the buttons if touched outside the range
+                            activeFurniture = null;
+                        }
+                    }
                 }
                 else if (touch.phase == TouchPhase.Ended)
                 {
@@ -113,13 +123,25 @@ public class FurnitureBehavior : MonoBehaviour
             // Handle mouse input for dragging (for testing on desktop)
             if (Input.GetMouseButtonDown(0))
             {
-                if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                // Check if the mouse click is within the furniture's collider
+                if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(mousePos))
                 {
                     isDragging = true;
                     rb.isKinematic = true;
 
                     // Set the sorting order to be above the object below it
                     AdjustSortingOrder();
+                }
+                else
+                {
+                    // Check if the click is outside the defined range
+                    if (Vector2.Distance(mousePos, transform.position) > 1.5f)
+                    {
+                        hideButton();  // Hide the buttons
+                        activeFurniture = null;
+                    }
                 }
             }
             else if (Input.GetMouseButtonUp(0) && isDragging)
