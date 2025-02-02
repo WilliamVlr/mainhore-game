@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class HouseManager : MonoBehaviour
     public InventoryUI inventoryUI;               // Reference to InventoryUI
     public GameObject confirmationPanel;          // Confirmation panel for saving or resetting
     public GameObject exitPanel;
+    public CameraMovement_DecorMode CameraMovement_decor;
     private Animator inventoryAnimator;            // Animator for inventory UI
 
     public Transform furnitureContainer; // Parent object for all placed furniture
@@ -18,6 +20,10 @@ public class HouseManager : MonoBehaviour
 
     private bool isInDecorationMode;
     public bool IsInDecorationMode { get => isInDecorationMode; set => isInDecorationMode = value; }
+
+    // Boolean flag to indicate if any furniture is being dragged
+    [DoNotSerialize]
+    public bool isFurnitureBeingDragged;
 
     public void Start()
     {
@@ -30,6 +36,7 @@ public class HouseManager : MonoBehaviour
         }
 
         isInDecorationMode = false;
+        isFurnitureBeingDragged = false;
         decorationModeButton.GetComponent<Button>().onClick.AddListener(OnEnterDecorationMode);
         exitPanel.GetComponentInChildren<Button>().onClick.AddListener(OnExitDecorationMode);
 
@@ -108,6 +115,8 @@ public class HouseManager : MonoBehaviour
 
         // Store initial furniture state (positions) before any changes
         //StoreOriginalFurnitureData();
+
+        CameraMovement_decor.onEnterDecorationMode();
     }
 
     public void OnExitDecorationMode()
@@ -154,5 +163,7 @@ public class HouseManager : MonoBehaviour
 
         // Show the Decoration Mode button again
         decorationModeButton.SetActive(true);
+
+        CameraMovement_decor.onExitDecorationMode();
     }
 }

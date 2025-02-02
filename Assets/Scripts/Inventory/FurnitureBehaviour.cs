@@ -92,6 +92,7 @@ public class FurnitureBehavior : MonoBehaviour
                     {
                         isDragging = true;
                         rb.isKinematic = true;
+                        house.isFurnitureBeingDragged = true;
 
                         // Set the sorting order to be above the object below it
                         AdjustSortingOrder();
@@ -115,6 +116,7 @@ public class FurnitureBehavior : MonoBehaviour
                         checkFurnitureButton();
                         isDragging = false;
                         rb.isKinematic = false;
+                        house.isFurnitureBeingDragged = false;
                         //CheckForOverlappingFurniture();
                     }
                 }
@@ -130,6 +132,7 @@ public class FurnitureBehavior : MonoBehaviour
                 {
                     isDragging = true;
                     rb.isKinematic = true;
+                    house.isFurnitureBeingDragged = true;
 
                     // Set the sorting order to be above the object below it
                     AdjustSortingOrder();
@@ -148,6 +151,7 @@ public class FurnitureBehavior : MonoBehaviour
             {
                 isDragging = false;
                 rb.isKinematic = false;
+                house.isFurnitureBeingDragged = false;
                 //CheckForOverlappingFurniture();
             }
         }
