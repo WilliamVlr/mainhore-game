@@ -18,6 +18,7 @@ TagManager:
   - PauseButton
   - Virus
   - Instruksi_Button
+  - FurnitureButtons
   layers:
   - Default
   - TransparentFX

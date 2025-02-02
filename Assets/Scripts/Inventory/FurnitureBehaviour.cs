@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEditor.Progress;
 
 public class FurnitureBehavior : MonoBehaviour
@@ -18,6 +19,9 @@ public class FurnitureBehavior : MonoBehaviour
 
     private GameObject sellBtn;
     private GameObject packBtn;
+
+    public static FurnitureBehavior activeFurniture; // To keep track of the currently active furniture
+    private HouseManager house;
 
     // The Y value where the fall should stop (e.g., -2.6)
     private float stopFallAtY = -2.6f;
@@ -44,6 +48,7 @@ public class FurnitureBehavior : MonoBehaviour
         transformer = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        house = FindAnyObjectByType<HouseManager>();
 
         // Disable physics by default
         if (rb != null)
@@ -60,7 +65,6 @@ public class FurnitureBehavior : MonoBehaviour
 
     void Update()
     {
-        HouseManager house = FindAnyObjectByType<HouseManager>();
         if(house != null )
         {
             draggingEnabled = house.IsInDecorationMode;
@@ -79,7 +83,7 @@ public class FurnitureBehavior : MonoBehaviour
             // Handle touch/mouse input for dragging
             if (Input.touchCount > 0)
             {
-                Touch touch = Input.GetTouch(0);  // Get the first touch
+                Touch touch = Input.GetTouch(0);  // Get the first 
 
                 if (touch.phase == TouchPhase.Began)
                 {
@@ -90,7 +94,7 @@ public class FurnitureBehavior : MonoBehaviour
                         rb.isKinematic = true;
 
                         // Set the sorting order to be above the object below it
-                        AdjustSortingOrder();
+                        //AdjustSortingOrder();
                     }
                 }
                 else if (touch.phase == TouchPhase.Ended)
@@ -98,9 +102,10 @@ public class FurnitureBehavior : MonoBehaviour
                     // End the drag and check for overlap when the touch ends
                     if (isDragging)
                     {
+                        checkFurnitureButton();
                         isDragging = false;
                         rb.isKinematic = false;
-                        CheckForOverlappingFurniture();
+                        //CheckForOverlappingFurniture();
                     }
                 }
             }
@@ -114,14 +119,14 @@ public class FurnitureBehavior : MonoBehaviour
                     rb.isKinematic = true;
 
                     // Set the sorting order to be above the object below it
-                    AdjustSortingOrder();
+                    //AdjustSortingOrder();
                 }
             }
             else if (Input.GetMouseButtonUp(0) && isDragging)
             {
                 isDragging = false;
                 rb.isKinematic = false;
-                CheckForOverlappingFurniture();
+                //CheckForOverlappingFurniture();
             }
         }
 
@@ -138,7 +143,7 @@ public class FurnitureBehavior : MonoBehaviour
                 //rb.velocity = Vector2.zero; // Optional: prevent residual velocity if needed
 
                 // Reset sorting order when it reaches the stop position
-                ResetSortingOrder();
+                //ResetSortingOrder();
             }
         }
     }
@@ -182,7 +187,7 @@ public class FurnitureBehavior : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject != gameObject)
+            if (collider.gameObject != gameObject && !collider.CompareTag("FurnitureButtons"))
             {
                 // If it overlaps, prevent placement
                 canPlace = false;
@@ -215,16 +220,34 @@ public class FurnitureBehavior : MonoBehaviour
         sellBtn.SetActive(false);
     }
 
-    private void OnMouseUp()
+    private void checkFurnitureButton()
     {
-        if (isDragging) return; // Don't toggle buttons if the furniture is being dragged
-
-        // Toggle button visibility
-        if (packBtn != null && sellBtn != null)
+        //Debug.Log("check furniture button method called");
+        if (activeFurniture != null && activeFurniture != this)
         {
-            bool isActive = packBtn.activeSelf;  // Check if buttons are already active
-            packBtn.SetActive(!isActive);
-            sellBtn.SetActive(!isActive);
+            activeFurniture.hideButton();
+        }
+
+        activeFurniture = this;
+        showButton();
+    }
+
+    public void showButton()
+    {
+        // Toggle button visibility
+        if (packBtn != null && sellBtn != null && !packBtn.activeSelf)
+        {
+            packBtn.SetActive(true);
+            sellBtn.SetActive(true);
+        }
+    }
+
+    public void hideButton()
+    {
+        if (packBtn != null && sellBtn != null && packBtn.activeSelf)
+        {
+            packBtn.SetActive(false);
+            sellBtn.SetActive(false);
         }
     }
 }

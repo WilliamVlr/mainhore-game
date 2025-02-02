@@ -36,7 +36,7 @@ public class PackButtonBehavior : MonoBehaviour
 
             if(hit.collider == myCollider)
             {
-                Debug.Log("Masuk ke if kedua ray hits any collider");
+                //Debug.Log("Masuk ke if kedua ray hits any collider");
                 // Check if the hit object is this object (i.e. the one this script is attached to)
                 if (hit.collider == myCollider)
                 {
