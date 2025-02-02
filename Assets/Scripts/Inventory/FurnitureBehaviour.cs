@@ -94,7 +94,7 @@ public class FurnitureBehavior : MonoBehaviour
                         rb.isKinematic = true;
 
                         // Set the sorting order to be above the object below it
-                        //AdjustSortingOrder();
+                        AdjustSortingOrder();
                     }
                 }
                 else if (touch.phase == TouchPhase.Ended)
@@ -119,7 +119,7 @@ public class FurnitureBehavior : MonoBehaviour
                     rb.isKinematic = true;
 
                     // Set the sorting order to be above the object below it
-                    //AdjustSortingOrder();
+                    AdjustSortingOrder();
                 }
             }
             else if (Input.GetMouseButtonUp(0) && isDragging)
@@ -143,7 +143,7 @@ public class FurnitureBehavior : MonoBehaviour
                 //rb.velocity = Vector2.zero; // Optional: prevent residual velocity if needed
 
                 // Reset sorting order when it reaches the stop position
-                //ResetSortingOrder();
+                ResetSortingOrder();
             }
         }
     }

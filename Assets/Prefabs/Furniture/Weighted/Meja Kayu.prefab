@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1506835278024071974}
   - component: {fileID: 4439692565373371990}
   - component: {fileID: 4712783670350948134}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Meja Kayu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
