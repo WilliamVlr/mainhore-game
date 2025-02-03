@@ -7,9 +7,12 @@ public class WallSnapBehavior_SO : DropBehavior_SO
     {
         // Snap to the wall if near the floor
         Vector3 position = furniture.transform.position;
-        if (position.y < -3) // Example threshold for the floor
+        if (position.y < -1.5) // Example threshold for the floor
         {
-            position.y = -3; // Snap to wall height
+            position.y = -1.5f; // Snap to wall height
+        } else if (position.y > 2)
+        {
+            position.y = 2;
         }
         furniture.transform.position = position;
         Debug.Log($"{furniture.name} snapped to the wall!");

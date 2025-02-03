@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject slotPrefabFurniture; // Prefab for inventory slots
     public GameObject slotPrefabSkin;
@@ -17,6 +17,8 @@ public class InventoryUI : MonoBehaviour
     public Button skinButton;
     public Color inactiveColor = Color.white;
     public Color activeColor = new Color(0.878f, 0.835f, 0.800f, 1f);
+
+    public static bool isInventoryBeingDragged = false;
 
     private void Start()
     {
@@ -137,5 +139,23 @@ public class InventoryUI : MonoBehaviour
         //ColorBlock colorBlock = button.colors;
         //colorBlock.normalColor = inactiveColor;
         //button.colors = colorBlock;
+    }
+
+    // Detect if inventory UI is being dragged/swiped
+    private void SetInventoryDragState(bool state)
+    {
+        isInventoryBeingDragged = state;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("touched inventory UI");
+        SetInventoryDragState(true);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Debug.Log("untouched inventory UI");
+        SetInventoryDragState(false);
     }
 }
