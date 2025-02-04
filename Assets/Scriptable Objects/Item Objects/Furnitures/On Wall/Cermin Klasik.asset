@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30574b4ae622fab4bb91a80dccbd51bf, type: 3}
-  m_Name: Jendela Merah
+  m_Name: Cermin Klasik
   m_EditorClassIdentifier: 
-  id: Jendela Merah
-  itemName: Jendela Merah
-  sprite: {fileID: 21300000, guid: 531868c8e0056944893ecedd7a024256, type: 3}
-  price: 100
+  id: Cermin Klasik
+  itemName: Cermin Klasik
+  sprite: {fileID: 2053538598, guid: 65e7dc8325a461540991000fa16710b7, type: 3}
+  price: 50
   desc: 
   place: 0
-  sellPrice: 68
+  sellPrice: 38
   scale_inSlot: 0.18
-  scale_inBackground: 1
-  furniturePrefab: {fileID: 4783289533127699667, guid: 196c639f92fe6c64f9a14a82cf512bd9, type: 3}
+  scale_inBackground: 0.25
+  furniturePrefab: {fileID: 2344107681179431929, guid: df205d240784df04aa9c3d96303cb477, type: 3}
   dropBehavior: {fileID: 11400000, guid: b813f6fb83db285499da7feee1315691, type: 2}

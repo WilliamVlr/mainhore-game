@@ -18,6 +18,9 @@ public class InventoryUI : MonoBehaviour
     public Color inactiveColor = Color.white;
     public Color activeColor = new Color(0.878f, 0.835f, 0.800f, 1f);
 
+    public static bool isInventoryBeingDragged = false;
+    public ScrollRect scrollRect;
+
     private void Start()
     {
         // Set up button click listeners
@@ -29,6 +32,13 @@ public class InventoryUI : MonoBehaviour
         // Initially display all items (no filter)
         //ShowAllItems();
         ShowFurniture();
+
+        // Attach listener for scroll events
+        if (scrollRect != null)
+        {
+            // Detect if scrolling starts
+            scrollRect.onValueChanged.AddListener(OnScroll);
+        }
     }
 
     // Refresh the UI slots
@@ -137,5 +147,24 @@ public class InventoryUI : MonoBehaviour
         //ColorBlock colorBlock = button.colors;
         //colorBlock.normalColor = inactiveColor;
         //button.colors = colorBlock;
+    }
+
+    // Detect if inventory UI is being dragged/swiped
+    private void SetInventoryDragState(bool state)
+    {
+        isInventoryBeingDragged = state;
+    }
+
+    private void OnScroll(Vector2 scrollPosition)
+    {
+        // Set the dragging state to true when the user is interacting with the scroll view
+        if (scrollRect.velocity.x != 0) 
+        {
+            SetInventoryDragState(true);
+        }
+        else
+        {
+            SetInventoryDragState(false);
+        }
     }
 }

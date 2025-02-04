@@ -117,6 +117,7 @@ public class FurnitureBehavior : MonoBehaviour
                         isDragging = false;
                         rb.isKinematic = false;
                         house.isFurnitureBeingDragged = false;
+                        furnitureData.dropBehavior.HandleDrop(this.gameObject);
                         //CheckForOverlappingFurniture();
                     }
                 }
@@ -152,6 +153,7 @@ public class FurnitureBehavior : MonoBehaviour
                 isDragging = false;
                 rb.isKinematic = false;
                 house.isFurnitureBeingDragged = false;
+                furnitureData.dropBehavior.HandleDrop(this.gameObject);
                 //CheckForOverlappingFurniture();
             }
         }

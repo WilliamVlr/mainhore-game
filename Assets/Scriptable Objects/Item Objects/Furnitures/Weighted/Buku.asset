@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30574b4ae622fab4bb91a80dccbd51bf, type: 3}
+  m_Name: Buku
+  m_EditorClassIdentifier: 
+  id: Buku
+  itemName: Buku
+  sprite: {fileID: 77489226, guid: ec66ae7ccd900bd47aa70ab153f80a17, type: 3}
+  price: 15
+  desc: 
+  place: 0
+  sellPrice: 8
+  scale_inSlot: 0.25
+  scale_inBackground: 0.35
+  furniturePrefab: {fileID: 1431022837350253331, guid: cee2c68817d32fc47be4551425083e90, type: 3}
+  dropBehavior: {fileID: 11400000, guid: 85dec9b158984174d9d132d89eee4a6b, type: 2}

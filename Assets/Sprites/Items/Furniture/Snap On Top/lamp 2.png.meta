@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 531868c8e0056944893ecedd7a024256
+guid: 3d1740b0fb0c931488d8df802bca68f7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Window 2_0
+      name: lamp 2_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 265
-        width: 942
-        height: 813
+        x: 367
+        y: 614
+        width: 346
+        height: 645
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a00a0ccab15be5646b98b59b031219d5
-      internalID: 1660032999
+      spriteID: 590f9b52fae44af4c881e3c6b9c1ce3e
+      internalID: 356402361
       vertices: []
       indices: 
       edges: []
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Window 2_0: 1660032999
+      lamp 2_0: 356402361
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

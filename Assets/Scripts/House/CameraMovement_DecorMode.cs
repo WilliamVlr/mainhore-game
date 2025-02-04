@@ -34,7 +34,7 @@ public class CameraMovement_DecorMode : MonoBehaviour
 
         if ( isInDecorationMode )
         {
-            if(!houseManager.isFurnitureBeingDragged)
+            if(!houseManager.isFurnitureBeingDragged && !InventoryUI.isInventoryBeingDragged)
             {
                 HandleCameraMovement();
             }

@@ -7,7 +7,7 @@ public class CeilingSnapBehavior_SO : DropBehavior_SO
     {
         // Snap the furniture to the ceiling
         Vector3 position = furniture.transform.position;
-        position.y = Camera.main.orthographicSize - 1; // Example: Top of the camera view
+        position.y = Camera.main.orthographicSize - 3; // Example: Top of the camera view
         furniture.transform.position = position;
         Debug.Log($"{furniture.name} snapped to the ceiling!");
     }
