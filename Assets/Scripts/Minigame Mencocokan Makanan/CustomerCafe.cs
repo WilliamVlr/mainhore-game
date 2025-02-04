@@ -107,7 +107,7 @@ public class CustomerCafe : MonoBehaviour
 
             // Adjust the scale to 1.5x for both X and Y
             RectTransform rectTransform = itemUI.GetComponent<RectTransform>();
-            rectTransform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+            rectTransform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
         }
     }
 
