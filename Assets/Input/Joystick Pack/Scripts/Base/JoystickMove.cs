@@ -9,6 +9,7 @@ public class JoystickMove : MonoBehaviour
     public GameObject background;
     public PlayerDirection _playerdirection;
 
+    public GameObject player;
     private Rigidbody2D rb_player, rb_background;
 
     Vector2 backgroundPosition;
@@ -23,7 +24,7 @@ public class JoystickMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb_player = GetComponent<Rigidbody2D>();
+        rb_player = player.GetComponent<Rigidbody2D>();
         rb_background = background.GetComponent<Rigidbody2D>();
         notmid = 0;
     }
@@ -31,11 +32,12 @@ public class JoystickMove : MonoBehaviour
     private void FixedUpdate()
     {
         backgroundPosition = background.transform.position;
-        playerPosition = this.transform.position;
+        playerPosition = player.transform.position;
+        //Debug.Log(playerPosition);
 
         _playerdirection.setDirection(movementJoystick);
 
-        if(backgroundPosition.x <= -15 || backgroundPosition.x >= 20)
+        if (backgroundPosition.x <= -15 || backgroundPosition.x >= 20)
         {
             if (Mathf.Abs(playerPosition.x) < 0.3 && notmid == 1)
             {
@@ -55,6 +57,7 @@ public class JoystickMove : MonoBehaviour
             isBgMoving = 1;
         }
 
+        // check bg
         if (isBgMoving == 1)
         {
             checkMovY();
@@ -69,22 +72,25 @@ public class JoystickMove : MonoBehaviour
 
     void checkMovX()
     {
-        if (playerPosition.x >= 7.5)
+        if (playerPosition.x >= 7)
         {
-            if (movementJoystick.Direction.x <= 0)
+            //Debug.Log(movementJoystick.Direction.x);
+            if (movementJoystick.Direction.x < 0)
             {
                 rb_player.velocity = new Vector2(movementJoystick.Direction.x * playerSpeed, 0);
                 maxLR = 0;
                 checkMovY();
+                //Debug.Log("1");
             }
             else
             {
                 maxLR = 1;
                 checkMovY();
+                //Debug.Log("2");
             }
 
         }
-        else if (playerPosition.x <= -7.5)
+        else if (playerPosition.x <= -7)
         {
             if (movementJoystick.Direction.x >= 0)
             {
@@ -102,6 +108,7 @@ public class JoystickMove : MonoBehaviour
         {
             rb_player.velocity = new Vector2(movementJoystick.Direction.x * playerSpeed, 0);
             checkMovY();
+            //Debug.Log("3");
         }
     }
 
@@ -115,10 +122,10 @@ public class JoystickMove : MonoBehaviour
         else
         {
             currentVelocity = rb_player.velocity; // Ambil kecepatan saat ini
-        } 
+        }
         float newYVelocity = 0;
 
-        if (playerPosition.y >= -1.55)
+        if (playerPosition.y >= -2.25)
         {
             if (movementJoystick.Direction.y <= 0)
             {
@@ -129,7 +136,7 @@ public class JoystickMove : MonoBehaviour
                 newYVelocity = 0;
             }
         }
-        else if (playerPosition.y <= -4.25)
+        else if (playerPosition.y <= -3.25)
         {
             if (movementJoystick.Direction.y >= 0)
             {

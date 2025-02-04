@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerDirection : MonoBehaviour
 {
+    public GameObject player;
     public void setDirection(Joystick movementJoystick)
     {
-        Vector3 currentScale = transform.localScale; // Get the current scale
+        Vector3 currentScale = player.transform.localScale; // Get the current scale
         currentScale.x = -Mathf.Abs(currentScale.x);
         if (movementJoystick.Direction.x < 0)
         {
@@ -15,6 +16,6 @@ public class PlayerDirection : MonoBehaviour
         {
             currentScale.x = Mathf.Abs(currentScale.x);
         }
-        this.transform.localScale = currentScale;
+        player.transform.localScale = currentScale;
     }
 }
