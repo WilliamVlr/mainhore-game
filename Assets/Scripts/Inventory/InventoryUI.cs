@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class InventoryUI : MonoBehaviour
 {
     public GameObject slotPrefabFurniture; // Prefab for inventory slots
     public GameObject slotPrefabSkin;
@@ -19,6 +19,7 @@ public class InventoryUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public Color activeColor = new Color(0.878f, 0.835f, 0.800f, 1f);
 
     public static bool isInventoryBeingDragged = false;
+    public ScrollRect scrollRect;
 
     private void Start()
     {
@@ -31,6 +32,13 @@ public class InventoryUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         // Initially display all items (no filter)
         //ShowAllItems();
         ShowFurniture();
+
+        // Attach listener for scroll events
+        if (scrollRect != null)
+        {
+            // Detect if scrolling starts
+            scrollRect.onValueChanged.AddListener(OnScroll);
+        }
     }
 
     // Refresh the UI slots
@@ -147,15 +155,16 @@ public class InventoryUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isInventoryBeingDragged = state;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    private void OnScroll(Vector2 scrollPosition)
     {
-        Debug.Log("touched inventory UI");
-        SetInventoryDragState(true);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Debug.Log("untouched inventory UI");
-        SetInventoryDragState(false);
+        // Set the dragging state to true when the user is interacting with the scroll view
+        if (scrollRect.velocity.x != 0) 
+        {
+            SetInventoryDragState(true);
+        }
+        else
+        {
+            SetInventoryDragState(false);
+        }
     }
 }

@@ -53,7 +53,7 @@ public class ConfirmationBehavior : MonoBehaviour
         }
         else
         {
-            objJual.rectTransform.localScale = new Vector3(0.18f, 0.32f, 0);
+            objJual.rectTransform.localScale = new Vector3(0.3f, 0.3f, 0);
         }
 
         // Assign the actions to the buttons

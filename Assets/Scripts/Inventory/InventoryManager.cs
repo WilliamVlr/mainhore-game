@@ -54,6 +54,15 @@ public class InventoryManager : MonoBehaviour
         {
             playerInventory.Add(item);
             UpdateUI();
+            InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
+            if (item is SO_Furniture)
+            {
+                inventoryUI.ShowFurniture();
+            }
+            else
+            {
+                inventoryUI.ShowSkins();
+            }
             return true;
         }
 
