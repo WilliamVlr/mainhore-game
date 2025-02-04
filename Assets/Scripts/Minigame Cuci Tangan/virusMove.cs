@@ -27,7 +27,10 @@ public class VirusMove : MonoBehaviour
             check = SetNewTarget(check);
             firstTarget++;
         }
-        Text timerText = preRoundTimer.GetComponent<Text>();
+        if (preRoundTimer)
+        {
+            Text timerText = preRoundTimer.GetComponent<Text>();
+        }
         // Move towards the target position
         Vector2 currentPosition = transform.position;
         Vector2 targetPosition = new Vector2(targetX, targetY);

@@ -33,7 +33,7 @@ public class JoystickMove : MonoBehaviour
     {
         backgroundPosition = background.transform.position;
         playerPosition = player.transform.position;
-        //Debug.Log(playerPosition);
+        Debug.Log(playerPosition);
 
         _playerdirection.setDirection(movementJoystick);
 
@@ -125,7 +125,7 @@ public class JoystickMove : MonoBehaviour
         }
         float newYVelocity = 0;
 
-        if (playerPosition.y >= -2.25)
+        if (playerPosition.y >= -1.5)
         {
             if (movementJoystick.Direction.y <= 0)
             {
@@ -136,7 +136,7 @@ public class JoystickMove : MonoBehaviour
                 newYVelocity = 0;
             }
         }
-        else if (playerPosition.y <= -3.25)
+        else if (playerPosition.y <= -3.5)
         {
             if (movementJoystick.Direction.y >= 0)
             {
