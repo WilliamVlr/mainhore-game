@@ -118,7 +118,12 @@ public abstract class Minigame : MonoSingleton<Minigame>
     public void restartMinigame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Restarting Minigame");
+        //Debug.Log("Restarting Minigame");
+    }
+
+    public void returnToHomeScreen()
+    {
+        SceneManager.LoadScene("MainScreen");
     }
 
     private void Update()
