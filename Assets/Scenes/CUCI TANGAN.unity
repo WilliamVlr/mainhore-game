@@ -4856,7 +4856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459566386015098482, guid: ea24451d52637e54785da784e32898a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 459566386015098482, guid: ea24451d52637e54785da784e32898a5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4890,6 +4890,10 @@ PrefabInstance:
       propertyPath: timer
       value: 
       objectReference: {fileID: 1796909699901247195}
+    - target: {fileID: 6792154640759685348, guid: ea24451d52637e54785da784e32898a5, type: 3}
+      propertyPath: virus
+      value: 
+      objectReference: {fileID: 8391441700490664089, guid: ac7ec9f2c6a38c847a5b5024b040c57e, type: 3}
     - target: {fileID: 6792154640759685348, guid: ea24451d52637e54785da784e32898a5, type: 3}
       propertyPath: myText
       value: 
