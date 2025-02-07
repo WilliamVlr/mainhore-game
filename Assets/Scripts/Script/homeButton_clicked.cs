@@ -52,6 +52,7 @@ public class homeButton_clicked : MonoBehaviour
 
         if (isClicked == 2)
         {
+            Time.timeScale = 1;
             Debug.Log("Going Home...");
             SceneManager.LoadScene("MainScreen");
             isClicked = 0;

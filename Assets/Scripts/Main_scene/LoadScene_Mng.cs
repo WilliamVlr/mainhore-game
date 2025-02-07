@@ -11,6 +11,7 @@ public class LoadScene_Mng : MonoBehaviour
     public GameObject pintu2;
     public GameObject pintu3;
     public GameObject pintu4;
+    public GameObject pintu5;
     public GameObject RightBtn;
 
     private Collider2D col_player;
@@ -18,6 +19,7 @@ public class LoadScene_Mng : MonoBehaviour
     private Collider2D col_pintu2;
     private Collider2D col_pintu3;
     private Collider2D col_pintu4;
+    private Collider2D col_pintu5;
     private CircleCollider2D buttonCollider;
 
     private SpriteRenderer spr_RightBtn;
@@ -34,6 +36,7 @@ public class LoadScene_Mng : MonoBehaviour
         col_pintu2 = pintu2.GetComponent<Collider2D>();
         col_pintu3 = pintu3.GetComponent<Collider2D>();
         col_pintu4 = pintu4.GetComponent<Collider2D>();
+        col_pintu5 = pintu5.GetComponent<Collider2D>();
         spr_RightBtn = RightBtn.GetComponent<SpriteRenderer>();
 
         // Ensure the button is hidden at start
@@ -61,6 +64,10 @@ public class LoadScene_Mng : MonoBehaviour
         else if (col_pintu4.IsTouching(col_player))
         {
             SetDoorScene(col_pintu4, _so_listSO.listSO[3]);
+        }
+        else if (col_pintu5.IsTouching(col_player))
+        {
+            SetDoorScene(col_pintu5, _so_listSO.listSO[4]);
         }
         else
         {

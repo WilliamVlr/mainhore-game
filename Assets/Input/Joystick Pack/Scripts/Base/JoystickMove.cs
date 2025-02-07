@@ -33,11 +33,11 @@ public class JoystickMove : MonoBehaviour
     {
         backgroundPosition = background.transform.position;
         playerPosition = player.transform.position;
-        Debug.Log(playerPosition);
+        //Debug.Log(playerPosition);
 
         _playerdirection.setDirection(movementJoystick);
 
-        if (backgroundPosition.x <= -15 || backgroundPosition.x >= 20)
+        if (backgroundPosition.x <= -20 || backgroundPosition.x >= 20)
         {
             if (Mathf.Abs(playerPosition.x) < 0.3 && notmid == 1)
             {
