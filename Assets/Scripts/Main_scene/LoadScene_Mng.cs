@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class LoadScene_Mng : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class LoadScene_Mng : MonoBehaviour
     public GameObject pintu2;
     public GameObject pintu3;
     public GameObject pintu4;
+    public GameObject pintu5;
     public GameObject RightBtn;
 
     private Collider2D col_player;
@@ -18,14 +20,12 @@ public class LoadScene_Mng : MonoBehaviour
     private Collider2D col_pintu2;
     private Collider2D col_pintu3;
     private Collider2D col_pintu4;
-    private CircleCollider2D buttonCollider;
+    private Collider2D col_pintu5;
 
-    private SpriteRenderer spr_RightBtn;
+    private Image spr_RightBtn;
     private SO_LoadSceneInfo currentSceneInfo = null;
 
     public SO_ListSO _so_listSO;
-
-    private bool isPlayerTouchingDoor = false;
 
     void Start()
     {
@@ -34,13 +34,11 @@ public class LoadScene_Mng : MonoBehaviour
         col_pintu2 = pintu2.GetComponent<Collider2D>();
         col_pintu3 = pintu3.GetComponent<Collider2D>();
         col_pintu4 = pintu4.GetComponent<Collider2D>();
-        spr_RightBtn = RightBtn.GetComponent<SpriteRenderer>();
+        col_pintu5 = pintu5.GetComponent<Collider2D>();
 
+        spr_RightBtn = RightBtn.GetComponent<Image>();
         // Ensure the button is hidden at start
         spr_RightBtn.enabled = false;
-
-        // Ensure the button has a collider
-        buttonCollider = RightBtn.GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -62,42 +60,34 @@ public class LoadScene_Mng : MonoBehaviour
         {
             SetDoorScene(col_pintu4, _so_listSO.listSO[3]);
         }
+        else if (col_pintu5.IsTouching(col_player))
+        {
+            SetDoorScene(col_pintu5, _so_listSO.listSO[4]);
+        }
         else
         {
             // Player is not touching any door, reset
-            isPlayerTouchingDoor = false;
             currentSceneInfo = null;
             spr_RightBtn.enabled = false;
         }
 
         // Detect Mouse Click on Button
-        if (isPlayerTouchingDoor && Input.GetMouseButtonDown(0))
-        {
-            CheckButtonClick();
-        }
+//        if (isPlayerTouchingDoor && Input.GetMouseButtonDown(0))
+//        {
+//            CheckButtonClick();
+//        }
     }
 
     void SetDoorScene(Collider2D doorCollider, SO_LoadSceneInfo sceneInfo)
     {
-        isPlayerTouchingDoor = true;
+        //isPlayerTouchingDoor = true;
         currentSceneInfo = sceneInfo;
         spr_RightBtn.enabled = true;
         spr_RightBtn.sprite = sceneInfo._sprite;
     }
 
-    void CheckButtonClick()
+    public void CheckButtonClick()
     {
-        if (currentSceneInfo != null)
-        {
-            // Perform a raycast to check if the button is clicked
-            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePosition2D = new Vector2(mouseWorldPosition.x, mouseWorldPosition.y);
-
-            if (buttonCollider.OverlapPoint(mousePosition2D))
-            {
-                Debug.Log("Button Clicked! Loading Scene: " + currentSceneInfo.sceneName);
-                SceneManager.LoadScene(currentSceneInfo.sceneName);
-            }
-        }
+        SceneManager.LoadScene(currentSceneInfo.sceneName);
     }
 }

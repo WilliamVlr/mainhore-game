@@ -26,7 +26,6 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timerObject = GameObject.FindWithTag("preRoundTimer");
         if(pauseInterface)
         {
             //Debug.Log("ada");
@@ -35,6 +34,10 @@ public class Spawner : MonoBehaviour
         {
             //Debug.Log("gada");
         }
+    }
+    private void Awake()
+    {
+        timerObject = GameObject.FindWithTag("preRoundTimer");
     }
     void Update()
     {

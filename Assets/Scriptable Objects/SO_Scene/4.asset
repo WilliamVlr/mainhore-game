@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e2f1968124fb04badec911f98d6a41, type: 3}
   m_Name: 4
   m_EditorClassIdentifier: 
-  sceneName: STORE
+  sceneName: CUCI TANGAN
   _sprite: {fileID: 21300000, guid: 7927b9032dc11e841af3f9a1353d7ecd, type: 3}
