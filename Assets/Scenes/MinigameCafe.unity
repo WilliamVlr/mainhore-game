@@ -5455,6 +5455,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Button Layout
       objectReference: {fileID: 0}
+    - target: {fileID: 6371388781568727569, guid: 3303d6f9add320d4ca5b958a153f0710, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7427521757212967611, guid: 3303d6f9add320d4ca5b958a153f0710, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 18.024902
