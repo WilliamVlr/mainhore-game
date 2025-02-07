@@ -25,14 +25,19 @@ public class HouseManager : MonoBehaviour
     [DoNotSerialize]
     public bool isFurnitureBeingDragged;
 
-    public void Start()
+    private void Awake()
     {
         // Subscribe to the InventoryManager's event
         inventoryManager = FindObjectOfType<InventoryManager>();
+        inventoryAnimator = inventoryUI.GetComponent<Animator>();
+    }
+
+    public void Start()
+    {
+        
         if (inventoryManager != null)
         {
             inventoryManager.OnUnpackFurniture.AddListener(PlaceFurniture);
-            inventoryAnimator = inventoryUI.GetComponent<Animator>();
         }
 
         isInDecorationMode = false;
@@ -111,7 +116,7 @@ public class HouseManager : MonoBehaviour
         inventoryUI.skinButton.gameObject.SetActive(false);
 
         // Trigger the Inventory open animation
-        inventoryAnimator.SetTrigger("Open");
+        inventoryAnimator.SetBool("isOpen", true);
 
         // Store initial furniture state (positions) before any changes
         //StoreOriginalFurnitureData();
@@ -137,6 +142,11 @@ public class HouseManager : MonoBehaviour
         {
             Debug.Log("Confirmation panel not found!");
         }
+
+        placedFurniture.ForEach(furniture =>
+        {
+            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        });
     }
 
     public void SaveFurniturePosition()
@@ -158,7 +168,7 @@ public class HouseManager : MonoBehaviour
         exitPanel.SetActive(false);
 
         // Trigger the Inventory close animation
-        inventoryAnimator.SetTrigger("Close");
+        inventoryAnimator.SetBool("isOpen", false);
         inventoryUI.skinButton.gameObject.SetActive(true);
 
         // Show the Decoration Mode button again
