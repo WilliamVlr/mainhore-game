@@ -4,10 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinManager : MonoBehaviour
+public class CoinManager : MonoBehaviour, IDataPersistence
 {
     public static CoinManager Instance;
-    public GameObject coin;
+    public int coinAmount;
 
     private void Awake()
     {
@@ -16,52 +16,48 @@ public class CoinManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             CoinManager.Instance.updateUI();
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
-            DontDestroyOnLoad(CoinManager.Instance);
+            DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        updateUI();
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.coinAmount = data.coinAmount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.coinAmount = this.coinAmount;
     }
 
     public void addCoin(int coinValue)
     {
-        Text coinText;
-        int temp = 0;
-        if (coin)
-        {
-            coinText = coin.GetComponent<Text>();
-            temp += (int.Parse(coinText.text) + coinValue);
-            coinText.text = temp.ToString();
-        }
-        else
-        {
-            Debug.LogError("Text component not found on coin GameObject!");
-        }
+        coinAmount += coinValue;
+        updateUI();
     }
 
-    // Method to get the coin text value
-    public string getCoin()
+    public void substractCoin(int coinValue)
     {
-        Text coinText = coin.GetComponent<Text>();
-        if (coinText != null)
-        {
-            return coinText.text; // Return the text value
-        }
-        else
-        {
-            Debug.LogError("Text component not found on coin GameObject!");
-            return "0"; // Return default value
-        }
+        coinAmount -= coinValue;
+        updateUI();
     }
+
     public void updateUI()
     {
-        Text coinText;
+        CoinUI coin = FindAnyObjectByType<CoinUI>();
         if (coin)
         {
-            coinText = coin.GetComponent<Text>();
-            coinText.text = getCoin();
+            coin.setText(coinAmount.ToString());
         }
     }
 }

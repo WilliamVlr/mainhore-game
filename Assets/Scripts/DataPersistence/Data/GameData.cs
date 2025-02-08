@@ -13,7 +13,7 @@ public class GameData
     // the game starts with when there's no data to load
     public GameData()
     {
-        this.username = "ZeeeXyz";
+        this.username = "Ganteng Nomor 1 Duar";
         this.coinAmount = 0;
         //this.activeSkin = "Fox";
     }

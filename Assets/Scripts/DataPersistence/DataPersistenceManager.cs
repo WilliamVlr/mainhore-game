@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+    [Header("File Storage Config")]
+    [SerializeField] private string fileName;
+
     private GameData gameData;
+
+    private List<IDataPersistence> dataPersistenceObjects;
+
+    private FileDataHandler dataHandler;
 
     public static DataPersistenceManager Instance { get; private set; }
 
@@ -22,6 +30,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         loadGame();
     }
 
@@ -32,8 +42,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void loadGame()
     {
-        // TODO - load any saved data from a file using data handler
-
+        // load any saved data from a file using data handler
+        this.gameData = dataHandler.Load();
 
         // if no data can be loaded, initialize a new game (for development only)
         if(this.gameData == null)
@@ -44,19 +54,35 @@ public class DataPersistenceManager : MonoBehaviour
             newGame();
         }
 
-        // TODO - push the loaded data to all other scripts that need it
+        // push the loaded data to all other scripts that need it
+        foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.LoadData(gameData);
+        }
     }
 
     public void saveGame()
     {
-        // TODO - pass the data to other script so they can handle it
+        // pass the data to other script so they can handle it
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.SaveData(ref gameData);
+        }
 
-        // TODO - save that data to a file using the data handler
+        // save that data to a file using the data handler
+        dataHandler.Save(gameData);
 
     }
 
     private void OnApplicationQuit()
     {
         saveGame();
+    }
+
+    private List<IDataPersistence> FindAllDataPersistenceObjects()
+    {
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+
+        return new List<IDataPersistence>(dataPersistenceObjects);
     }
 }
