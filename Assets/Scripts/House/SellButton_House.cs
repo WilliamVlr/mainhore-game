@@ -85,7 +85,12 @@ public class SellButton_House : MonoBehaviour
 
     private void confirmSell()
     {
-        Debug.Log("Selling: " + currentItem.itemName);
+        //Debug.Log("Selling: " + currentItem.itemName);
+        //List<FurnitureBehavior> furnitureChildren = furniture.getFurnitureBehaviorChildren();
+        //foreach (FurnitureBehavior child in furnitureChildren)
+        //{
+        //    child.ResetSortingOrder();
+        //}
         FindObjectOfType<HouseManager>().RemoveFurniture(furniture);
     }
 }

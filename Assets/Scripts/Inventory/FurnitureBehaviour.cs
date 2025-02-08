@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -107,7 +108,7 @@ public class FurnitureBehavior : MonoBehaviour
                     {
                         // Check if the touch is outside the furniture and within the specified range
                         Vector2 touchPosWorld = Camera.main.ScreenToWorldPoint(touch.position);
-                        if (Vector2.Distance(touchPosWorld, transform.position) > 0.1f)
+                        if (Vector2.Distance(touchPosWorld, transform.position) > 0.75f)
                         {
                             hideButton();  // Hide the buttons if touched outside the range
                             activeFurniture = null;
@@ -221,7 +222,7 @@ public class FurnitureBehavior : MonoBehaviour
     }
 
     // Reset sorting order when the furniture reaches the stop position
-    private void ResetSortingOrder()
+    public void ResetSortingOrder()
     {
         transform.SetParent(initialParent, true);
         // Reset the sorting order to the default or desired value
@@ -299,4 +300,20 @@ public class FurnitureBehavior : MonoBehaviour
             sellBtn.SetActive(false);
         }
     }
+
+    public List<FurnitureBehavior> getFurnitureBehaviorChildren()
+    {
+        List<FurnitureBehavior> furnitureBehaviorChildren =new List<FurnitureBehavior>();
+        foreach (Transform child in transform)
+        {
+            FurnitureBehavior childFur = child.GetComponent<FurnitureBehavior>();
+            if (childFur != null)
+            {
+                furnitureBehaviorChildren.Add(childFur);
+            }
+        }
+
+        return furnitureBehaviorChildren;
+    }
+
 }

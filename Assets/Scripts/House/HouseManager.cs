@@ -97,6 +97,11 @@ public class HouseManager : MonoBehaviour
     {
         if (placedFurniture.Contains(furniture))
         {
+            List<FurnitureBehavior> furnitureChildren = furniture.getFurnitureBehaviorChildren();
+            foreach (FurnitureBehavior child in furnitureChildren)
+            {
+                child.ResetSortingOrder();
+            }
             placedFurniture.Remove(furniture);
             Destroy(furniture.gameObject);  // Destroy the furniture object
         }
