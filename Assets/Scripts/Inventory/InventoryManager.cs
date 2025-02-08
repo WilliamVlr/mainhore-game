@@ -75,7 +75,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerInventory.Contains(item))
         {
-            Debug.Log("Removed " + item.itemName + " (from Inventory Manager)");
+            //Debug.Log("Removed " + item.itemName + " (from Inventory Manager)");
             playerInventory.Remove(item);
             UpdateUI();
             InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();

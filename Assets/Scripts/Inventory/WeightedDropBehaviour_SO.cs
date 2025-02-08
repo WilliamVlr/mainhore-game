@@ -10,7 +10,7 @@ public class WeightedDropBehavior_SO : DropBehavior_SO
         if (rb != null)
         {
             rb.isKinematic = false;
-            Debug.Log($"{furniture.name} is now falling to the ground!");
+            //Debug.Log($"{furniture.name} is now falling to the ground!");
         }
         else
         {

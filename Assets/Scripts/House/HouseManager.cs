@@ -25,14 +25,19 @@ public class HouseManager : MonoBehaviour
     [DoNotSerialize]
     public bool isFurnitureBeingDragged;
 
-    public void Start()
+    private void Awake()
     {
         // Subscribe to the InventoryManager's event
         inventoryManager = FindObjectOfType<InventoryManager>();
+        inventoryAnimator = inventoryUI.GetComponent<Animator>();
+    }
+
+    public void Start()
+    {
+        
         if (inventoryManager != null)
         {
             inventoryManager.OnUnpackFurniture.AddListener(PlaceFurniture);
-            inventoryAnimator = inventoryUI.GetComponent<Animator>();
         }
 
         isInDecorationMode = false;
@@ -60,9 +65,10 @@ public class HouseManager : MonoBehaviour
 
             // Define a range for the top spawn position, e.g., 10% below the top of the camera view
             float topSpawnMargin = 0.1f; // 10% margin below the top edge
+            float leftRightSpawnMargin = 0.15f;
 
             // Get random position within the camera bounds
-            float randomX = Random.Range(cameraBottomLeft.x, cameraTopRight.x);
+            float randomX = Random.Range(cameraBottomLeft.x + (cameraTopRight.x - cameraBottomLeft.x) * leftRightSpawnMargin, cameraTopRight.x - (cameraTopRight.x - cameraBottomLeft.x) * leftRightSpawnMargin);
             float randomY = Random.Range(cameraTopRight.y - (cameraTopRight.y - cameraBottomLeft.y) * topSpawnMargin, cameraTopRight.y);
 
             // Create the random position
@@ -111,7 +117,7 @@ public class HouseManager : MonoBehaviour
         inventoryUI.skinButton.gameObject.SetActive(false);
 
         // Trigger the Inventory open animation
-        inventoryAnimator.SetTrigger("Open");
+        inventoryAnimator.SetBool("isOpen", true);
 
         // Store initial furniture state (positions) before any changes
         //StoreOriginalFurnitureData();
@@ -137,6 +143,11 @@ public class HouseManager : MonoBehaviour
         {
             Debug.Log("Confirmation panel not found!");
         }
+
+        placedFurniture.ForEach(furniture =>
+        {
+            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        });
     }
 
     public void SaveFurniturePosition()
@@ -158,7 +169,7 @@ public class HouseManager : MonoBehaviour
         exitPanel.SetActive(false);
 
         // Trigger the Inventory close animation
-        inventoryAnimator.SetTrigger("Close");
+        inventoryAnimator.SetBool("isOpen", false);
         inventoryUI.skinButton.gameObject.SetActive(true);
 
         // Show the Decoration Mode button again

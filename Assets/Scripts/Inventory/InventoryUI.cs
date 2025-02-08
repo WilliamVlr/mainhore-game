@@ -167,4 +167,20 @@ public class InventoryUI : MonoBehaviour
             SetInventoryDragState(false);
         }
     }
+
+    public void toggleInventory()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if(animatorInv != null)
+        {
+            if (animatorInv.GetBool("isOpen"))
+            {
+                animatorInv.SetBool("isOpen", false);
+            } 
+            else
+            {
+                animatorInv.SetBool("isOpen", true);
+            }
+        }
+    }
 }

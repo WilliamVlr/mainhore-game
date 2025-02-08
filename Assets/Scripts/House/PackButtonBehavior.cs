@@ -19,11 +19,6 @@ public class PackButtonBehavior : MonoBehaviour
         }
 
         furniture = GetComponentInParent<FurnitureBehavior>();
-
-        if(furniture != null )
-        {
-            Debug.Log("The parent is " + furniture.furnitureData.itemName);
-        }
     }
 
     void Update()
