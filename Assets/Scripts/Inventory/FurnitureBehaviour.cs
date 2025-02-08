@@ -17,6 +17,7 @@ public class FurnitureBehavior : MonoBehaviour
     private Transform transformer;
     private SpriteRenderer spriteRenderer;
 
+    private Transform initialParent;
     private GameObject sellBtn;
     private GameObject packBtn;
 
@@ -50,6 +51,7 @@ public class FurnitureBehavior : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         house = FindAnyObjectByType<HouseManager>();
         initialOrder = spriteRenderer.sortingOrder;
+        initialParent = transform.parent;
 
         // Disable physics by default
         if (rb != null)
@@ -79,6 +81,7 @@ public class FurnitureBehavior : MonoBehaviour
                 Vector3 touchPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 touchPosition.z = 0;  // Set Z to 0 for 2D view
                 transform.position = touchPosition;
+                hideButton();
             }
 
             // Handle touch/mouse input for dragging
@@ -94,12 +97,17 @@ public class FurnitureBehavior : MonoBehaviour
                         isDragging = true;
                         rb.bodyType = RigidbodyType2D.Dynamic;
                         house.isFurnitureBeingDragged = true;
+                        // Reset sorting order when it reaches the stop position
+                        if (furnitureData.dropBehavior is WeightedDropBehavior_SO)
+                        {
+                            ResetSortingOrder();
+                        }
                     }
                     else
                     {
                         // Check if the touch is outside the furniture and within the specified range
                         Vector2 touchPosWorld = Camera.main.ScreenToWorldPoint(touch.position);
-                        if (Vector2.Distance(touchPosWorld, transform.position) > 1.5f)
+                        if (Vector2.Distance(touchPosWorld, transform.position) > 0.1f)
                         {
                             hideButton();  // Hide the buttons if touched outside the range
                             activeFurniture = null;
@@ -131,6 +139,11 @@ public class FurnitureBehavior : MonoBehaviour
                     isDragging = true;
                     rb.bodyType = RigidbodyType2D.Dynamic;
                     house.isFurnitureBeingDragged = true;
+                    // Reset sorting order when it reaches the stop position
+                    if (furnitureData.dropBehavior is WeightedDropBehavior_SO)
+                    {
+                        ResetSortingOrder();
+                    }
                 }
                 else
                 {
@@ -161,12 +174,7 @@ public class FurnitureBehavior : MonoBehaviour
 
                 // Optionally, stop physics interactions
                 rb.bodyType = RigidbodyType2D.Static;
-
-                // Reset sorting order when it reaches the stop position
-                if(furnitureData.dropBehavior is WeightedDropBehavior_SO)
-                {
-                    ResetSortingOrder();
-                }
+                ResetSortingOrder();
             }
         }
     }
@@ -181,13 +189,14 @@ public class FurnitureBehavior : MonoBehaviour
         // Check for any other furniture objects and get the highest sorting order
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject != gameObject && collider.GetComponent<FurnitureBehavior>() != null)
+            FurnitureBehavior otherFurniture = collider.GetComponent<FurnitureBehavior>();
+            if (collider.gameObject != gameObject && otherFurniture != null && otherFurniture.furnitureData.dropBehavior is WeightedDropBehavior_SO)
             {
                 SpriteRenderer otherRenderer = collider.gameObject.GetComponent<SpriteRenderer>();
                 if (otherRenderer != null)
                 {
                     highestSortingOrder = Mathf.Max(highestSortingOrder, otherRenderer.sortingOrder);
-                    Debug.Log("Highest sorting order: " + highestSortingOrder + " from " + collider.gameObject.name);
+                    Debug.Log("Highest sorting order: " + highestSortingOrder + " from " + collider.gameObject.name + " with order: " + otherRenderer.sortingOrder);
                 }
             }
         }
@@ -199,15 +208,22 @@ public class FurnitureBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ResetSortingOrder();
-        if(collision.collider.GetComponent<FurnitureBehavior>() != null)
+        FurnitureBehavior otherFurniture = collision.collider.GetComponent<FurnitureBehavior>();
+        if (otherFurniture != null && gameObject.layer == 8)
         {
-            AdjustSortingOrder();
+            gameObject.transform.SetParent(collision.gameObject.transform, true);
+            SpriteRenderer otherRenderer = otherFurniture.spriteRenderer;
+            if(otherRenderer != null)
+            {
+                spriteRenderer.sortingOrder = Mathf.Max(spriteRenderer.sortingOrder, otherRenderer.sortingOrder) + 1;
+            }
         }
     }
 
     // Reset sorting order when the furniture reaches the stop position
     private void ResetSortingOrder()
     {
+        transform.SetParent(initialParent, true);
         // Reset the sorting order to the default or desired value
         spriteRenderer.sortingOrder = initialOrder;
     }

@@ -65,9 +65,10 @@ public class HouseManager : MonoBehaviour
 
             // Define a range for the top spawn position, e.g., 10% below the top of the camera view
             float topSpawnMargin = 0.1f; // 10% margin below the top edge
+            float leftRightSpawnMargin = 0.15f;
 
             // Get random position within the camera bounds
-            float randomX = Random.Range(cameraBottomLeft.x, cameraTopRight.x);
+            float randomX = Random.Range(cameraBottomLeft.x + (cameraTopRight.x - cameraBottomLeft.x) * leftRightSpawnMargin, cameraTopRight.x - (cameraTopRight.x - cameraBottomLeft.x) * leftRightSpawnMargin);
             float randomY = Random.Range(cameraTopRight.y - (cameraTopRight.y - cameraBottomLeft.y) * topSpawnMargin, cameraTopRight.y);
 
             // Create the random position

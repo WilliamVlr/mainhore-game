@@ -15,6 +15,6 @@ public class WallSnapBehavior_SO : DropBehavior_SO
             position.y = 2;
         }
         furniture.transform.position = position;
-        Debug.Log($"{furniture.name} snapped to the wall!");
+        //Debug.Log($"{furniture.name} snapped to the wall!");
     }
 }

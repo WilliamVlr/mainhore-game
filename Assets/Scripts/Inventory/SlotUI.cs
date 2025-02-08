@@ -68,8 +68,6 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     // Called when slot is touched
     public virtual void OnSlotTouched()
     {
-        Debug.Log("Touched: " + currentItem.itemName);
-
         // Highlight the slot background
         backgroundImageClicked.gameObject.SetActive(true);
 

@@ -25,11 +25,6 @@ public class SellButton_House : MonoBehaviour
         furniture = GetComponentInParent<FurnitureBehavior>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentItem = furniture.furnitureData;
-
-        if (furniture != null)
-        {
-            Debug.Log("The parent is " + currentItem.itemName);
-        }
     }
 
     void Update()
