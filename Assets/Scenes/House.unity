@@ -2776,6 +2776,7 @@ MonoBehaviour:
   invCapacity: {fileID: 908331104}
   furnitureButton: {fileID: 1075085022}
   skinButton: {fileID: 1409274967}
+  addSlotButton: {fileID: 0}
   inactiveColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 0.8679245, g: 0.83681023, b: 0.81606734, a: 1}
   scrollRect: {fileID: 1125364027}
@@ -6653,7 +6654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 171.555, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2036653164
@@ -7272,16 +7273,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017bf6661d5d99048b7d56b475bffd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDatabase: {fileID: 11400000, guid: f4d8d52e89ef3a942a5bb0f44215b905, type: 2}
   decorationModeButton: {fileID: 279887401}
   characterUI: {fileID: 1776485793}
   otherButtons: {fileID: 178506416}
-  inventoryManager: {fileID: 649665532}
-  inventoryUI: {fileID: 907800004}
   confirmationPanel: {fileID: 311533607}
   exitPanel: {fileID: 82643206}
+  inventoryManager: {fileID: 649665532}
+  inventoryUI: {fileID: 907800004}
   CameraMovement_decor: {fileID: 1891301839}
   furnitureContainer: {fileID: 1975256709}
-  placedFurniture: []
+  listFurnitureBehaviors: []
   isFurnitureBeingDragged: 0
 --- !u!4 &2082978072
 Transform:

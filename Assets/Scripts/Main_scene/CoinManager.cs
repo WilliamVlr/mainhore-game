@@ -25,14 +25,15 @@ public class CoinManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void Start()
-    {
-        updateUI();
-    }
+    //private void Start()
+    //{
+    //    updateUI();
+    //}
 
     public void LoadData(GameData data)
     {
         this.coinAmount = data.coinAmount;
+        updateUI();
     }
 
     public void SaveData(ref GameData data)
@@ -46,8 +47,18 @@ public class CoinManager : MonoBehaviour, IDataPersistence
         updateUI();
     }
 
+    public bool canSubstractCoin(int coinValue)
+    {
+        return coinAmount >= coinValue;
+    }
+
     public void substractCoin(int coinValue)
     {
+        if(coinAmount < coinValue)
+        {
+            Debug.Log("Coin amount not enough to be substracted by "  + coinValue + ".\nCoin Amount value remains = " + coinAmount);
+            return;
+        }
         coinAmount -= coinValue;
         updateUI();
     }

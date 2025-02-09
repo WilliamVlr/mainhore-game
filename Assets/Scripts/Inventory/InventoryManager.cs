@@ -131,13 +131,15 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
             maxCapacity += slotsPerUpgrade; // Increase the inventory capacity by 5 slots
             upgradeCount++; // Increment the number of upgrades purchased
             Debug.Log("Purchased " + slotsPerUpgrade + " inventory slots for " + nextUpgradeCost + " coins!");
+            // TODO - trigger notification panel
         } 
         else
         {
             Debug.Log("Coin not sufficient to upgrade inventory for " + nextUpgradeCost + " coins!");
+            // TODO - trigger notification panel
         }
 
-        
+
     }
 
     // Calculate the cost for the next inventory upgrade

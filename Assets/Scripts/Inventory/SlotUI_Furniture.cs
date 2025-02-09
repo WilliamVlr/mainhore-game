@@ -22,6 +22,6 @@ public class SlotUI_Furniture : SlotUI
     private void unpackItem()
     {
         FindObjectOfType<InventoryManager>().OnUnpackFurniture.Invoke(currentItem as SO_Furniture);
-        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        InventoryManager.Instance.RemoveItem(currentItem);
     }
 }

@@ -15,6 +15,7 @@ public class InventoryUI : MonoBehaviour
     // Add references to the buttons that will filter the inventory
     public Button furnitureButton;
     public Button skinButton;
+    public Button addSlotButton;
     public Color inactiveColor = Color.white;
     public Color activeColor = new Color(0.878f, 0.835f, 0.800f, 1f);
 
@@ -147,6 +148,12 @@ public class InventoryUI : MonoBehaviour
         //ColorBlock colorBlock = button.colors;
         //colorBlock.normalColor = inactiveColor;
         //button.colors = colorBlock;
+    }
+
+    public void OnAddSlotClicked()
+    {
+        // TODO - Trigger Confirmation panel for upgrade inv slot and send 
+
     }
 
     // Detect if inventory UI is being dragged/swiped
