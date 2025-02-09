@@ -1022,11 +1022,6 @@ MonoBehaviour:
   _playerdirection: {fileID: 792061926}
   player: {fileID: 1939925789}
   playerSpeed: 3.5
---- !u!224 &915534321 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8882687468457329244, guid: 91914febccf36414eb7dc8b9db2531fe, type: 3}
-  m_PrefabInstance: {fileID: 3366421923811620892}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1182433123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,10 +2904,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaticCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 3696058313679964854, guid: ad896dd9cd66fbc4bae22336fa2d1d5e, type: 3}
-      propertyPath: _CanvasRect
-      value: 
-      objectReference: {fileID: 915534321}
     - target: {fileID: 4256759687687514062, guid: ad896dd9cd66fbc4bae22336fa2d1d5e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

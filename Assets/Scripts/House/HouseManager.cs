@@ -12,8 +12,8 @@ public class HouseManager : MonoBehaviour, IDataPersistence
 
     [Header("Layout Reference")]
     public GameObject decorationModeButton;       // Decoration Mode button
-    public GameObject characterUI;                // Character-related UI (profile, coins, etc.)
-    public GameObject otherButtons;
+    public CanvasBehavior staticCanvas;
+    public CanvasBehavior coinCanvas;
     public GameObject confirmationPanel;          // Confirmation panel for saving or resetting
     public GameObject exitPanel;
     private Animator inventoryAnimator;            // Animator for inventory UI
@@ -56,8 +56,8 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         exitPanel.GetComponentInChildren<Button>().onClick.AddListener(OnExitDecorationMode);
 
         decorationModeButton.SetActive(true);
-        characterUI.SetActive(true);
-        otherButtons.SetActive(true);
+        coinCanvas.showCanvas();
+        staticCanvas.showCanvas();
         exitPanel.SetActive(false);
     }
 
@@ -133,9 +133,9 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         isInDecorationMode = true;
 
         // Hide character and non-house UI
-        characterUI.SetActive(false);
+        coinCanvas.hideCanvas();
+        staticCanvas.hideCanvas();
         decorationModeButton.SetActive(false);
-        otherButtons.SetActive(false);
         exitPanel.SetActive(true);
 
         //Set up inventory
@@ -190,8 +190,8 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         }
 
         // Show character and non-house UI again
-        characterUI.SetActive(true);
-        otherButtons.SetActive(true);
+        coinCanvas.showCanvas();
+        staticCanvas.showCanvas();
         exitPanel.SetActive(false);
 
         // Trigger the Inventory close animation

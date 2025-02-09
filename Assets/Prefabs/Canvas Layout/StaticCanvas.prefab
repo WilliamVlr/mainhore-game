@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7520335672011021204}
   - component: {fileID: 1095133143877503114}
   - component: {fileID: 4792330462001627669}
+  - component: {fileID: 6573989582819840249}
   m_Layer: 5
   m_Name: StaticCanvas
   m_TagString: Untagged
@@ -116,6 +117,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &6573989582819840249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98369777203207347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee40e22ab2a92e14a895462ca360527b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hideInStart: 0
 --- !u!1 &546838701798389298
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6210662b3015b174b969a5548ba83fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _CanvasRect: {fileID: 0}
+  _CanvasRect: {fileID: 5589175004958947837}
   sim: 0
 --- !u!1 &2315775825797873256
 GameObject:
