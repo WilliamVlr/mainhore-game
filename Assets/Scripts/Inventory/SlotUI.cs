@@ -15,7 +15,6 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     public Button secondButton;      // Second button
     protected SO_item currentItem;   // The item assigned to this slot
     public static SlotUI activeSlot; // To keep track of the currently active slot
-    //public SO_item currentItem;
 
     private void Start()
     {
@@ -88,14 +87,12 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     // Sell the item
     private void onSellItem()
     {
-        ConfirmationManager confMng = FindAnyObjectByType<ConfirmationManager>();
-        ConfirmationBehavior confirmationPanel = confMng.confirmationPanel;
+        ConfirmationBehavior confirmationPanel = FindAnyObjectByType<ConfirmationBehavior>();
 
         if (confirmationPanel != null)
         {
             confirmationPanel.showConfirmSellingPanel(
-                currentItem.price,
-                currentItem.sprite,
+                currentItem,
                 () => confirmSell(),
                 () => Debug.Log("Cancel selling")
             );
@@ -108,8 +105,7 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
 
     private void confirmSell()
     {
-        Debug.Log("Selling: " + currentItem.itemName);
-        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        InventoryManager.Instance.RemoveItem(currentItem);
     }
 
     public abstract void secondAction();

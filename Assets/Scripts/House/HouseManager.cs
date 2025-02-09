@@ -58,7 +58,6 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         decorationModeButton.SetActive(true);
         characterUI.SetActive(true);
         otherButtons.SetActive(true);
-        //confirmationPanel.SetActive(false);  
         exitPanel.SetActive(false);
     }
 

@@ -7,27 +7,38 @@ using UnityEngine.UI;
 
 public class ConfirmationBehavior : MonoBehaviour
 {
-    // Get confirmation panel UI
+    [Header("Decoration Confirmation")]
+    public GameObject decorationConfirmation;
+
+    [Header("Jual Confirmation")]
+    public GameObject jualConfirmation;
+    public TextMeshProUGUI hargaTxt;
+    public Image objJual;
+
+    [Header("Upgrade Inv Confirmation")]
+    public GameObject upgradeInvConfirmation;
+    public TextMeshProUGUI hargaUpgradeTxt;
+
+    [Header("Confirmation Buttons")]
     public Button yesButton;
     public Button noButton;
     public Button closeButton;
-    public GameObject judulDekorGroup;
-    public GameObject judulJualGroup;
-    public GameObject pertanyaanDekor;
-    public GameObject imgContainerObjJual;
-    public Image objJual;
-    public TextMeshProUGUI hargaTxt;
 
     // This will hold the actions to be triggered on Yes/No button click
     private UnityAction yesAction;
     private UnityAction noAction;
 
+    private CanvasGroup confirmCanvasGroup;
+
+    private void Awake()
+    {
+        confirmCanvasGroup = transform.parent.transform.parent.GetComponent<CanvasGroup>();
+    }
+
     // Initialize panel
     void Start()
     {
-        //panel = gameObject;
-
-        gameObject.SetActive(false);
+        hideCanvas();
         closeButton.onClick.AddListener(closeConfirmationPanel);
         yesButton.onClick.AddListener(OnYesClicked);
         noButton.onClick.AddListener(OnNoClicked);
@@ -35,38 +46,50 @@ public class ConfirmationBehavior : MonoBehaviour
         resetPanel();
     }
 
-    public void showConfirmSellingPanel(int harga, Sprite itemImg, UnityAction onYes, UnityAction onNo)
+    public void showCanvas()
+    {
+        confirmCanvasGroup.alpha = 1;
+        confirmCanvasGroup.interactable = true;
+        confirmCanvasGroup.blocksRaycasts = true;
+    }
+
+    public void hideCanvas()
+    {
+        confirmCanvasGroup.alpha = 0;
+        confirmCanvasGroup.interactable = false;
+        confirmCanvasGroup.blocksRaycasts = false;
+    }
+
+    public void showConfirmSellingPanel(SO_item item, UnityAction onYes, UnityAction onNo)
     {
         // Activate selling panel first
-        judulJualGroup.SetActive(true);
-        imgContainerObjJual.SetActive(true);
+        jualConfirmation.gameObject.SetActive(true);
 
-        hargaTxt.text = harga.ToString();  // Set the price text
-        objJual.sprite = itemImg;
+        hargaTxt.text = item.price.ToString();  // Set the price text
+        objJual.sprite = item.sprite;
         objJual.SetNativeSize();
         float height = objJual.GetComponent<RectTransform>().rect.height;
 
-        if (height > 500f)
+        if (height > 600f)
         {
-            objJual.rectTransform.localScale = new Vector3(0.18f, 0.18f, 0);
+            objJual.rectTransform.localScale = new Vector3(0.25f, 0.25f, 0);
         }
         else
         {
-            objJual.rectTransform.localScale = new Vector3(0.3f, 0.3f, 0);
+            objJual.rectTransform.localScale = new Vector3(0.4f, 0.4f, 0);
         }
 
         // Assign the actions to the buttons
         yesAction = onYes;
         noAction = onNo;
 
-        gameObject.SetActive(true);
-
         // Force layout update on all children inside the 'judulJualGroup'
-        foreach (Transform child in judulJualGroup.transform)
+        foreach (Transform child in jualConfirmation.transform)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(child.GetComponent<RectTransform>());
         }
 
+        showCanvas();
     }
 
 
@@ -76,26 +99,42 @@ public class ConfirmationBehavior : MonoBehaviour
         yesAction = onYes;
         noAction = onNo;
 
-        judulDekorGroup.SetActive(true);
-        pertanyaanDekor.SetActive(true);
+        decorationConfirmation.SetActive(true);
 
-        gameObject.SetActive(true);
+        showCanvas();
+    }
+
+    public void showConfirmBuyInv(int price, UnityAction onYes, UnityAction onNo)
+    {
+        yesAction = onYes;
+        noAction = onNo;
+
+        hargaUpgradeTxt.text = price.ToString();
+
+        upgradeInvConfirmation.SetActive(true);
+
+        // Force layout update on all children inside the 'judulJualGroup'
+        foreach (Transform child in upgradeInvConfirmation.transform)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(child.GetComponent<RectTransform>());
+        }
+
+        showCanvas();
     }
 
 
     public void closeConfirmationPanel()
     {
+        hideCanvas();
         resetPanel();
-        gameObject.SetActive(false);
     }
 
     private void resetPanel()
     {
         objJual.sprite = null;
-        judulDekorGroup.SetActive(false);
-        pertanyaanDekor.SetActive(false);
-        judulJualGroup.SetActive(false);
-        imgContainerObjJual.SetActive(false);
+        decorationConfirmation.SetActive(false);
+        jualConfirmation.SetActive(false);
+        upgradeInvConfirmation.SetActive(false);
     }
 
     private void OnYesClicked()

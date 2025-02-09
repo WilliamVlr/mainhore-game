@@ -123,7 +123,8 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
         int nextUpgradeCost = CalculateUpgradeCost();
 
         //Check
-        bool isSufficient = CoinManager.Instance.canSubstractCoin(nextUpgradeCost);
+        //bool isSufficient = CoinManager.Instance.canSubstractCoin(nextUpgradeCost);
+        bool isSufficient = false;
 
         if (isSufficient)
         {

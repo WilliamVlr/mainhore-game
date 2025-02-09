@@ -65,14 +65,12 @@ public class SellButton_House : MonoBehaviour
 
     private void onSellItem()
     {
-        ConfirmationManager confMng = FindAnyObjectByType<ConfirmationManager>();
-        ConfirmationBehavior confirmationPanel = confMng.confirmationPanel;
+        ConfirmationBehavior confirmationPanel = FindAnyObjectByType<ConfirmationBehavior>();
 
         if (confirmationPanel != null)
         {
             confirmationPanel.showConfirmSellingPanel(
-                currentItem.price,
-                currentItem.sprite,
+                currentItem,
                 () => confirmSell(),
                 () => Debug.Log("Cancel selling")
             );

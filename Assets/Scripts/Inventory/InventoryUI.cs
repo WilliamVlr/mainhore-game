@@ -30,8 +30,14 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         // Set up button click listeners
+        furnitureButton.onClick.RemoveAllListeners();
+        skinButton.onClick.RemoveAllListeners();
+        addSlotButton.onClick.RemoveAllListeners();
+
         furnitureButton.onClick.AddListener(ShowFurniture);
         skinButton.onClick.AddListener(ShowSkins);
+        addSlotButton.onClick.AddListener(OnAddSlotClicked);
+
         SetButtonInactive(furnitureButton);
         SetButtonInactive(skinButton);
 
@@ -166,7 +172,20 @@ public class InventoryUI : MonoBehaviour
 
     public void OnAddSlotClicked()
     {
-        // TODO - Trigger Confirmation panel for upgrade inv slot and send 
+        ConfirmationBehavior confirmPanel = FindAnyObjectByType<ConfirmationBehavior>();
+
+        if( confirmPanel != null )
+        {
+            confirmPanel.showConfirmBuyInv(
+                InventoryManager.Instance.CalculateUpgradeCost(),
+                InventoryManager.Instance.PurchaseInventorySlot,
+                () => Debug.Log("Cancel upgrade inventory")
+                );
+        }
+        else
+        {
+            Debug.LogWarning("Confirmation Panel not found!");
+        }
 
     }
 
