@@ -6,13 +6,18 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [Header("Slots Prefabs and Container")]
     public GameObject slotPrefabFurniture; // Prefab for inventory slots
     public GameObject slotPrefabSkin;
     public Transform slotContainer; // Parent object for slots
+
+    [Header("Inventory Texts")]
     public TextMeshProUGUI invMax;
     public TextMeshProUGUI invCapacity;
+    public TextMeshProUGUI isEmpty;
 
     // Add references to the buttons that will filter the inventory
+    [Header("Buttons")]
     public Button furnitureButton;
     public Button skinButton;
     public Button addSlotButton;
@@ -49,6 +54,15 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform child in slotContainer)
         {
             Destroy(child.gameObject);
+        }
+
+        if(InventoryManager.Instance.playerInventory.Count == 0)
+        {
+            isEmpty.gameObject.SetActive(true);
+        } 
+        else
+        {
+            isEmpty.gameObject.SetActive(false);
         }
 
         // Create new slots

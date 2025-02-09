@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class ConfirmationBehavior : MonoBehaviour
 {
-    //Get confirmation panel UI
-    //GameObject panel;
+    // Get confirmation panel UI
     public Button yesButton;
     public Button noButton;
     public Button closeButton;
