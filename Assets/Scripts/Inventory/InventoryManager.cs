@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, IDataPersistence
 {
     public static InventoryManager Instance; // Singleton instance
     public List<SO_item> playerInventory = new List<SO_item>(); // Bag inventory
@@ -89,32 +89,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // Save inventory to a list of IDs
-    public List<string> SaveInventory()
-    {
-        List<string> savedIDs = new List<string>();
-        foreach (SO_item item in playerInventory)
-        {
-            savedIDs.Add(item.ID);
-        }
-        return savedIDs;
-    }
-
-    // Load inventory from a list of IDs
-    public void LoadInventory(List<string> savedIDs)
-    {
-        playerInventory.Clear();
-        foreach (string id in savedIDs)
-        {
-            SO_item item = itemDatabase.GetItemByID(id);
-            if (item != null)
-            {
-                playerInventory.Add(item);
-            }
-        }
-        UpdateUI();
-    }
-
     // Update the inventory UI
     private void UpdateUI()
     {
@@ -141,31 +115,33 @@ public class InventoryManager : MonoBehaviour
         return filteredItems;
     }
 
-    // Purchase more inventory space with coins
-    public bool PurchaseInventorySlot()
+    // Purchase more inventory space with coins will called only if player have enough coins
+    public void PurchaseInventorySlot()
     {
         // Calculate the cost of the next upgrade
         int nextUpgradeCost = CalculateUpgradeCost();
-        //bool enoughCoin = PlayerManager.Instance.SubtractCoins(nextUpgradeCost);
-        bool enoughCoin = true;
 
-        // Check if the player has enough coins
-        if (enoughCoin)
+        //Check
+        bool isSufficient = CoinManager.Instance.canSubstractCoin(nextUpgradeCost);
+
+        if (isSufficient)
         {
+            // Substract player coin
+            CoinManager.Instance.substractCoin(nextUpgradeCost);
             maxCapacity += slotsPerUpgrade; // Increase the inventory capacity by 5 slots
             upgradeCount++; // Increment the number of upgrades purchased
             Debug.Log("Purchased " + slotsPerUpgrade + " inventory slots for " + nextUpgradeCost + " coins!");
-            return true;
-        }
+        } 
         else
         {
-            Debug.Log("Not enough coins to purchase more slots!");
-            return false;
+            Debug.Log("Coin not sufficient to upgrade inventory for " + nextUpgradeCost + " coins!");
         }
+
+        
     }
 
     // Calculate the cost for the next inventory upgrade
-    private int CalculateUpgradeCost()
+    public int CalculateUpgradeCost()
     {
         if (upgradeCount == 0)
         {
@@ -176,5 +152,30 @@ public class InventoryManager : MonoBehaviour
             // Multiply the cost by 2.5 for each subsequent upgrade
             return Mathf.CeilToInt(initialUpgradeCost * Mathf.Pow(2.5f, upgradeCount));
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        playerInventory.Clear();
+        foreach (string id in data.inventoryItemsID.list)
+        {
+            SO_item item = itemDatabase.GetItemByID(id);
+            if (item != null)
+            {
+                playerInventory.Add(item);
+            }
+        }
+        this.maxCapacity = data.inventoryMaxCap;
+        UpdateUI();
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.inventoryItemsID.list.Clear();
+        foreach(SO_item item in playerInventory)
+        {
+            data.inventoryItemsID.list.Add(item.ID);
+        }
+        data.inventoryMaxCap = this.maxCapacity;
     }
 }

@@ -7,14 +7,25 @@ public class GameData
 {
     public string username;
     public int coinAmount;
-    //public string activeSkin;
+    public string activeSkin;
+
+    public JsonableListWrapper<string> inventoryItemsID;
+    public int inventoryMaxCap;
+    //public List<string> placedFurnituresID;
 
     // the values defined in this constructor will be the default values
     // the game starts with when there's no data to load
-    public GameData()
+    public GameData() //TODO - add parameter string _usn from user input and chosen initial skin
     {
+        // TODO - set username to username the user typed
         this.username = "Ganteng Nomor 1 Duar";
+
+        //TODO - set user active skin to chosen skin
+        this.activeSkin = "Fox";
+
+        // Set initial default value for each player attributes
         this.coinAmount = 0;
-        //this.activeSkin = "Fox";
+        this.inventoryItemsID = new JsonableListWrapper<string>();
+        this.inventoryMaxCap = 10;
     }
 }
