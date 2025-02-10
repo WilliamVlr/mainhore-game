@@ -184,6 +184,10 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
         {
             inventoryUI.ShowFurniture();
         }
+        else
+        {
+            Debug.Log("Inventory UI is null");
+        }
     }
 
     public void SaveData(ref GameData data)

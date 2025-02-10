@@ -18,8 +18,6 @@ public class SlotUI_Skin : SlotUI
 
     private void useSkin()
     {
-        Debug.Log("Memakai: " + currentItem.itemName);
-        //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
         AvatarManager avatarMng = FindAnyObjectByType<AvatarManager>();
         if (avatarMng != null)
         {
