@@ -896,6 +896,7 @@ GameObject:
   - component: {fileID: 3057626713858018338}
   - component: {fileID: 6460557317953337899}
   - component: {fileID: 8061653969934618576}
+  - component: {fileID: 2034428508172433760}
   m_Layer: 5
   m_Name: Inventory Canvas
   m_TagString: Untagged
@@ -986,6 +987,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &2034428508172433760
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3475613179449089329}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4044923418260781497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,6 +2196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1301d45103943da47ae8864d577571a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 2034428508172433760}
   slotPrefabFurniture: {fileID: 6637825887584104055, guid: 698b264ea192a7c438a8806213aa85ee, type: 3}
   slotPrefabSkin: {fileID: 2193568645099571117, guid: 9b52ea9cd56343043bf3c67629c226d8, type: 3}
   slotContainer: {fileID: 1939125844001785137}

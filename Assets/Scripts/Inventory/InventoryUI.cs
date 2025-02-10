@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [Header("Canvas Group")]
+    public CanvasGroup canvasGroup;
+
     [Header("Slots Prefabs and Container")]
     public GameObject slotPrefabFurniture; // Prefab for inventory slots
     public GameObject slotPrefabSkin;
@@ -43,6 +46,7 @@ public class InventoryUI : MonoBehaviour
 
         // Initially display all items (no filter)
         //ShowAllItems();
+        showCanvas();
         ShowFurniture();
 
         // Attach listener for scroll events
@@ -51,6 +55,30 @@ public class InventoryUI : MonoBehaviour
             // Detect if scrolling starts
             scrollRect.onValueChanged.AddListener(OnScroll);
         }
+    }
+
+    public void showCanvas()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if (animatorInv != null)
+        {
+            animatorInv.SetBool("isOpen", false);
+        }
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    public void hideCanvas()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if (animatorInv != null)
+        {
+            animatorInv.SetBool("isOpen", false);
+        }
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 
     // Refresh the UI slots

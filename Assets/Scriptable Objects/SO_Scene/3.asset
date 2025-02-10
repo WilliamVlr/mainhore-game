@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   sceneName: MinigameCafe
-  _sprite: {fileID: 21300000, guid: 4cbc879550e5e374a925e2e0a84d6f3c, type: 3}
+  _sprite: {fileID: 21300000, guid: f650e5a85072af147a075503960fa0c7, type: 3}
