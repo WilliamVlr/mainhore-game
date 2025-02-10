@@ -8,4 +8,6 @@ public class SO_Skin : SO_item
     public int sellPrice;
     public float scale_inSlot;
     //Jangan lupa tambahin skin animation
+    public SO_PlayerAnim idleAnimation;
+    public SO_MovingAnim movingAnimation;
 }

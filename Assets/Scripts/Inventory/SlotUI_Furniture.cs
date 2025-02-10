@@ -8,7 +8,8 @@ public class SlotUI_Furniture : SlotUI
     public override void OnSlotTouched()
     {
         base.OnSlotTouched();
-        if(FindObjectOfType<HouseManager>().IsInDecorationMode)
+        HouseManager house = FindObjectOfType<HouseManager>();
+        if (house != null && house.IsInDecorationMode)
         {
             secondButton.gameObject.SetActive(true);
         }

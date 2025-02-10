@@ -20,5 +20,16 @@ public class SlotUI_Skin : SlotUI
     {
         Debug.Log("Memakai: " + currentItem.itemName);
         //FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        AvatarManager avatarMng = FindAnyObjectByType<AvatarManager>();
+        if (avatarMng != null)
+        {
+            SO_Skin oldSkin = avatarMng.changeSkin((SO_Skin)currentItem);
+            InventoryManager.Instance.RemoveItem(currentItem);
+            InventoryManager.Instance.AddItem(oldSkin);
+        }
+        else
+        {
+            Debug.LogWarning("Avatar Manager not found! Maybe it is inactive or not in this scene!");
+        }
     }
 }

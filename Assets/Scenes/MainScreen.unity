@@ -1199,6 +1199,7 @@ GameObject:
   - component: {fileID: 792061925}
   - component: {fileID: 792061927}
   - component: {fileID: 792061926}
+  - component: {fileID: 792061928}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -1249,9 +1250,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementJoystick: {fileID: 3041977343833721855}
   background: {fileID: 1947567843}
+  backgroundLeftLimit: 20
+  backgroundRightLimit: 20
   _playerdirection: {fileID: 792061926}
   player: {fileID: 1939925789}
   playerSpeed: 3.5
+--- !u!114 &792061928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792061924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 002f5d960d6e56e41830573a5e0ee109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSkin: {fileID: 0}
+  itemDatabase: {fileID: 11400000, guid: f4d8d52e89ef3a942a5bb0f44215b905, type: 2}
 --- !u!1 &1182433123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,7 +2181,7 @@ Transform:
   m_GameObject: {fileID: 1939925789}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -7.5, z: 0}
+  m_LocalPosition: {x: 0, y: -7.4999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2206,6 +2223,7 @@ MonoBehaviour:
   idleAnimList: {fileID: 11400000, guid: 1c4aa26eddd09c44b9944141d1b24d42, type: 2}
   moveAnimList: {fileID: 11400000, guid: e8fbff3cd703a2b4496819c18d63402c, type: 2}
   animator: {fileID: 1939925796}
+  avatarManager: {fileID: 792061928}
   movementJoystick: {fileID: 3041977343833721855}
 --- !u!70 &1939925798
 CapsuleCollider2D:
@@ -3020,7 +3038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 171.555
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.y

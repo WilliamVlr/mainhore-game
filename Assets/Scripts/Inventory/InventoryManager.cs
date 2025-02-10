@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Timeline;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour, IDataPersistence
 {
@@ -178,6 +179,11 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
         }
         this.maxCapacity = data.inventoryMaxCap;
         UpdateUI();
+        InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
+        if (inventoryUI != null)
+        {
+            inventoryUI.ShowFurniture();
+        }
     }
 
     public void SaveData(ref GameData data)

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5260504a7237274ab144dd4105b2871, type: 3}
-  m_Name: Beruang
+  m_Name: Bunny
   m_EditorClassIdentifier: 
-  id: Beruang
-  itemName: Beruang
-  sprite: {fileID: 21300000, guid: cad68acb01f5b1149a4735230d59b481, type: 3}
+  id: Bunny
+  itemName: Bunny
+  sprite: {fileID: 21300000, guid: 48e9ac0fd8637c54a9b96fbeebd30735, type: 3}
   price: 1000
   desc: 
   place: 0
-  sellPrice: 550
+  sellPrice: 400
   scale_inSlot: 0.9
-  idleAnimation: {fileID: 11400000, guid: b0612a1ca998f264da47789ed5c07c4e, type: 2}
-  movingAnimation: {fileID: 11400000, guid: 8a264388846e65d4cbc8d98e53621681, type: 2}
+  idleAnimation: {fileID: 11400000, guid: 51868a15f44ef3c4eb276061071e9f48, type: 2}
+  movingAnimation: {fileID: 11400000, guid: dcbfa55871a39fb42a9d80e86eff737c, type: 2}

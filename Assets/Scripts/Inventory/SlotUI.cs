@@ -49,12 +49,15 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     // Called when the slot is touched or clicked (pointer down event)
     public void OnPointerDown(PointerEventData eventData)
     {
+        //Debug.Log("Touched slot " + currentItem.name);
+        //Debug.Log("Active slot old is " + activeSlot.name);
         if (activeSlot != null && activeSlot != this)
         {
             activeSlot.OnSlotUntouched(); // Hide the previously active slot
         }
 
         activeSlot = this; // Mark this slot as active
+        //Debug.Log("Active slot new is " + activeSlot.name);
         OnSlotTouched();
     }
 
@@ -67,11 +70,14 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     // Called when slot is touched
     public virtual void OnSlotTouched()
     {
+        Debug.Log("OnSlotTouched called");
         // Highlight the slot background
+        Debug.Log("Background image clicked before: " + backgroundImageClicked.gameObject.activeSelf);
         backgroundImageClicked.gameObject.SetActive(true);
+        Debug.Log("Background image clicked after: " + backgroundImageClicked.gameObject.activeSelf);
 
         // Show item name and sell button
-        itemLabel.gameObject.SetActive(true);
+        itemLabel.SetActive(true);
         sellButton.gameObject.SetActive(true);
     }
 
@@ -79,7 +85,7 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
     public void OnSlotUntouched()
     {
         backgroundImageClicked.gameObject.SetActive(false); // Hide clicked layout by default
-        itemLabel.gameObject.SetActive(false); // Hide item name by default
+        itemLabel.SetActive(false); // Hide item name by default
         sellButton.gameObject.SetActive(false); // Hide sell button by default
         secondButton.gameObject.SetActive(false); // Hide sell button by default
     }
