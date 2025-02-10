@@ -14,6 +14,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     public GameObject decorationModeButton;       // Decoration Mode button
     public CanvasBehavior staticCanvas;
     public CanvasBehavior coinCanvas;
+    public CanvasBehavior joystickCanvas;
     public GameObject confirmationPanel;          // Confirmation panel for saving or resetting
     public GameObject exitPanel;
     private Animator inventoryAnimator;            // Animator for inventory UI
@@ -58,6 +59,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         decorationModeButton.SetActive(true);
         coinCanvas.showCanvas();
         staticCanvas.showCanvas();
+        joystickCanvas.showCanvas();
         exitPanel.SetActive(false);
     }
 
@@ -131,6 +133,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     public void OnEnterDecorationMode()
     {
         isInDecorationMode = true;
+        joystickCanvas.hideCanvas();
 
         // Hide character and non-house UI
         coinCanvas.hideCanvas();
@@ -182,11 +185,12 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     void OnExitDecorationModeCleanup()
     {
         isInDecorationMode = false;
+        joystickCanvas.showCanvas();
 
         // reset all placed furnitures body type into Static
         foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
         {
-            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
 
         // Show character and non-house UI again
@@ -217,7 +221,9 @@ public class HouseManager : MonoBehaviour, IDataPersistence
             if (item != null && item is SO_Furniture)
             {
                 SO_Furniture itemFurniture = (SO_Furniture)item;
-                GameObject newFurniture = Instantiate(itemFurniture.furniturePrefab, pair.Value, Quaternion.identity, furnitureContainer);
+                GameObject newFurniture = Instantiate(itemFurniture.furniturePrefab, Vector3.zero, Quaternion.identity, furnitureContainer);
+                newFurniture.transform.localPosition = pair.Value;
+
                 newFurniture.name = itemFurniture.itemName;
 
                 // Initialize the furniture with the appropriate behavior
@@ -229,6 +235,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
                 placedFurnitures.TryAdd(itemFurniture.ID, newFurniture.transform.position);  // Add to the list of placed furniture
                 listFurnitureBehaviors.Add(behavior);
                 itemFurniture.dropBehavior.HandleDrop(newFurniture);
+                behavior.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             }
 
         }
@@ -259,7 +266,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
                 FurnitureBehavior fur = listFurnitureBehaviors[i];
                 if (keyID.Equals(fur.furnitureData.ID))
                 {
-                    placedFurnitures[keyID] = fur.transform.position;
+                    placedFurnitures[keyID] = fur.transform.localPosition;
                 }
             }
         }

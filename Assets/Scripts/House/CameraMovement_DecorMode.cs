@@ -36,6 +36,7 @@ public class CameraMovement_DecorMode : MonoBehaviour
         {
             if(!houseManager.isFurnitureBeingDragged && !InventoryUI.isInventoryBeingDragged)
             {
+                //Debug.Log("Handle camera movement on");
                 HandleCameraMovement();
             }
         }

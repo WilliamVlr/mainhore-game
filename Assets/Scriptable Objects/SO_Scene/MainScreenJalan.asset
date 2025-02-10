@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62e2f1968124fb04badec911f98d6a41, type: 3}
-  m_Name: 1
+  m_Name: MainScreenJalan
   m_EditorClassIdentifier: 
-  sceneName: Grocery
-  _sprite: {fileID: 21300000, guid: c7cf163f4bb0f02419b68ce27e6734d3, type: 3}
+  sceneName: MainScreen
+  _sprite: {fileID: 21300000, guid: 675105e24a857774fba038bdf02a26fe, type: 3}
