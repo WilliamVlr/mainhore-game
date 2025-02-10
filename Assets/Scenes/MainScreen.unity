@@ -3030,6 +3030,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4250407080286487094, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
+      propertyPath: intializeDataIfNull
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
       propertyPath: m_Name
       value: DataPersistenceManager
@@ -3847,14 +3851,14 @@ SceneRoots:
   m_Roots:
   - {fileID: 567114025}
   - {fileID: 455864700}
+  - {fileID: 3366421923811620892}
+  - {fileID: 2094259590}
   - {fileID: 3344671612490413315}
   - {fileID: 1303288924}
   - {fileID: 2275674335237234870}
   - {fileID: 5649069700475706670}
   - {fileID: 726635697}
   - {fileID: 8953503}
-  - {fileID: 2094259590}
-  - {fileID: 3366421923811620892}
   - {fileID: 7209987666095287640}
   - {fileID: 8417076634376906312}
   - {fileID: 1471290905}

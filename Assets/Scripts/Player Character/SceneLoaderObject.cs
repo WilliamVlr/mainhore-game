@@ -24,15 +24,18 @@ public class SceneLoaderObject : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            sceneLoaderButton.gameObject.SetActive(false);
-            sceneLoaderButton.GetComponent<Image>().sprite = null;
-            sceneLoaderButton.onClick.RemoveAllListeners();
+            if (sceneLoaderButton != null)
+            {
+                sceneLoaderButton.gameObject.SetActive(false);
+                sceneLoaderButton.GetComponent<Image>().sprite = null;
+                sceneLoaderButton.onClick.RemoveAllListeners();
+            }
         }
     }
 
     public void loadScene()
     {
-        SceneManager.LoadScene(sceneInfo.sceneName);
+        SceneManager.LoadSceneAsync(sceneInfo.sceneName);
     }
 
 }

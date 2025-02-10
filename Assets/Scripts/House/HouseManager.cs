@@ -4,6 +4,7 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.Collections;
 
 public class HouseManager : MonoBehaviour, IDataPersistence
 {
@@ -264,9 +265,12 @@ public class HouseManager : MonoBehaviour, IDataPersistence
             for(int i = 0; i < listFurnitureBehaviors.Count; i++)
             {
                 FurnitureBehavior fur = listFurnitureBehaviors[i];
-                if (keyID.Equals(fur.furnitureData.ID))
+                if(fur != null)
                 {
-                    placedFurnitures[keyID] = fur.transform.localPosition;
+                    if (keyID.Equals(fur.furnitureData.ID))
+                    {
+                        placedFurnitures[keyID] = fur.transform.localPosition;
+                    }
                 }
             }
         }

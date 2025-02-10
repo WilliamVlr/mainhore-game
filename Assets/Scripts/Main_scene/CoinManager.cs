@@ -15,7 +15,6 @@ public class CoinManager : MonoBehaviour, IDataPersistence
 
         if (Instance != null && Instance != this)
         {
-            CoinManager.Instance.updateUI();
             Destroy(gameObject);
         }
         else
@@ -25,15 +24,15 @@ public class CoinManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    //private void Start()
-    //{
-    //    updateUI();
-    //}
+    private void Start()
+    {
+        updateUI();
+    }
 
     public void LoadData(GameData data)
     {
         this.coinAmount = data.coinAmount;
-        updateUI();
+        CoinManager.Instance.updateUI();
     }
 
     public void SaveData(ref GameData data)

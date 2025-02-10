@@ -66,6 +66,6 @@ public class LoadScene_Mng : MonoBehaviour
 
     public void CheckButtonClick()
     {
-        SceneManager.LoadScene(currentSceneInfo.sceneName);
+        SceneManager.LoadSceneAsync(currentSceneInfo.sceneName);
     }
 }
