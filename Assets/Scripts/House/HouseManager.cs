@@ -233,7 +233,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
                 {
                     behavior.Initialize(itemFurniture);
                 }
-                placedFurnitures.TryAdd(itemFurniture.ID, newFurniture.transform.position);  // Add to the list of placed furniture
+                placedFurnitures.TryAdd(itemFurniture.ID, newFurniture.transform.localPosition);  // Add to the list of placed furniture
                 listFurnitureBehaviors.Add(behavior);
                 itemFurniture.dropBehavior.HandleDrop(newFurniture);
                 behavior.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
@@ -253,6 +253,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         {
             data.placedFurnitures.TryAdd(pair.Key, pair.Value);
         }
+        data.mainBackgroundPos = new Vector3(11, 0, 0);
     }
 
     private void updateFurniturePosition()

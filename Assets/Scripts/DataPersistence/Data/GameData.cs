@@ -13,6 +13,7 @@ public class GameData
     public int inventoryMaxCap;
 
     public JsonableDictionaryWrapper<string, Vector3> placedFurnitures;
+    public Vector3 mainBackgroundPos;
 
     // the values defined in this constructor will be the default values
     // the game starts with when there's no data to load
@@ -29,5 +30,6 @@ public class GameData
         this.inventoryItemsID = new JsonableListWrapper<string>();
         this.inventoryMaxCap = 10;
         this.placedFurnitures = new JsonableDictionaryWrapper<string, Vector3>();
+        this.mainBackgroundPos = new Vector3(11, 0, 0);
     }
 }

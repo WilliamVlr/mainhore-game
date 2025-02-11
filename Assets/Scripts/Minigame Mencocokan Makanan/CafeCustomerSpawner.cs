@@ -39,7 +39,10 @@ public class CafeCustomerSpawner : MonoBehaviour
     private void HandleCustomerDestroyed()
     {
         // Start the coroutine to wait and spawn a new customer
-        StartCoroutine(WaitAndSpawnCustomer(1f, 3f));
+        if(this != null)
+        {
+            StartCoroutine(WaitAndSpawnCustomer(1f, 3f));
+        }
     }
 
     private IEnumerator WaitAndSpawnCustomer(float upper, float lower)
