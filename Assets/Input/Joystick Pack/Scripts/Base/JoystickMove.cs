@@ -7,6 +7,8 @@ public class JoystickMove : MonoBehaviour
 {
     public Joystick movementJoystick;
     public GameObject background;
+    public float backgroundLeftLimit;
+    public float backgroundRightLimit;
     public PlayerDirection _playerdirection;
 
     public GameObject player;
@@ -37,7 +39,7 @@ public class JoystickMove : MonoBehaviour
 
         _playerdirection.setDirection(movementJoystick);
 
-        if (backgroundPosition.x <= -20 || backgroundPosition.x >= 20)
+        if (backgroundPosition.x <= -(backgroundRightLimit) || backgroundPosition.x >= backgroundLeftLimit)
         {
             if (Mathf.Abs(playerPosition.x) < 0.3 && notmid == 1)
             {

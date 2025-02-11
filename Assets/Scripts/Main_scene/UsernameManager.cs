@@ -3,35 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UsernameManager : MonoBehaviour
+public class UsernameManager : MonoBehaviour, IDataPersistence //attached to username UI text field
 {
-    public GameObject Username;
+    private Text UsernameText;
 
+    private void Awake()
+    {
+        UsernameText = GetComponent<Text>();
+    }
+
+    public void LoadData(GameData data)
+    {
+        UsernameText.text = data.username;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.username = UsernameText.text;
+    }
     public void setUsername(string _username)
     {
-        Text UsernameText = Username.GetComponent<Text>();
-        if (UsernameText != null)
-        {
-            UsernameText.text = _username; // set the text
-        }
-        else
-        {
-            Debug.LogError("Text component not found on Username GameObject!");
-        }
+        UsernameText.text = _username;
     }
 
     public string getUsername()
     {
-        Text UsernameText = Username.GetComponent<Text>();
-        if (UsernameText != null)
+        if(UsernameText == null)
         {
-            //Debug.Log(UsernameText.text);
-            return UsernameText.text; // Return the text value
+            return "Default Username";
         }
-        else
-        {
-            Debug.LogError("Text component not found on Username GameObject!");
-            return "Username"; // Return default value
-        }
+        return UsernameText.text;
     }
 }

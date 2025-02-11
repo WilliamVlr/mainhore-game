@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class UserDataManager : MonoBehaviour
 {
-    public UsernameManager UsernameManager;
-    public CoinManager CoinManager;
+    //public UsernameManager UsernameManager;
+    //public CoinManager CoinManager;
 
-    private void Start()
-    {
-        getUserData();
-    }
-    private void Update()
-    {
+    //private void Start()
+    //{
+    //    getUserData();
+    //}
+    //private void Update()
+    //{
 
-    }
-    void getUserData()
-    {
-        string username, coin;
-        username = UsernameManager.getUsername();
-        coin = CoinManager.getCoin();
+    //}
+    //void getUserData()
+    //{
+    //    string username, coin;
+    //    username = UsernameManager.getUsername();
+    //    coin = CoinManager.getCoin();
 
-        Debug.Log(username);
-        Debug.Log(coin);
-    }
+    //    Debug.Log(username);
+    //    Debug.Log(coin);
+    //}
 }

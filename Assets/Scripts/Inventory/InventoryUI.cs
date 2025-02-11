@@ -6,15 +6,24 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [Header("Canvas Group")]
+    public CanvasGroup canvasGroup;
+
+    [Header("Slots Prefabs and Container")]
     public GameObject slotPrefabFurniture; // Prefab for inventory slots
     public GameObject slotPrefabSkin;
     public Transform slotContainer; // Parent object for slots
+
+    [Header("Inventory Texts")]
     public TextMeshProUGUI invMax;
     public TextMeshProUGUI invCapacity;
+    public TextMeshProUGUI isEmpty;
 
     // Add references to the buttons that will filter the inventory
+    [Header("Buttons")]
     public Button furnitureButton;
     public Button skinButton;
+    public Button addSlotButton;
     public Color inactiveColor = Color.white;
     public Color activeColor = new Color(0.878f, 0.835f, 0.800f, 1f);
 
@@ -24,13 +33,20 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         // Set up button click listeners
+        furnitureButton.onClick.RemoveAllListeners();
+        skinButton.onClick.RemoveAllListeners();
+        addSlotButton.onClick.RemoveAllListeners();
+
         furnitureButton.onClick.AddListener(ShowFurniture);
         skinButton.onClick.AddListener(ShowSkins);
+        addSlotButton.onClick.AddListener(OnAddSlotClicked);
+
         SetButtonInactive(furnitureButton);
         SetButtonInactive(skinButton);
 
         // Initially display all items (no filter)
         //ShowAllItems();
+        showCanvas();
         ShowFurniture();
 
         // Attach listener for scroll events
@@ -41,6 +57,30 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void showCanvas()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if (animatorInv != null)
+        {
+            animatorInv.SetBool("isOpen", false);
+        }
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    public void hideCanvas()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if (animatorInv != null)
+        {
+            animatorInv.SetBool("isOpen", false);
+        }
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+    }
+
     // Refresh the UI slots
     public void RefreshInventory(List<SO_item> inventory, int max)
     {
@@ -48,6 +88,15 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform child in slotContainer)
         {
             Destroy(child.gameObject);
+        }
+
+        if(InventoryManager.Instance.playerInventory.Count == 0)
+        {
+            isEmpty.gameObject.SetActive(true);
+        } 
+        else
+        {
+            isEmpty.gameObject.SetActive(false);
         }
 
         // Create new slots
@@ -147,6 +196,25 @@ public class InventoryUI : MonoBehaviour
         //ColorBlock colorBlock = button.colors;
         //colorBlock.normalColor = inactiveColor;
         //button.colors = colorBlock;
+    }
+
+    public void OnAddSlotClicked()
+    {
+        ConfirmationBehavior confirmPanel = FindAnyObjectByType<ConfirmationBehavior>();
+
+        if( confirmPanel != null )
+        {
+            confirmPanel.showConfirmBuyInv(
+                InventoryManager.Instance.CalculateUpgradeCost(),
+                InventoryManager.Instance.PurchaseInventorySlot,
+                () => Debug.Log("Cancel upgrade inventory")
+                );
+        }
+        else
+        {
+            Debug.LogWarning("Confirmation Panel not found!");
+        }
+
     }
 
     // Detect if inventory UI is being dragged/swiped

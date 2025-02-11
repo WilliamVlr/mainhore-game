@@ -8,7 +8,8 @@ public class SlotUI_Furniture : SlotUI
     public override void OnSlotTouched()
     {
         base.OnSlotTouched();
-        if(FindObjectOfType<HouseManager>().IsInDecorationMode)
+        HouseManager house = FindObjectOfType<HouseManager>();
+        if (house != null && house.IsInDecorationMode)
         {
             secondButton.gameObject.SetActive(true);
         }
@@ -22,6 +23,6 @@ public class SlotUI_Furniture : SlotUI
     private void unpackItem()
     {
         FindObjectOfType<InventoryManager>().OnUnpackFurniture.Invoke(currentItem as SO_Furniture);
-        FindObjectOfType<InventoryManager>().RemoveItem(currentItem);
+        InventoryManager.Instance.RemoveItem(currentItem);
     }
 }

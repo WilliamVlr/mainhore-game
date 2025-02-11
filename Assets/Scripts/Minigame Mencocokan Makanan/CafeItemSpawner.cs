@@ -33,7 +33,6 @@ public class CafeItemSpawner : MonoBehaviour
                     {
                         isOriginalFoodClicked = true; // Set the flag to true
                         SpawnFood(); // Spawn a new food item
-                        Debug.Log($"{gameObject.name} clicked and food spawned.");
                     }
                     break;
             }

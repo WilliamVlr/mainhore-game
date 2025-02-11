@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -54,10 +55,10 @@ public class FurnitureBehavior : MonoBehaviour
         initialParent = transform.parent;
 
         // Disable physics by default
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-        }
+        //if (rb != null)
+        //{
+        //    rb.isKinematic = false;
+        //}
 
         // Freeze rotation on the Z-axis to prevent the object from rotating
         rb.freezeRotation = true;
@@ -107,7 +108,7 @@ public class FurnitureBehavior : MonoBehaviour
                     {
                         // Check if the touch is outside the furniture and within the specified range
                         Vector2 touchPosWorld = Camera.main.ScreenToWorldPoint(touch.position);
-                        if (Vector2.Distance(touchPosWorld, transform.position) > 0.1f)
+                        if (Vector2.Distance(touchPosWorld, transform.position) > 0.75f)
                         {
                             hideButton();  // Hide the buttons if touched outside the range
                             activeFurniture = null;
@@ -162,19 +163,19 @@ public class FurnitureBehavior : MonoBehaviour
                 house.isFurnitureBeingDragged = false;
                 furnitureData.dropBehavior.HandleDrop(this.gameObject);
             }
-        }
 
-        if (!isDragging)
-        {
-            // If the Y position is below the threshold, hold it at that Y value
-            if (transformer.position.y <= stopFallAtY)
+            if (!isDragging)
             {
-                // Hold the position at the specified Y value
-                transformer.position = new Vector2(transform.position.x, stopFallAtY);
+                // If the Y position is below the threshold, hold it at that Y value
+                if (transformer.position.y <= stopFallAtY)
+                {
+                    // Hold the position at the specified Y value
+                    transformer.position = new Vector2(transform.position.x, stopFallAtY);
 
-                // Optionally, stop physics interactions
-                rb.bodyType = RigidbodyType2D.Static;
-                ResetSortingOrder();
+                    // Optionally, stop physics interactions
+                    rb.bodyType = RigidbodyType2D.Static;
+                    ResetSortingOrder();
+                }
             }
         }
     }
@@ -221,7 +222,7 @@ public class FurnitureBehavior : MonoBehaviour
     }
 
     // Reset sorting order when the furniture reaches the stop position
-    private void ResetSortingOrder()
+    public void ResetSortingOrder()
     {
         transform.SetParent(initialParent, true);
         // Reset the sorting order to the default or desired value
@@ -299,4 +300,20 @@ public class FurnitureBehavior : MonoBehaviour
             sellBtn.SetActive(false);
         }
     }
+
+    public List<FurnitureBehavior> getFurnitureBehaviorChildren()
+    {
+        List<FurnitureBehavior> furnitureBehaviorChildren =new List<FurnitureBehavior>();
+        foreach (Transform child in transform)
+        {
+            FurnitureBehavior childFur = child.GetComponent<FurnitureBehavior>();
+            if (childFur != null)
+            {
+                furnitureBehaviorChildren.Add(childFur);
+            }
+        }
+
+        return furnitureBehaviorChildren;
+    }
+
 }

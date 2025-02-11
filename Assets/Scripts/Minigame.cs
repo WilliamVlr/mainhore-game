@@ -14,7 +14,8 @@ public class MinigameLayouts
     public GameObject endLayout;
     public GameObject winLayout;
     public GameObject loseLayout;
-    public GameObject baseButtonLayout;
+    public CanvasBehavior staticLayout;
+    public CanvasBehavior coinLayout; 
 }
 
 //Handle layers in minigame scene, handle scoring & target, and coin gained
@@ -26,6 +27,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
     protected int currentScore;
     [SerializeField] protected int targetScore;
     protected bool isWin;
+    protected bool isEnded;
 
     //Coin gained
     [SerializeField] private TextMeshProUGUI coinGainedTXT;
@@ -46,6 +48,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
         setTargetScoreTxt();
         resetScore();
         resetIsWin();
+        isEnded = false;
         Time.timeScale = 0f;
         fader = FindObjectOfType<Fader>();
     }
@@ -104,6 +107,16 @@ public abstract class Minigame : MonoSingleton<Minigame>
         StartCoroutine(fader.FadeInGameObject(layout, fadeDuration));
     }
 
+    public void showCanvas(CanvasBehavior canvas)
+    {
+        canvas.showCanvas();
+    }
+
+    public void hideCanvas(CanvasBehavior canvas)
+    {
+        canvas.hideCanvas();
+    }
+
     public void hideLayout(GameObject layout)
     {
         layout.SetActive(false);
@@ -117,25 +130,29 @@ public abstract class Minigame : MonoSingleton<Minigame>
 
     public void restartMinigame()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //Debug.Log("Restarting Minigame");
     }
 
     public void returnToHomeScreen()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainScreen");
     }
 
     private void Update()
     {
-        if(Time.timeScale == 1f && timerText.text == "00")
+        if(Time.timeScale == 1f && timerText.text == "00" && !isEnded)
         {
             hideLayout(layouts.playLayout);
             showLayout(layouts.endLayout);
-            showLayout(layouts.baseButtonLayout);
+            layouts.coinLayout.showCanvas();
+            layouts.staticLayout.showCanvas();
             if (isWin)
             {
                 coinGained = calculateCoinGained();
+                CoinManager.Instance.addCoin(coinGained);
                 setCoinGainedTxt();
                 showLayout(layouts.winLayout);
             } 
@@ -143,6 +160,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
             {
                 showLayout(layouts.loseLayout);
             }
+            isEnded = true;
         }
     }
 }

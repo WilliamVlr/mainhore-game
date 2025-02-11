@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour
     public SO_ListAnim idleAnimList;
     public SO_ListMovingAnim moveAnimList;
     public Animator animator;
+    public AvatarManager avatarManager;
 
     public Joystick movementJoystick;
 
@@ -22,13 +23,13 @@ public class PlayerAnimator : MonoBehaviour
     {
         if(movementJoystick.Direction.x == 0 && movementJoystick.Direction.y == 0)
         {
-            animator.runtimeAnimatorController = idleAnimList.listAnim[0].anim;
+            animator.runtimeAnimatorController = avatarManager.currentSkin.idleAnimation.anim;
             animator.speed = 0;
             timeStop += Time.deltaTime;
         }
         else
         {
-            animator.runtimeAnimatorController = moveAnimList.movinglistAnim[0].anim;
+            animator.runtimeAnimatorController = avatarManager.currentSkin.movingAnimation.anim;
             animator.speed = 1;
             timeStop = 0;
         }

@@ -188,7 +188,7 @@ public class Fader : MonoBehaviour
                     color.a = alpha;
                     textPro.color = color;
                 }
-                else if (kvp.Key is Image img)
+                else if (kvp.Key is Image img && kvp.Key != null)
                 {
                     Color color = kvp.Value;
                     color.a = alpha;
@@ -233,7 +233,7 @@ public class Fader : MonoBehaviour
                 color.a = 0f;
                 textPro.color = color;
             }
-            else if (kvp.Key is Image img)
+            else if (kvp.Key is Image img && kvp.Key != null)
             {
                 Color color = kvp.Value;
                 color.a = 0f;
@@ -299,10 +299,13 @@ public class Fader : MonoBehaviour
 
         foreach (var image in images)
         {
-            Color color = image.color;
-            initialColors[image] = color;
-            color.a = 0f;
-            image.color = color;
+            if(image != null)
+            {
+                Color color = image.color;
+                initialColors[image] = color;
+                color.a = 0f;
+                image.color = color;
+            }
         }
 
         foreach (var slider in sliders)
@@ -346,7 +349,7 @@ public class Fader : MonoBehaviour
                     color.a = alpha;
                     textPro.color = color;
                 }
-                else if (kvp.Key is Image img)
+                else if (kvp.Key is Image img && kvp.Key != null)
                 {
                     Color color = kvp.Value;
                     color.a = (img.gameObject.CompareTag("Background")) ? Mathf.Min(alpha, 0.6f) : alpha;
@@ -392,7 +395,7 @@ public class Fader : MonoBehaviour
                 color.a = 1f;
                 textPro.color = color;
             }
-            else if (kvp.Key is Image img)
+            else if (kvp.Key is Image img && kvp.Key != null)
             {
                 Color color = kvp.Value;
                 color.a = (img.gameObject.CompareTag("Background")) ? 0.6f : 1f;

@@ -1,22 +1,34 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections;
 
-public class HouseManager : MonoBehaviour
+public class HouseManager : MonoBehaviour, IDataPersistence
 {
+    [Header("Item Database Reference")]
+    public SO_itemList itemDatabase; // Reference to the item database
+
+    [Header("Layout Reference")]
     public GameObject decorationModeButton;       // Decoration Mode button
-    public GameObject characterUI;                // Character-related UI (profile, coins, etc.)
-    public GameObject otherButtons;
-    public InventoryManager inventoryManager;     // Reference to InventoryManager
-    public InventoryUI inventoryUI;               // Reference to InventoryUI
+    public CanvasBehavior staticCanvas;
+    public CanvasBehavior coinCanvas;
+    public CanvasBehavior joystickCanvas;
     public GameObject confirmationPanel;          // Confirmation panel for saving or resetting
     public GameObject exitPanel;
-    public CameraMovement_DecorMode CameraMovement_decor;
     private Animator inventoryAnimator;            // Animator for inventory UI
 
+    [Header("Managers and Logic Object References")]
+    public InventoryManager inventoryManager;     // Reference to InventoryManager
+    public InventoryUI inventoryUI;               // Reference to InventoryUI
+    public CameraMovement_DecorMode CameraMovement_decor;
+
     public Transform furnitureContainer; // Parent object for all placed furniture
-    public List<FurnitureBehavior> placedFurniture = new List<FurnitureBehavior>();  // List of placed furniture
+    
+    public Dictionary<string, Vector3> placedFurnitures = new Dictionary<string, Vector3>();
+    public List<FurnitureBehavior> listFurnitureBehaviors = new List<FurnitureBehavior>();
 
     private bool isInDecorationMode;
     public bool IsInDecorationMode { get => isInDecorationMode; set => isInDecorationMode = value; }
@@ -37,7 +49,7 @@ public class HouseManager : MonoBehaviour
         
         if (inventoryManager != null)
         {
-            inventoryManager.OnUnpackFurniture.AddListener(PlaceFurniture);
+            InventoryManager.Instance.OnUnpackFurniture.AddListener(PlaceFurniture);
         }
 
         isInDecorationMode = false;
@@ -46,9 +58,9 @@ public class HouseManager : MonoBehaviour
         exitPanel.GetComponentInChildren<Button>().onClick.AddListener(OnExitDecorationMode);
 
         decorationModeButton.SetActive(true);
-        characterUI.SetActive(true);
-        otherButtons.SetActive(true);
-        //confirmationPanel.SetActive(false);  
+        coinCanvas.showCanvas();
+        staticCanvas.showCanvas();
+        joystickCanvas.showCanvas();
         exitPanel.SetActive(false);
     }
 
@@ -84,7 +96,8 @@ public class HouseManager : MonoBehaviour
             {
                 behavior.Initialize(item);
             }
-            placedFurniture.Add(behavior);  // Add to the list of placed furniture
+            placedFurnitures.TryAdd(item.ID, newFurniture.transform.position);  // Add to the list of placed furniture
+            listFurnitureBehaviors.Add(behavior);
             item.dropBehavior.HandleDrop(newFurniture);
         }
         else
@@ -95,21 +108,38 @@ public class HouseManager : MonoBehaviour
 
     public void RemoveFurniture(FurnitureBehavior furniture)
     {
-        if (placedFurniture.Contains(furniture))
+        if (placedFurnitures.ContainsKey(furniture.furnitureData.ID))
         {
-            placedFurniture.Remove(furniture);
+            List<FurnitureBehavior> furnitureChildren = furniture.getFurnitureBehaviorChildren();
+            foreach (FurnitureBehavior child in furnitureChildren)
+            {
+                child.ResetSortingOrder();
+            }
+            placedFurnitures.Remove(furniture.furnitureData.ID);
+            listFurnitureBehaviors.Remove(furniture);
             Destroy(furniture.gameObject);  // Destroy the furniture object
         }
+    }
+
+    public void RemoveAllFurnitures()
+    {
+        foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        {
+            Destroy(furniture.gameObject);
+        }
+        listFurnitureBehaviors.Clear();
+        placedFurnitures.Clear();
     }
 
     public void OnEnterDecorationMode()
     {
         isInDecorationMode = true;
+        joystickCanvas.hideCanvas();
 
         // Hide character and non-house UI
-        characterUI.SetActive(false);
+        coinCanvas.hideCanvas();
+        staticCanvas.hideCanvas();
         decorationModeButton.SetActive(false);
-        otherButtons.SetActive(false);
         exitPanel.SetActive(true);
 
         //Set up inventory
@@ -127,9 +157,6 @@ public class HouseManager : MonoBehaviour
 
     public void OnExitDecorationMode()
     {
-        // Show the confirmation panel (overlay)
-        //confirmationPanel.SetActive(true);
-        //ConfirmationManager confMng = FindAnyObjectByType<ConfirmationManager>();
         ConfirmationBehavior confirmationBehavior = confirmationPanel.GetComponent<ConfirmationBehavior>();
 
         if (confirmationBehavior != null)
@@ -143,29 +170,33 @@ public class HouseManager : MonoBehaviour
         {
             Debug.Log("Confirmation panel not found!");
         }
-
-        placedFurniture.ForEach(furniture =>
-        {
-            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        });
     }
 
     public void SaveFurniturePosition()
     {
         OnExitDecorationModeCleanup();
+        DataPersistenceManager.Instance.saveGame();
     }
 
     public void ResetFurniturePosition()
     {
         OnExitDecorationModeCleanup();
+        DataPersistenceManager.Instance.loadGame();
     }
     void OnExitDecorationModeCleanup()
     {
         isInDecorationMode = false;
+        joystickCanvas.showCanvas();
+
+        // reset all placed furnitures body type into Static
+        foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        {
+            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
 
         // Show character and non-house UI again
-        characterUI.SetActive(true);
-        otherButtons.SetActive(true);
+        coinCanvas.showCanvas();
+        staticCanvas.showCanvas();
         exitPanel.SetActive(false);
 
         // Trigger the Inventory close animation
@@ -176,5 +207,73 @@ public class HouseManager : MonoBehaviour
         decorationModeButton.SetActive(true);
 
         CameraMovement_decor.onExitDecorationMode();
+    }
+
+    public void LoadData(GameData data)
+    {
+        // Clear currect placed furnitures in house manager
+        RemoveAllFurnitures();
+
+        // Load dictionary data using for loop
+        foreach (KeyValuePair<string, Vector3> pair in data.placedFurnitures)
+        {
+            string id = pair.Key;
+            SO_item item = itemDatabase.GetItemByID(id);
+            if (item != null && item is SO_Furniture)
+            {
+                SO_Furniture itemFurniture = (SO_Furniture)item;
+                GameObject newFurniture = Instantiate(itemFurniture.furniturePrefab, Vector3.zero, Quaternion.identity, furnitureContainer);
+                newFurniture.transform.localPosition = pair.Value;
+
+                newFurniture.name = itemFurniture.itemName;
+
+                // Initialize the furniture with the appropriate behavior
+                FurnitureBehavior behavior = newFurniture.GetComponent<FurnitureBehavior>();
+                if (behavior != null)
+                {
+                    behavior.Initialize(itemFurniture);
+                }
+                placedFurnitures.TryAdd(itemFurniture.ID, newFurniture.transform.localPosition);  // Add to the list of placed furniture
+                listFurnitureBehaviors.Add(behavior);
+                itemFurniture.dropBehavior.HandleDrop(newFurniture);
+                behavior.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            }
+
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.placedFurnitures.Clear();
+        if (!isInDecorationMode)
+        {
+            updateFurniturePosition();
+        }
+        foreach (KeyValuePair<string, Vector3> pair in placedFurnitures)
+        {
+            data.placedFurnitures.TryAdd(pair.Key, pair.Value);
+        }
+        data.mainBackgroundPos = new Vector3(11, 0, 0);
+    }
+
+    private void updateFurniturePosition()
+    {
+        string[] keys = new string[placedFurnitures.Keys.Count];
+        placedFurnitures.Keys.CopyTo(keys, 0);
+        for (int j = 0; j <  keys.Length; j++)
+        {
+            string keyID = keys[j];
+            for(int i = 0; i < listFurnitureBehaviors.Count; i++)
+            {
+                FurnitureBehavior fur = listFurnitureBehaviors[i];
+                if(fur != null)
+                {
+                    if (keyID.Equals(fur.furnitureData.ID))
+                    {
+                        placedFurnitures[keyID] = fur.transform.localPosition;
+                    }
+                }
+            }
+        }
     }
 }

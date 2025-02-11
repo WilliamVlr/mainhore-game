@@ -38,6 +38,11 @@ public class PackButtonBehavior : MonoBehaviour
                     //Debug.Log("Clicked on the GameObject: " + gameObject.name);
                     //Debug.Log(gameObject.name + " for " + furniture.furnitureData.itemName);
                     // Add your logic here for when the object is clicked
+                    //List<FurnitureBehavior> furnitureChildren = furniture.getFurnitureBehaviorChildren();
+                    //foreach (FurnitureBehavior child in furnitureChildren)
+                    //{
+                    //    child.ResetSortingOrder();
+                    //}
                     InventoryManager.Instance.AddItem(furniture.furnitureData);
                     FindAnyObjectByType<HouseManager>().RemoveFurniture(furniture);
                 }

@@ -20,3 +20,5 @@ MonoBehaviour:
   place: 0
   sellPrice: 550
   scale_inSlot: 0.9
+  idleAnimation: {fileID: 11400000, guid: b0612a1ca998f264da47789ed5c07c4e, type: 2}
+  movingAnimation: {fileID: 11400000, guid: 8a264388846e65d4cbc8d98e53621681, type: 2}
