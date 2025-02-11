@@ -1,86 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class VirusMove : MonoBehaviour
 {
     public float speed;
-    private float targetX;
-    private float targetY;
-    int check = -1;
-    GameObject preRoundTimer;
-    int firstTarget = 0;
-    // Start is called before the first frame update
+    private Vector2 targetPosition;
+    private int direction;
+
     void Start()
     {
-        preRoundTimer = GameObject.FindWithTag("preRoundTimer");
-        // Initial target position is random
-        //check = SetNewTarget(check);
+        SetNewTarget();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(firstTarget == 0)
-        {
-            check = SetNewTarget(check);
-            firstTarget++;
-        }
-        if (preRoundTimer)
-        {
-            Text timerText = preRoundTimer.GetComponent<Text>();
-        }
-        // Move towards the target position
-        Vector2 currentPosition = transform.position;
-        Vector2 targetPosition = new Vector2(targetX, targetY);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        // Move towards the target position using linear interpolation (Lerp)
-        transform.position = Vector2.MoveTowards(currentPosition, targetPosition, speed * Time.deltaTime);
-
-        // Once the object reaches the target position, set a new random target
-        if (Vector2.Distance(currentPosition, targetPosition) < 0.1f)
+        if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
         {
-            check = SetNewTarget(check);
+            SetNewTarget();
         }
     }
 
-    int SetNewTarget(int _chk)
+    void SetNewTarget()
     {
-        int temp;
-        Vector3 currentScale = transform.localScale;
-        // Randomize y position
-        targetY = Random.Range(-4f, 4f);
-        if (_chk == 0) // di kiri
-        {
-            targetX = 8f;
-            currentScale.x = 0.3f;
-            temp = 1;
+        Camera cam = Camera.main;
+        Vector3 maxPosition = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+        Vector3 minPosition = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
 
-        } else if( _chk == 1) // di kanan
-        {
-            targetX = -8f;
-            currentScale.x = -0.3f;
-            temp = 0;
-        }
-        else
-        {
-            targetX = 0;
-            if (Random.Range(0, 2) == 0)
-            {
-                targetX = -8f;
-                currentScale.x = -0.3f;
-                temp = 0;
-            }
-            else
-            {
-                targetX = 8f; 
-                currentScale.x = 0.3f;
-                temp = 1;
-            }
-        }
+        targetPosition.y = Random.Range(minPosition.y + 1f, maxPosition.y - 1f);
 
-        transform.localScale = currentScale;
-        return temp;
+        direction = (direction == 0) ? 1 : 0; // Toggle direction
+        targetPosition.x = (direction == 0) ? minPosition.x + 1.5f : maxPosition.x - 1.5f;
+        transform.localScale = new Vector3((direction == 0) ? -0.3f : 0.3f, transform.localScale.y, transform.localScale.z);
     }
 }

@@ -5,23 +5,27 @@ using UnityEngine.UI;
 
 public class isWin : MonoBehaviour
 {
-    public Text roundText;
+    [SerializeField] private GameObject layoutTimer;
 
-    public Fader Fader;
-    public float fadeDuration;
+    [SerializeField] private Fader Fader;
+    [SerializeField] private float fadeDuration;
 
-    public GameObject wincondition;
-    public void Start()
+    [SerializeField] private GameObject wincondition;
+    [SerializeField] private GameObject Bg;
+    private void Start()
     {
 
     }
     public void Condition()
     {
+        layoutTimer.gameObject.SetActive(false);
         wincondition.gameObject.SetActive(true);
+        Bg.gameObject.SetActive(true);
 
         if (Fader != null)
         {
             // Use the FadeOutGameObject coroutine
+            StartCoroutine(Fader.FadeInGameObject(Bg, fadeDuration));
             StartCoroutine(Fader.FadeInGameObject(wincondition, fadeDuration));
         }
         else

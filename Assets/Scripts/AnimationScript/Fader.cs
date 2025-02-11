@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Fader : MonoBehaviour
 {
-    public TimerScript timerScript;
+    [SerializeField] private TimerScript timerScript;
     public IEnumerator FadeInSprite(SpriteRenderer spriteRenderer, float fadeDuration)
     {
         if (spriteRenderer == null)

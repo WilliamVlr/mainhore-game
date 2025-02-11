@@ -1,150 +1,146 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject virus;
-    GameObject timerObject;
-    public GameObject pauseInterface;
+    [SerializeField] private GameObject virus;
+    [SerializeField] private GameObject timerObject;
+    [SerializeField] private GameObject pauseInterface;
 
-    public Vector2 spawnAreaMin;
-    public Vector2 spawnAreaMax;
+    [SerializeField] private Vector2 spawnAreaMin;
+    [SerializeField] private Vector2 spawnAreaMax;
 
-    private List<Vector2> spawnedPositions = new List<Vector2>();
+    [SerializeField] private List<Vector2> spawnedPositions = new List<Vector2>();
+    [SerializeField] private float minDistance;
 
-    public float minDistance;
+    [SerializeField] private int spawnCount;
+    private int spawned = 0;
+    [SerializeField] private int _virusDestroyed = 0;
+    [SerializeField] private float virusSpeed;
 
-    int spawned = 0;
-    public int spawnCount;
-    public int _virusDestroyed = 0;
+    private TextMeshProUGUI timerText;
 
-    public Text timer;
-    //VirusController _virusController;
-    
-    // Start is called before the first frame update
+    public int SpawnCount => spawnCount;
+    public int VirusDestroyed => _virusDestroyed;
+
     void Start()
     {
-        if(pauseInterface)
-        {
-            //Debug.Log("ada");
-        }
-        else
-        {
-            //Debug.Log("gada");
-        }
+        Camera cam = Camera.main;
+        Vector3 maxPosition = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+        Vector3 minPosition = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+
+        spawnAreaMin = new Vector2(minPosition.x + 1.5f, minPosition.y + 1f);
+        spawnAreaMax = new Vector2(maxPosition.x - 1.5f, maxPosition.y - 1f);
+
+        timerText = timerObject.GetComponent<TextMeshProUGUI>();
     }
-    private void Awake()
+
+    void Awake()
     {
-        timerObject = GameObject.FindWithTag("preRoundTimer");
+        
     }
+
     void Update()
     {
-        Text timerText = timerObject.GetComponent<Text>();
-        if(timerText.text == "GO!" && spawned == 0)
-        {
-            spawnObject();
-        }
-
+        VirusMove virusMove = virus.GetComponent<VirusMove>();
+        virusMove.speed = virusSpeed;
+        //Debug.Log(virusSpeed);
         if (Input.GetMouseButtonDown(0))
         {
-
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(mousePos, 0f); // Adjust radius as needed
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-            foreach (var hitCollider in hitColliders)
+            if (hit.collider != null && hit.collider.CompareTag("Virus"))
             {
-                if (hitCollider.CompareTag("Virus") && timerText.text != "0") // Ensure you only target objects tagged "Virus"
-                {
-                    Clickable clickable = hitCollider.GetComponent<Clickable>();
-                    if (clickable != null && !clickable.isClicked) // Check if it hasn't already been clicked
-                    {
-                        clickable.isClicked = true; // Mark as clicked
-
-                        VirusAnimator virusAnimator = hitCollider.GetComponent<VirusAnimator>();
-                        if (virusAnimator != null && !pauseInterface.activeSelf && timer.text != "00")
-                        {
-                            virusAnimator.PlayAnimator(); // Play animation
-                            _virusDestroyed++;
-                            Debug.Log(_virusDestroyed);
-                            StartCoroutine(DestroyAfterAnimation(hitCollider.gameObject, virusAnimator)); // Delay destruction
-                        }
-                    }
-                }
+                //Debug.Log("Clicked");
+                HandleVirusClick(hit.collider.gameObject);
             }
-        }
-
-        IEnumerator DestroyAfterAnimation(GameObject target, VirusAnimator virusAnimator)
-        {
-            Animator animator = target.GetComponent<Animator>();
-
-            if (animator != null)
-            {
-                // We need to wait for the current animation to finish, so let's track when the animation ends
-                bool isPlaying = true;
-
-                // Loop to check if the animation is still playing
-                while (isPlaying)
-                {
-                    // Check if the animator is playing any animation
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    isPlaying = stateInfo.normalizedTime < 1f; // Wait until the animation completes (normalizedTime reaches 1)
-
-                    // Optional: You can add a small delay to prevent excessive checks
-                    yield return null;
-                }
-            }
-
-            // Destroy the target after the animation finishes
-            //Debug.Log(virusDestroyed);
-            Destroy(target);
         }
     }
 
-    
-
-    // Update is called once per frame
-    void spawnObject()
+    void HandleVirusClick(GameObject virusObject)
     {
-        int maxAttempts = 10 * spawnCount;  // Limit attempts to prevent infinite loops
-        int attempts = 0;
-
-        // Try spawning objects until we reach the spawn count or exceed max attempts
-        while (spawned < spawnCount && attempts < maxAttempts)
+        if (timerText.text == "00" || pauseInterface.activeSelf)
         {
-            Vector2 randomPosition = new Vector2(
-                Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-                Random.Range(spawnAreaMin.y, spawnAreaMax.y)
-            );
+            Debug.Log("1");
+            return;
+        }
 
+        Clickable clickable = virusObject.GetComponent<Clickable>();
+        if (clickable == null || clickable.isClicked)
+        {
+            Debug.Log("2");
+            return;
+        }
+
+        clickable.isClicked = true;
+        VirusAnimator virusAnimator = virusObject.GetComponent<VirusAnimator>();
+        Debug.Log("3");
+
+        if (virusAnimator != null)
+        {
+            Debug.Log("4");
+            virusAnimator.PlayAnimator();
+            _virusDestroyed++;
+            StartCoroutine(DestroyAfterAnimation(virusObject));
+        }
+    }
+
+    IEnumerator DestroyAfterAnimation(GameObject target)
+    {
+        Animator animator = target.GetComponent<Animator>();
+        if (animator != null)
+        {
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+        }
+        Destroy(target);
+    }
+
+    public void SpawnObjects()
+    {
+        int attempts = 0;
+        float dynamicMinDistance = minDistance;
+
+        while (spawned < spawnCount && attempts < spawnCount * 10)
+        {
+            Vector2 randomPosition = GetRandomPosition();
             attempts++;
 
-            // If the position is valid (no overlap), spawn the object
-            if (IsPositionValid(randomPosition))
+            if (IsPositionValid(randomPosition, dynamicMinDistance))
             {
                 spawnedPositions.Add(randomPosition);
                 Instantiate(virus, randomPosition, Quaternion.identity);
                 spawned++;
+                attempts = 0;
             }
-        }
 
-        // Optionally, print a message if spawn attempts exceeded max attempts
-        if (attempts >= maxAttempts)
-        {
-            Debug.LogWarning("Max spawn attempts reached!");
+            if (attempts >= spawnCount * 5)
+            {
+                dynamicMinDistance *= 0.9f;
+            }
         }
     }
 
-    bool IsPositionValid(Vector2 position)
+    Vector2 GetRandomPosition()
+    {
+        return new Vector2(
+            Random.Range(spawnAreaMin.x, spawnAreaMax.x),
+            Random.Range(spawnAreaMin.y, spawnAreaMax.y)
+        );
+    }
+
+    bool IsPositionValid(Vector2 position, float minDist)
     {
         foreach (Vector2 spawnedPosition in spawnedPositions)
         {
-            if (Vector2.Distance(spawnedPosition, position) < minDistance)
+            if (Vector2.Distance(spawnedPosition, position) < minDist)
             {
-                return false; // Position is too close to an existing one
+                return false;
             }
         }
-        return true; // Position is valid
+        return true;
     }
 }
