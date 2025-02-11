@@ -160,7 +160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _VirusAnimator: {fileID: -7430263548384067758}
   _spawner: {fileID: 6792154640759685348, guid: ea24451d52637e54785da784e32898a5, type: 3}
-  _virusDestroyed: 0
 --- !u!114 &-6887159388298755553
 MonoBehaviour:
   m_ObjectHideFlags: 0

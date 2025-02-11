@@ -9,8 +9,8 @@ public class InstructionManager : MonoBehaviour
 {
     public static InstructionManager Instance;
 
-    public GameObject imagePlaceholder;
-    public GameObject instructionAreaObject;
+    [SerializeField] private GameObject imagePlaceholder;
+    [SerializeField] private GameObject instructionAreaObject;
     private TextMeshProUGUI instructionArea;
 
     private LinkedList<InstructionLine> instructions;
@@ -18,7 +18,7 @@ public class InstructionManager : MonoBehaviour
 
     //Animation Scripts
     private Fader fader;
-    public float fadeDuration;
+    [SerializeField] private float fadeDuration;
 
 
     private void Awake()
