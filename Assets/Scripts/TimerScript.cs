@@ -24,6 +24,7 @@ public class TimerScript : MonoBehaviour
 
         timer = timerSlider.value;
         maxtime = timerSlider.value;
+        //Debug.Log(maxtime);
     }
 
     private void Update()
@@ -89,5 +90,10 @@ public class TimerScript : MonoBehaviour
     public void SetColorUpdateEnabled(bool enabled)
     {
         isColorUpdating = enabled;
+    }
+
+    public int timerRemains()
+    {
+        return (int)timer;
     }
 }

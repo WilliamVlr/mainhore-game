@@ -26,9 +26,14 @@ public class LayoutManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void setCurrentScoreTxt()
+    public void showCanvas(CanvasBehavior canvas)
     {
-        currentScoreTXT.text = $"{currentScore}";
+        canvas.showCanvas();
+    }
+
+    public void hideCanvas(CanvasBehavior canvas)
+    {
+        canvas.hideCanvas();
     }
 
     public void showLayout(GameObject layout)

@@ -37,7 +37,7 @@ public class WinLoseCondition : MonoBehaviour
         {
             if (_spawner.VirusDestroyed == 10)  // If the time is up and enough viruses are destroyed, it's a win
             {
-                Debug.Log("You Win!");
+                //Debug.Log("You Win!");
                 StartCoroutine(Fader.FadeOutGameObject(Timer, (float)0.5));
 
                 _isWin.Condition();
@@ -46,7 +46,7 @@ public class WinLoseCondition : MonoBehaviour
             }
             else
             {
-                Debug.Log("You Lose!");
+                //Debug.Log("You Lose!");
                 StartCoroutine(Fader.FadeOutGameObject(Timer, (float)0.5));
 
                 GameObject[] viruses = GameObject.FindGameObjectsWithTag("Virus");
@@ -71,7 +71,7 @@ public class WinLoseCondition : MonoBehaviour
         }
         else if (_spawner.VirusDestroyed == _spawner.SpawnCount && check == 0)  // If enough viruses are destroyed before time is up
         {
-            Debug.Log("You Win!");
+            //Debug.Log("You Win!");
             StartCoroutine(Fader.FadeOutGameObject(Timer, 1));
 
             _isWin.Condition();

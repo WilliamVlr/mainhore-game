@@ -1,26 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class isWin : MonoBehaviour
 {
     [SerializeField] private GameObject layoutTimer;
-
+    private int coinGained;
     [SerializeField] private Fader Fader;
     [SerializeField] private float fadeDuration;
 
     [SerializeField] private GameObject wincondition;
     [SerializeField] private GameObject Bg;
+
+    [SerializeField] private TimerScript timerScript;
+    [SerializeField] private Spawner spawner;
+    [SerializeField] private LayoutManager layoutmanager;
+
+    [SerializeField] private CanvasBehavior coincanvas;
+    [SerializeField] private CanvasBehavior staticcanvas;
+
+    [SerializeField] private TextMeshProUGUI coinText;
     private void Start()
     {
 
     }
     public void Condition()
     {
+        //Debug.Log(timerScript.timerRemains() + "sec");
+        //Debug.Log(spawner.SpawnCount);
+        coinGained = timerScript.timerRemains() * spawner.SpawnCount;
+        layoutmanager.showCanvas(coincanvas);
+        layoutmanager.showCanvas(staticcanvas);
+        CoinManager.Instance.addCoin(coinGained);
+
         layoutTimer.gameObject.SetActive(false);
         wincondition.gameObject.SetActive(true);
         Bg.gameObject.SetActive(true);
+
+        coinText.text = "+" + coinGained;
 
         if (Fader != null)
         {
@@ -33,6 +52,6 @@ public class isWin : MonoBehaviour
             Debug.LogError("spriteFader is not assigned!");
         }
 
-        Debug.Log("win");
+        //Debug.Log("win");
     }
 }
