@@ -65,24 +65,24 @@ public class Spawner : MonoBehaviour
     {
         if (timerText.text == "00" || pauseInterface.activeSelf)
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             return;
         }
 
         Clickable clickable = virusObject.GetComponent<Clickable>();
         if (clickable == null || clickable.isClicked)
         {
-            Debug.Log("2");
+            //Debug.Log("2");
             return;
         }
 
         clickable.isClicked = true;
         VirusAnimator virusAnimator = virusObject.GetComponent<VirusAnimator>();
-        Debug.Log("3");
+        //Debug.Log("3");
 
         if (virusAnimator != null)
         {
-            Debug.Log("4");
+            //Debug.Log("4");
             virusAnimator.PlayAnimator();
             _virusDestroyed++;
             StartCoroutine(DestroyAfterAnimation(virusObject));

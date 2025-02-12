@@ -34,6 +34,6 @@ public class isLose : MonoBehaviour
             Debug.LogError("spriteFader is not assigned!");
         }
 
-        Debug.Log("lose");
+        //Debug.Log("lose");
     }
 }
