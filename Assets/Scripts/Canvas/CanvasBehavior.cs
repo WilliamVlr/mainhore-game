@@ -14,14 +14,14 @@ public class CanvasBehavior : MonoBehaviour
 
     private void Start()
     {
-        //if (hideInStart)
-        //{
-        //    hideCanvas();
-        //} 
-        //else
-        //{
-        //    showCanvas();
-        //}
+        if (hideInStart)
+        {
+            hideCanvas();
+        }
+        else
+        {
+            showCanvas();
+        }
     }
 
     public void showCanvas()
