@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NpcPatrol : MonoBehaviour
 {
+    public static NpcPatrol Instance;
+
     public GameObject pointA;
     public GameObject pointB;
     [SerializeField] private GameObject NpcUI;
@@ -22,6 +24,8 @@ public class NpcPatrol : MonoBehaviour
     private bool isStopped = false;
     private float stopTimer = 0f;
 
+    private float delayAfterPause = 0f;
+
     public bool IsStopped => isStopped;
     public float CurrentSpeed => currentSpeed;
 
@@ -33,12 +37,46 @@ public class NpcPatrol : MonoBehaviour
         currentPoint = pointB.transform.localPosition; // Gunakan localPosition
     }
 
+    public void setStop()
+    {
+        isStopped = !isStopped;
+    }
+
     void Update()
     {
+        Debug.Log((int)delayAfterPause);
+        if ((InteractionManager.Instance.getInteract()) == 1)
+        {
+            //Debug.Log("Manual");
+            isStopped = true;
+            if (stopTimer > 0f)
+            {
+                stopTimer = 0f;
+            }
+            delayAfterPause = 3f;
+        }
+
+        if (delayAfterPause <= 0f)
+        {
+            if (!isStopped && Random.Range(0f, 1f) < stopChance * Time.deltaTime)
+            {
+                //Debug.Log("Auto");
+                isStopped = true;
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, acceleration * Time.deltaTime);
+                stopTimer = Random.Range(minStopDuration, maxStopDuration);
+                rb.velocity = new Vector2(currentSpeed, 0);
+                return;
+            }
+        }
+        else
+        {
+            delayAfterPause -= Time.deltaTime;
+        }
+
         if (isStopped)
         {
             stopTimer -= Time.deltaTime;
-            if (stopTimer <= 0)
+            if (stopTimer <= 0 && (InteractionManager.Instance.getInteract()) == 0)
             {
                 isStopped = false;
             }
@@ -71,16 +109,7 @@ public class NpcPatrol : MonoBehaviour
                 currentSpeed = Mathf.Lerp(currentSpeed, -speed, 4 * acceleration * Time.deltaTime);
             }
         }
-
-        if (!isStopped && Random.Range(0f, 1f) < stopChance * Time.deltaTime)
-        {
-            isStopped = true;
-            currentSpeed = Mathf.Lerp(currentSpeed, 0, acceleration * Time.deltaTime);
-            stopTimer = Random.Range(minStopDuration, maxStopDuration);
-            rb.velocity = new Vector2(currentSpeed, 0);
-            return;
-        }
-
+        
         if (currentPoint == pointB.transform.localPosition)
         {
             rb.velocity = new Vector2(currentSpeed, 0);
@@ -107,6 +136,7 @@ public class NpcPatrol : MonoBehaviour
             currentPoint = pointB.transform.localPosition;
         }
     }
+
 
     private void OnDrawGizmos()
     {

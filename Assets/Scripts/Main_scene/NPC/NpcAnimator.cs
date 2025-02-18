@@ -24,7 +24,7 @@ public class NpcAnimator : MonoBehaviour
         stopped = npcpatrol.IsStopped;
         currSpeed = npcpatrol.CurrentSpeed;
 
-        Debug.Log(check);
+        //Debug.Log(check);
         //Debug.Log(stopped);
         //Debug.Log(currSpeed);
         if (stopped)
@@ -47,7 +47,7 @@ public class NpcAnimator : MonoBehaviour
 
             if(check == 1)
             {
-                Debug.Log("stopping");
+                //Debug.Log("stopping");
                 anim.runtimeAnimatorController = listNpcAnim.listAnim[0].NpcAnim;
                 freezetime += Time.deltaTime;
                 if (freezetime > 1f)
@@ -62,7 +62,7 @@ public class NpcAnimator : MonoBehaviour
         }
         else
         {
-            Debug.Log("Continue");
+            //Debug.Log("Continue");
             freezetime = 0;
             anim.runtimeAnimatorController = listNpcAnim.listAnim[1].NpcAnim;
             anim.speed = 1;
