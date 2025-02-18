@@ -1559,8 +1559,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 470917545}
   sfxSource: {fileID: 912356816}
-  musicList: []
-  sfxList: []
+  musicList:
+  - name: Start
+    clip: {fileID: 8300000, guid: 2c7d5b0723bb12e478bedf49e26f3d2f, type: 3}
+  - name: House
+    clip: {fileID: 8300000, guid: e8d4aa43e82ca5c46b16c0c814290a0b, type: 3}
+  - name: Main Screen
+    clip: {fileID: 8300000, guid: dc4b4abb0f543a74d907bbb902d2bed6, type: 3}
+  sfxList:
+  - name: Win
+    clip: {fileID: 8300000, guid: 820071b34b6a8764da255e034e6304fa, type: 3}
+  - name: Lose
+    clip: {fileID: 8300000, guid: dbfce02646d6ec846b2b362d9ea518ea, type: 3}
   _musicIsMuted: 0
   _sfxIsMuted: 0
 --- !u!4 &555371413
@@ -4149,9 +4159,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960739349}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1960739352
 MonoBehaviour:
@@ -5123,7 +5133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 171.555
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.y
