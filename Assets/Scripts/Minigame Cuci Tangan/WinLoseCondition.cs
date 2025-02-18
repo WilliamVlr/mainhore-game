@@ -1,27 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WinLoseCondition : MonoBehaviour
 {
-    public Text Time;
+    [SerializeField] private TextMeshProUGUI _Time;
 
-    public GameObject Timer;
-    public GameObject PauseButton;
+    [SerializeField] private GameObject Timer;
 
-    public Fader Fader;
+    [SerializeField] private Fader Fader;
 
-    public int gameDoneCheck;
+    [SerializeField] private int gameDoneCheck;
 
-    public isWin _isWin;
-    public isLose _isLose;
+    [SerializeField] private isWin _isWin;
+    [SerializeField] private isLose _isLose;
 
     GameObject[] viruses;
 
     int check = 0;
 
-    public Spawner _spawner;
+    [SerializeField] private Spawner _spawner;
 
 
     // Start is called before the first frame update
@@ -33,25 +33,24 @@ public class WinLoseCondition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.text == "00" && check == 0)  // Game over due to time running out
+        if (_Time.text == "00" && check == 0)  // Game over due to time running out
         {
-            fadePauseButton();
-            if (_spawner._virusDestroyed == 10)  // If the time is up and enough viruses are destroyed, it's a win
+            if (_spawner.VirusDestroyed == 10)  // If the time is up and enough viruses are destroyed, it's a win
             {
-                Debug.Log("You Win!");
+                //Debug.Log("You Win!");
                 StartCoroutine(Fader.FadeOutGameObject(Timer, (float)0.5));
-                
+
                 _isWin.Condition();
                 check++; // Prevent further checks after a condition is met
                 gameDoneCheck++;
             }
             else
             {
-                Debug.Log("You Lose!");
+                //Debug.Log("You Lose!");
                 StartCoroutine(Fader.FadeOutGameObject(Timer, (float)0.5));
 
                 GameObject[] viruses = GameObject.FindGameObjectsWithTag("Virus");
-                Debug.Log(viruses.Length);
+                //Debug.Log(viruses.Length);
 
                 foreach (GameObject virus in viruses)
                 {
@@ -70,10 +69,9 @@ public class WinLoseCondition : MonoBehaviour
                 gameDoneCheck++;
             }
         }
-        else if (_spawner._virusDestroyed == 10 && check == 0)  // If enough viruses are destroyed before time is up
+        else if (_spawner.VirusDestroyed == _spawner.SpawnCount && check == 0)  // If enough viruses are destroyed before time is up
         {
-            fadePauseButton();
-            Debug.Log("You Win!");
+            //Debug.Log("You Win!");
             StartCoroutine(Fader.FadeOutGameObject(Timer, 1));
 
             _isWin.Condition();
@@ -88,8 +86,4 @@ public class WinLoseCondition : MonoBehaviour
         return gameDoneCheck;
     }
 
-    private void fadePauseButton()
-    {
-        StartCoroutine(Fader.FadeOutGameObject(PauseButton, 0.5f));
-    }
 }

@@ -11,10 +11,9 @@ using static UnityEngine.GraphicsBuffer;
 public class VirusController : MonoBehaviour
 {
     GameObject timerObject;
-    public VirusAnimator _VirusAnimator;
-    public Spawner _spawner;
+    [SerializeField] private VirusAnimator _VirusAnimator;
+    [SerializeField] private Spawner _spawner;
     int spawnedCount;
-    public int _virusDestroyed = 0;
     //float timer = 0f;
     void Start()
     {
