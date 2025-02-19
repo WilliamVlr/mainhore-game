@@ -58,9 +58,9 @@ public class DataPersistenceManager : MonoBehaviour
         saveGame();
     }
 
-    public void newGame()
+    public void newGame(string usn="pemain", string skin="Fox")
     {
-        this.gameData = new GameData();
+        this.gameData = new GameData(usn, skin);
     }
 
     public void loadGame()

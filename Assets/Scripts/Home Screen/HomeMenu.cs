@@ -22,9 +22,7 @@ public class HomeMenu : MonoBehaviour
     {
         disableMenuButtons();
 
-        DataPersistenceManager.Instance.newGame();
-
-        SceneManager.LoadSceneAsync("House");
+        SceneManager.LoadSceneAsync("Initial New Game");
     }
 
     public void onContinueClicked()
