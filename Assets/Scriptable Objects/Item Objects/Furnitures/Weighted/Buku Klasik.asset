@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Buku Klasik
   sprite: {fileID: 1232692274, guid: 566675aa07b85fa4787461e76bc4e38c, type: 3}
   price: 30
-  desc: 
+  desc: Kecil
   place: 0
   sellPrice: 20
   scale_inSlot: 0.45

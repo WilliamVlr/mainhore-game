@@ -15,8 +15,8 @@ MonoBehaviour:
   id: Buku
   itemName: Buku
   sprite: {fileID: 77489226, guid: ec66ae7ccd900bd47aa70ab153f80a17, type: 3}
-  price: 15
-  desc: 
+  price: 475
+  desc: Kecil
   place: 0
   sellPrice: 8
   scale_inSlot: 0.25

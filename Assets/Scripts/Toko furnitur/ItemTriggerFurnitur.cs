@@ -7,9 +7,13 @@ public class ItemTrigger : MonoBehaviour
     public Button sceneLoaderButton;    
     public Sprite buyImg;
     public TextMeshProUGUI hargaText;
-    public SO_item currentItem;
+    public SO_Furniture currentItem;
     SpriteRenderer spriteRenderer;
     
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -18,6 +22,15 @@ public class ItemTrigger : MonoBehaviour
         {
             sceneLoaderButton.gameObject.SetActive(false);
         }
+    }
+
+    public void SetItem(SO_Furniture furnitureData)
+    {
+        currentItem = furnitureData;
+        if(spriteRenderer != null){
+            spriteRenderer.sprite = furnitureData.sprite;
+        }
+        hargaText.text = furnitureData.price.ToString();
     }
 
     // Trigger saat karakter memasuki area collider item

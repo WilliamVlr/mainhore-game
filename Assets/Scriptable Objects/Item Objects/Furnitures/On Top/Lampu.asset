@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Lampu
   itemName: Lampu
   sprite: {fileID: -1591470192, guid: 70a7508d80380e2418fad49ea40a5f96, type: 3}
-  price: 10
+  price: 1000
   desc: 
   place: 0
   sellPrice: 4
