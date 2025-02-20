@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Meja Bundar
   itemName: Meja Bundar
   sprite: {fileID: 109871389, guid: 45515d0386e585f47993f24b3f7b2039, type: 3}
-  price: 3125
+  price: 2125
   desc: Besar
   place: 0
   sellPrice: 35

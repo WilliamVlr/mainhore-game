@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Meja Kayu
   itemName: Meja Kayu
   sprite: {fileID: 287620538, guid: 2f88113643fb1fe43a7922dbf5d48b57, type: 3}
-  price: 30
+  price: 2735
   desc: Besar
   place: 0
   sellPrice: 25
