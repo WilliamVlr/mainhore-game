@@ -84,15 +84,16 @@ public class BoutiqueManager : MonoBehaviour
         SO_Skin chosenSkin = allSkins[chosenIndices[i]];
         SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponent<SpriteRenderer>();
 
-        if (spriteRenderer != null && chosenSkin.skinSprite != null)
+        if (spriteRenderer != null && chosenSkin.sprite != null)
         {
-            spriteRenderer.sprite = chosenSkin.skinSprite; // ✅ Ganti sprite sesuai skin
+            spriteRenderer.sprite = chosenSkin.sprite; // ✅ Ganti sprite sesuai skin
             Debug.Log($"Karakter {i} menggunakan skin: {chosenSkin.name}");
         }
         else
         {
             Debug.LogWarning($"SpriteRenderer atau skinSprite tidak ditemukan di costumeCharacter index {i}");
         }
+        costumeCharacters[i].SetActive(false);
     }
 }
     private void RandomizeCostume()
@@ -103,6 +104,7 @@ public class BoutiqueManager : MonoBehaviour
             Debug.Log("Memulai proses randomisasi kostum...");
             isRandomizing = true;
             RandomizeButton.SetActive(false);
+            DialogKasir.SetActive(false);
             StartCoroutine(RandomizeProcess());
         }
     }
