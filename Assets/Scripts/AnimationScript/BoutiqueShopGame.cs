@@ -1,125 +1,166 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
-public class BoutiqueShopManager : MonoBehaviour
+public class BoutiqueManager : MonoBehaviour
 {
-    [Header("Player and Cashier Settings")]
-    public Transform playerAvatar;
-    public Transform cashierWoman;
-    public float triggerDistance = 3f;
+    [SerializeField] private GameObject DialogKasir;           // Gambar dialog kasir
+    [SerializeField] private GameObject RandomizeButton;       // Tombol randomize
+    [SerializeField] private GameObject[] curtains;            // Array tirai (3 tirai)
+    [SerializeField] private GameObject[] costumeCharacters;   // Array karakter kostum (3 karakter)
+    [SerializeField] private SO_itemList itemDatabase;
 
-    [Header("UI Elements")]
-    public GameObject chatBubble;
-    public GameObject startButton; // Reference to 'shop_btn'
+    private bool isRandomizing = false; // Untuk mencegah klik ganda saat proses randomisasi
 
-    [Header("Spotlight Settings")]
-    public Animator spotlightAnimator;
-
-    [Header("Curtain and Character Settings")]
-    public Animator[] curtainAnimators; // Animators for the three curtains
-    public GameObject[] costumeCharacters; // The three costume character GameObjects
-
-    [Header("Equip Button")]
-    public GameObject equipButton; // Button for equipping the costume
-
-    private int selectedIndex;
-    private bool interactionTriggered = false;
-
-    void Update()
+    private void Start()
     {
-        CheckPlayerDistance();
+        // Sembunyikan dialog, tombol, karakter, dan tutup semua tirai saat mulai
+        DialogKasir.SetActive(false);
+        RandomizeButton.SetActive(false);
+        RandomizeCostumeInside();
+        HideAllCharacters();
+        CloseAllCurtains();
+
+        // Tambahkan listener untuk tombol randomize
+        RandomizeButton.GetComponent<Button>().onClick.AddListener(RandomizeCostume);
     }
 
-    // Check if player is close enough to trigger chatbox and button
-    void CheckPlayerDistance()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        float distance = Vector3.Distance(playerAvatar.position, cashierWoman.position);
-        if (distance <= triggerDistance && !interactionTriggered)
+        if (other.CompareTag("Player"))
         {
-            TriggerChatAndButton();
-            interactionTriggered = true;
+            Debug.Log("Player mendekati kasir. Menampilkan dialog dan tombol...");
+            DialogKasir.SetActive(true);
+            RandomizeButton.SetActive(true);
         }
     }
 
-    // Display chat bubble and "Start Randomize Costume" button
-    void TriggerChatAndButton()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        chatBubble.SetActive(true);
-        startButton.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player menjauh dari kasir. Menyembunyikan dialog dan tombol...");
+            DialogKasir.SetActive(false);
+            RandomizeButton.SetActive(false);
+        }
     }
 
-    // Called by Start Button (shop_btn) when pressed
-    public void StartRandomization()
+   private void RandomizeCostumeInside()
+{
+    Debug.Log("Randomizing characters inside tirai");
+
+    // 1. Ambil semua SO_Skin dari itemDatabase
+    List<SO_Skin> allSkins = new List<SO_Skin>();
+    foreach (SO_item item in itemDatabase.availItems)
     {
-        StartCoroutine(HandleRandomizationProcess());
+        if (item is SO_Skin skin)
+        {
+            allSkins.Add(skin);
+        }
     }
 
-    // Coroutine to manage the entire randomization and reveal process
-    IEnumerator HandleRandomizationProcess()
+    // 2. Cek apakah skin cukup tersedia
+    if (allSkins.Count < 3)
     {
-        startButton.SetActive(false);
-        TriggerSpotlightAnimation();
-        yield return new WaitForSeconds(2.5f); // Wait for spotlight animation
-
-        RandomizeCostume();
-        yield return new WaitForSeconds(1.5f); // Wait for curtain animation
-
-        ShowSelectedCharacter();
+        Debug.LogError("Jumlah skin kurang dari 3! Tambahkan skin di itemDatabase.");
+        return;
     }
 
-    // Trigger the spotlight animation
-    void TriggerSpotlightAnimation()
+    // 3. Pilih 3 skin berbeda secara acak
+    List<int> chosenIndices = new List<int>();
+    while (chosenIndices.Count < 3)
     {
-        if (spotlightAnimator != null)
-            spotlightAnimator.SetTrigger("StartShow");
+        int randomIndex = Random.Range(0, allSkins.Count);
+        if (!chosenIndices.Contains(randomIndex))
+        {
+            chosenIndices.Add(randomIndex);
+        }
     }
 
-    // Randomly select a costume and trigger curtain reveal
-    void RandomizeCostume()
+    // 4. Ganti SpriteRenderer.sprite di costumeCharacters[]
+    for (int i = 0; i < costumeCharacters.Length; i++)
     {
-        selectedIndex = Random.Range(0, costumeCharacters.Length);
-        curtainAnimators[selectedIndex].SetTrigger("Open");
+        SO_Skin chosenSkin = allSkins[chosenIndices[i]];
+        SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null && chosenSkin.skinSprite != null)
+        {
+            spriteRenderer.sprite = chosenSkin.skinSprite; // ✅ Ganti sprite sesuai skin
+            Debug.Log($"Karakter {i} menggunakan skin: {chosenSkin.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"SpriteRenderer atau skinSprite tidak ditemukan di costumeCharacter index {i}");
+        }
+    }
+}
+    private void RandomizeCostume()
+    {
+        if (!isRandomizing)
+        {
+            RandomizeCostumeInside();
+            Debug.Log("Memulai proses randomisasi kostum...");
+            isRandomizing = true;
+            RandomizeButton.SetActive(false);
+            StartCoroutine(RandomizeProcess());
+        }
     }
 
-    // Reveal the selected character and show equip button
-    void ShowSelectedCharacter()
+    private IEnumerator RandomizeProcess()
     {
-        costumeCharacters[selectedIndex].SetActive(true);
-        equipButton.SetActive(true);
+        yield return new WaitForSeconds(1f); // Simulasi waktu untuk animasi spotlight
+
+        // Pilih karakter secara acak
+        int chosenIndex = Random.Range(0, costumeCharacters.Length);
+        Debug.Log("Karakter yang dipilih: " + chosenIndex);
+
+        // Buka tirai dan tampilkan karakter
+        yield return StartCoroutine(OpenCurtain(chosenIndex));
+        ShowCharacter(chosenIndex);
+
+        Debug.Log("Kostum telah ditampilkan. Pemain dapat meng-equip.");
+        isRandomizing = false;
     }
 
-    // Equip the selected costume (linked to Equip Button)
-    public void EquipSelectedCostume()
+    private IEnumerator OpenCurtain(int index)
     {
-        Debug.Log("Player equipped costume: " + costumeCharacters[selectedIndex].name);
-        equipButton.SetActive(false);
-        ApplyCostumeToPlayer();
+        Debug.Log("Membuka tirai nomor: " + index);
+        Animator curtainAnimator = curtains[index].GetComponent<Animator>();
+        if (curtainAnimator != null)
+        {
+            curtainAnimator.SetTrigger("Open"); // Trigger animasi buka tirai
+            yield return new WaitForSeconds(1.5f); // Tunggu animasi selesai
+        }
+        else
+        {
+            Debug.LogWarning("Animator tidak ditemukan di tirai index " + index);
+        }
     }
 
-    // Additional method for applying the selected costume to the player
-    void ApplyCostumeToPlayer()
+    private void CloseAllCurtains()
     {
-        // Placeholder for actual costume application logic
-        // Implement character customization logic here
-        Debug.Log("Costume applied to player successfully.");
+        foreach (GameObject curtain in curtains)
+        {
+            Animator curtainAnimator = curtain.GetComponent<Animator>();
+            if (curtainAnimator != null)
+            {
+                curtainAnimator.SetTrigger("Close");
+            }
+        }
     }
 
-    // Reset the shop state if needed
-    public void ResetShop()
+    private void ShowCharacter(int index)
     {
-        interactionTriggered = false;
-        chatBubble.SetActive(false);
-        startButton.SetActive(false);
-        equipButton.SetActive(false);
-        foreach (var character in costumeCharacters)
+        HideAllCharacters();
+        costumeCharacters[index].SetActive(true);
+    }
+
+    private void HideAllCharacters()
+    {
+        foreach (GameObject character in costumeCharacters)
         {
             character.SetActive(false);
         }
-        foreach (var animator in curtainAnimators)
-        {
-            animator.SetTrigger("Close");
-        }
-        Debug.Log("Shop reset to initial state.");
     }
 }
