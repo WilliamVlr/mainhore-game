@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Lampu Klasik
   itemName: Lampu Klasik
   sprite: {fileID: 356402361, guid: 3d1740b0fb0c931488d8df802bca68f7, type: 3}
-  price: 23
+  price: 1250
   desc: 
   place: 0
   sellPrice: 10

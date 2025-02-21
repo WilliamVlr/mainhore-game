@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Jendela Merah
   itemName: Jendela Merah
   sprite: {fileID: 1660032999, guid: 531868c8e0056944893ecedd7a024256, type: 3}
-  price: 100
+  price: 2100
   desc: 
   place: 0
   sellPrice: 68

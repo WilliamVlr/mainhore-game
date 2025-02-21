@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e2f1968124fb04badec911f98d6a41, type: 3}
   m_Name: TokoFurniture
   m_EditorClassIdentifier: 
-  sceneName: Toko Funriture
+  sceneName: Toko Furniture
   _sprite: {fileID: 21300000, guid: 08ffe2c83540431488f3b4ae909abe85, type: 3}
