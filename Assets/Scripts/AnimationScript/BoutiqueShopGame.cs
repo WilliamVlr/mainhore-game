@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,13 +10,17 @@ public class BoutiqueManager : MonoBehaviour
     [SerializeField] private GameObject RandomizeButton;
     [SerializeField] private GameObject SimpanButton;
     [SerializeField] private GameObject UseClothButton;
+    [SerializeField] private GameObject CoinIcon;
+    [SerializeField] private TextMeshProUGUI CoinNominalText;
     [SerializeField] private GameObject[] curtains;
     [SerializeField] private GameObject[] costumeCharacters;
     [SerializeField] private SO_itemList itemDatabase;
-    [SerializeField] private GameObject PlayerAvatar;
+    [SerializeField] private SpriteRenderer playerAvatarRenderer;
 
-    private bool isRandomizing = false;
     private SO_Skin selectedSkin;
+    private bool isRandomizing = false;
+    private const int randomizationCost = 1000;
+    private List<SO_Skin> allSkins;
 
     private void Start()
     {
@@ -23,13 +28,17 @@ public class BoutiqueManager : MonoBehaviour
         RandomizeButton.SetActive(false);
         SimpanButton.SetActive(false);
         UseClothButton.SetActive(false);
+        CoinIcon.SetActive(false);
+        CoinNominalText.gameObject.SetActive(false);
+
         RandomizeCostumeInside();
         HideAllCharacters();
         CloseAllCurtains();
+        DisplayRandomizationCost();
 
         RandomizeButton.GetComponent<Button>().onClick.AddListener(RandomizeCostume);
-        SimpanButton.GetComponent<Button>().onClick.AddListener(SaveCostumeToInventory);
-        UseClothButton.GetComponent<Button>().onClick.AddListener(EquipSelectedCostume);
+        SimpanButton.GetComponent<Button>().onClick.AddListener(SaveSelectedCostume);
+        UseClothButton.GetComponent<Button>().onClick.AddListener(UseSelectedCostume);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -38,6 +47,9 @@ public class BoutiqueManager : MonoBehaviour
         {
             DialogKasir.SetActive(true);
             RandomizeButton.SetActive(true);
+            CoinIcon.SetActive(true);
+            CoinNominalText.gameObject.SetActive(true);
+            DisplayRandomizationCost();
         }
     }
 
@@ -47,18 +59,18 @@ public class BoutiqueManager : MonoBehaviour
         {
             DialogKasir.SetActive(false);
             RandomizeButton.SetActive(false);
+            CoinIcon.SetActive(false);
+            CoinNominalText.gameObject.SetActive(false);
         }
     }
 
     private void RandomizeCostumeInside()
     {
-        List<SO_Skin> allSkins = new List<SO_Skin>();
+        allSkins = new List<SO_Skin>();
         foreach (SO_item item in itemDatabase.availItems)
         {
             if (item is SO_Skin skin)
-            {
                 allSkins.Add(skin);
-            }
         }
 
         if (allSkins.Count < 3)
@@ -72,20 +84,17 @@ public class BoutiqueManager : MonoBehaviour
         {
             int randomIndex = Random.Range(0, allSkins.Count);
             if (!chosenIndices.Contains(randomIndex))
-            {
                 chosenIndices.Add(randomIndex);
-            }
         }
 
         for (int i = 0; i < costumeCharacters.Length; i++)
         {
             SO_Skin chosenSkin = allSkins[chosenIndices[i]];
-            SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponentInChildren<SpriteRenderer>();
 
             if (spriteRenderer != null && chosenSkin.sprite != null)
-            {
                 spriteRenderer.sprite = chosenSkin.sprite;
-            }
+
             costumeCharacters[i].SetActive(false);
         }
     }
@@ -94,28 +103,33 @@ public class BoutiqueManager : MonoBehaviour
     {
         if (!isRandomizing)
         {
-            RandomizeCostumeInside();
-            isRandomizing = true;
-            RandomizeButton.SetActive(false);
-            DialogKasir.SetActive(false);
-            SimpanButton.SetActive(false);
-            UseClothButton.SetActive(false);
-            StartCoroutine(RandomizeProcess());
+            if (CoinManager.Instance.canSubstractCoin(randomizationCost))
+            {
+                CoinManager.Instance.substractCoin(randomizationCost); // Koin langsung dikurangi
+                DisplayRandomizationCost();
+                isRandomizing = true;
+                RandomizeButton.SetActive(false);
+                DialogKasir.SetActive(false);
+                CoinIcon.SetActive(false);
+                CoinNominalText.gameObject.SetActive(false);
+                StartCoroutine(RandomizeProcess());
+            }
+            else
+            {
+                Debug.Log("Koin tidak cukup untuk randomisasi!");
+            }
         }
     }
 
     private IEnumerator RandomizeProcess()
     {
         yield return new WaitForSeconds(1f);
-
         int chosenIndex = Random.Range(0, costumeCharacters.Length);
-        selectedSkin = itemDatabase.availItems[chosenIndex] as SO_Skin;
-
         yield return StartCoroutine(OpenCurtain(chosenIndex));
         ShowCharacter(chosenIndex);
-
         SimpanButton.SetActive(true);
         UseClothButton.SetActive(true);
+        selectedSkin = allSkins[chosenIndex];
         isRandomizing = false;
     }
 
@@ -135,9 +149,7 @@ public class BoutiqueManager : MonoBehaviour
         {
             Animator curtainAnimator = curtain.GetComponent<Animator>();
             if (curtainAnimator != null)
-            {
                 curtainAnimator.SetTrigger("Close");
-            }
         }
     }
 
@@ -150,34 +162,42 @@ public class BoutiqueManager : MonoBehaviour
     private void HideAllCharacters()
     {
         foreach (GameObject character in costumeCharacters)
-        {
             character.SetActive(false);
-        }
     }
 
-    private void SaveCostumeToInventory()
+    private void SaveSelectedCostume()
     {
-        if (selectedSkin != null && !itemDatabase.availItems.Contains(selectedSkin))
+        if (selectedSkin != null)
         {
-            itemDatabase.availItems.Add(selectedSkin);
-            Debug.Log($"Kostum {selectedSkin.name} telah disimpan ke inventory.");
-            SimpanButton.SetActive(false);
-            UseClothButton.SetActive(false);
+            InventoryManager.Instance.AddItem(selectedSkin);
+            Debug.Log("Kostum disimpan ke inventory: " + selectedSkin.name);
         }
+        SimpanButton.SetActive(false);
+        UseClothButton.SetActive(false);
     }
 
-    private void EquipSelectedCostume()
+    private void UseSelectedCostume()
     {
-        if (selectedSkin != null && PlayerAvatar != null)
+        if (selectedSkin != null && selectedSkin.sprite != null && playerAvatarRenderer != null)
         {
-            SpriteRenderer avatarRenderer = PlayerAvatar.GetComponent<SpriteRenderer>();
-            if (avatarRenderer != null)
+            AvatarManager avatarMng = FindAnyObjectByType<AvatarManager>();
+            if (avatarMng != null)
             {
-                avatarRenderer.sprite = selectedSkin.sprite;
-                Debug.Log($"Avatar berhasil mengenakan kostum: {selectedSkin.name}");
-                SimpanButton.SetActive(false);
-                UseClothButton.SetActive(false);
+                SO_Skin oldSkin = avatarMng.changeSkin(selectedSkin);
+                InventoryManager.Instance.AddItem(oldSkin);
             }
+            else
+            {
+                Debug.LogWarning("Avatar Manager not found!");
+            }
+            Debug.Log("Kostum telah digunakan: " + selectedSkin.name);
         }
+        SimpanButton.SetActive(false);
+        UseClothButton.SetActive(false);
+    }
+
+    private void DisplayRandomizationCost()
+    {
+        CoinNominalText.text = randomizationCost.ToString();
     }
 }
