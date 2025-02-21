@@ -5,32 +5,37 @@ using System.Collections.Generic;
 
 public class BoutiqueManager : MonoBehaviour
 {
-    [SerializeField] private GameObject DialogKasir;           // Gambar dialog kasir
-    [SerializeField] private GameObject RandomizeButton;       // Tombol randomize
-    [SerializeField] private GameObject[] curtains;            // Array tirai (3 tirai)
-    [SerializeField] private GameObject[] costumeCharacters;   // Array karakter kostum (3 karakter)
+    [SerializeField] private GameObject DialogKasir;
+    [SerializeField] private GameObject RandomizeButton;
+    [SerializeField] private GameObject SimpanButton;
+    [SerializeField] private GameObject UseClothButton;
+    [SerializeField] private GameObject[] curtains;
+    [SerializeField] private GameObject[] costumeCharacters;
     [SerializeField] private SO_itemList itemDatabase;
+    [SerializeField] private GameObject PlayerAvatar;
 
-    private bool isRandomizing = false; // Untuk mencegah klik ganda saat proses randomisasi
+    private bool isRandomizing = false;
+    private SO_Skin selectedSkin;
 
     private void Start()
     {
-        // Sembunyikan dialog, tombol, karakter, dan tutup semua tirai saat mulai
         DialogKasir.SetActive(false);
         RandomizeButton.SetActive(false);
+        SimpanButton.SetActive(false);
+        UseClothButton.SetActive(false);
         RandomizeCostumeInside();
         HideAllCharacters();
         CloseAllCurtains();
 
-        // Tambahkan listener untuk tombol randomize
         RandomizeButton.GetComponent<Button>().onClick.AddListener(RandomizeCostume);
+        SimpanButton.GetComponent<Button>().onClick.AddListener(SaveCostumeToInventory);
+        UseClothButton.GetComponent<Button>().onClick.AddListener(EquipSelectedCostume);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player mendekati kasir. Menampilkan dialog dan tombol...");
             DialogKasir.SetActive(true);
             RandomizeButton.SetActive(true);
         }
@@ -40,103 +45,87 @@ public class BoutiqueManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player menjauh dari kasir. Menyembunyikan dialog dan tombol...");
             DialogKasir.SetActive(false);
             RandomizeButton.SetActive(false);
         }
     }
 
-   private void RandomizeCostumeInside()
-{
-    Debug.Log("Randomizing characters inside tirai");
-
-    // 1. Ambil semua SO_Skin dari itemDatabase
-    List<SO_Skin> allSkins = new List<SO_Skin>();
-    foreach (SO_item item in itemDatabase.availItems)
+    private void RandomizeCostumeInside()
     {
-        if (item is SO_Skin skin)
+        List<SO_Skin> allSkins = new List<SO_Skin>();
+        foreach (SO_item item in itemDatabase.availItems)
         {
-            allSkins.Add(skin);
+            if (item is SO_Skin skin)
+            {
+                allSkins.Add(skin);
+            }
+        }
+
+        if (allSkins.Count < 3)
+        {
+            Debug.LogError("Jumlah skin kurang dari 3!");
+            return;
+        }
+
+        List<int> chosenIndices = new List<int>();
+        while (chosenIndices.Count < 3)
+        {
+            int randomIndex = Random.Range(0, allSkins.Count);
+            if (!chosenIndices.Contains(randomIndex))
+            {
+                chosenIndices.Add(randomIndex);
+            }
+        }
+
+        for (int i = 0; i < costumeCharacters.Length; i++)
+        {
+            SO_Skin chosenSkin = allSkins[chosenIndices[i]];
+            SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponent<SpriteRenderer>();
+
+            if (spriteRenderer != null && chosenSkin.sprite != null)
+            {
+                spriteRenderer.sprite = chosenSkin.sprite;
+            }
+            costumeCharacters[i].SetActive(false);
         }
     }
 
-    // 2. Cek apakah skin cukup tersedia
-    if (allSkins.Count < 3)
-    {
-        Debug.LogError("Jumlah skin kurang dari 3! Tambahkan skin di itemDatabase.");
-        return;
-    }
-
-    // 3. Pilih 3 skin berbeda secara acak
-    List<int> chosenIndices = new List<int>();
-    while (chosenIndices.Count < 3)
-    {
-        int randomIndex = Random.Range(0, allSkins.Count);
-        if (!chosenIndices.Contains(randomIndex))
-        {
-            chosenIndices.Add(randomIndex);
-        }
-    }
-
-    // 4. Ganti SpriteRenderer.sprite di costumeCharacters[]
-    for (int i = 0; i < costumeCharacters.Length; i++)
-    {
-        SO_Skin chosenSkin = allSkins[chosenIndices[i]];
-        SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer != null && chosenSkin.sprite != null)
-        {
-            spriteRenderer.sprite = chosenSkin.sprite; // ✅ Ganti sprite sesuai skin
-            Debug.Log($"Karakter {i} menggunakan skin: {chosenSkin.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"SpriteRenderer atau skinSprite tidak ditemukan di costumeCharacter index {i}");
-        }
-        costumeCharacters[i].SetActive(false);
-    }
-}
     private void RandomizeCostume()
     {
         if (!isRandomizing)
         {
             RandomizeCostumeInside();
-            Debug.Log("Memulai proses randomisasi kostum...");
             isRandomizing = true;
             RandomizeButton.SetActive(false);
             DialogKasir.SetActive(false);
+            SimpanButton.SetActive(false);
+            UseClothButton.SetActive(false);
             StartCoroutine(RandomizeProcess());
         }
     }
 
     private IEnumerator RandomizeProcess()
     {
-        yield return new WaitForSeconds(1f); // Simulasi waktu untuk animasi spotlight
+        yield return new WaitForSeconds(1f);
 
-        // Pilih karakter secara acak
         int chosenIndex = Random.Range(0, costumeCharacters.Length);
-        Debug.Log("Karakter yang dipilih: " + chosenIndex);
+        selectedSkin = itemDatabase.availItems[chosenIndex] as SO_Skin;
 
-        // Buka tirai dan tampilkan karakter
         yield return StartCoroutine(OpenCurtain(chosenIndex));
         ShowCharacter(chosenIndex);
 
-        Debug.Log("Kostum telah ditampilkan. Pemain dapat meng-equip.");
+        SimpanButton.SetActive(true);
+        UseClothButton.SetActive(true);
         isRandomizing = false;
     }
 
     private IEnumerator OpenCurtain(int index)
     {
-        Debug.Log("Membuka tirai nomor: " + index);
         Animator curtainAnimator = curtains[index].GetComponent<Animator>();
         if (curtainAnimator != null)
         {
-            curtainAnimator.SetTrigger("Open"); // Trigger animasi buka tirai
-            yield return new WaitForSeconds(1.5f); // Tunggu animasi selesai
-        }
-        else
-        {
-            Debug.LogWarning("Animator tidak ditemukan di tirai index " + index);
+            curtainAnimator.SetTrigger("Open");
+            yield return new WaitForSeconds(1.5f);
         }
     }
 
@@ -163,6 +152,32 @@ public class BoutiqueManager : MonoBehaviour
         foreach (GameObject character in costumeCharacters)
         {
             character.SetActive(false);
+        }
+    }
+
+    private void SaveCostumeToInventory()
+    {
+        if (selectedSkin != null && !itemDatabase.availItems.Contains(selectedSkin))
+        {
+            itemDatabase.availItems.Add(selectedSkin);
+            Debug.Log($"Kostum {selectedSkin.name} telah disimpan ke inventory.");
+            SimpanButton.SetActive(false);
+            UseClothButton.SetActive(false);
+        }
+    }
+
+    private void EquipSelectedCostume()
+    {
+        if (selectedSkin != null && PlayerAvatar != null)
+        {
+            SpriteRenderer avatarRenderer = PlayerAvatar.GetComponent<SpriteRenderer>();
+            if (avatarRenderer != null)
+            {
+                avatarRenderer.sprite = selectedSkin.sprite;
+                Debug.Log($"Avatar berhasil mengenakan kostum: {selectedSkin.name}");
+                SimpanButton.SetActive(false);
+                UseClothButton.SetActive(false);
+            }
         }
     }
 }
