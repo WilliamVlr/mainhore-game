@@ -76,7 +76,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
             Vector3 cameraTopRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
 
             // Define a range for the top spawn position, e.g., 10% below the top of the camera view
-            float topSpawnMargin = 0.1f; // 10% margin below the top edge
+            float topSpawnMargin = 0.25f; // 10% margin below the top edge
             float leftRightSpawnMargin = 0.15f;
 
             // Get random position within the camera bounds
@@ -96,7 +96,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
             {
                 behavior.Initialize(item);
             }
-            placedFurnitures.TryAdd(item.ID, newFurniture.transform.position);  // Add to the list of placed furniture
+            placedFurnitures.TryAdd(item.ID, newFurniture.transform.localPosition);  // Add to the list of placed furniture
             listFurnitureBehaviors.Add(behavior);
             item.dropBehavior.HandleDrop(newFurniture);
         }

@@ -28,10 +28,6 @@ public class FurnitureRandomizer : MonoBehaviour
 
     private void RandomizeObjects()
     {
-        //TODO - Get All furnitures in Database then save it in another List<SO_Furniture>
-        //TODO - Get All furniture that has DropBehavior is WeightedDropBehavior
-        //TODO - Get All furniture that has DropBehavior is WallSnapBehavior
-        //TODO - Get All furniture that has DropBehavior is CeilingSnapBehavior
          // Create a list to store all furniture items
         List<SO_Furniture> allFurniture = new List<SO_Furniture>();
 
@@ -78,10 +74,6 @@ public class FurnitureRandomizer : MonoBehaviour
         Debug.Log($"Wall Snap Furniture: {wallSnapFurniture.Count}");
         Debug.Log($"Ceiling Snap Furniture: {ceilingSnapFurniture.Count}");
 
-        
-    
-        //TODO - Random each furniture type
-        //TODO - Set the image to corresponding gameObject
         // Randomly select an item for each category and set the corresponding image
         if (weightedSmallFurniture.Count > 0)
         {

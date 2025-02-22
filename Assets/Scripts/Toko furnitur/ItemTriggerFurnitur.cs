@@ -29,6 +29,7 @@ public class ItemTrigger : MonoBehaviour
         currentItem = furnitureData;
         if(spriteRenderer != null){
             spriteRenderer.sprite = furnitureData.sprite;
+            transform.localScale = new Vector2(currentItem.scale_inBackground, currentItem.scale_inBackground);
         }
         hargaText.text = furnitureData.price.ToString();
     }
@@ -61,9 +62,9 @@ public class ItemTrigger : MonoBehaviour
 
         if (confirmationPanel != null)
         {
-            confirmationPanel.showConfirmSellingPanel(
+            confirmationPanel.showConfirmBuyingPanel(
                 currentItem,
-                () => confirmSell(),
+                () => confirmBuy(),
                 () => Debug.Log("Cancel Buy")
             );
         }
@@ -73,35 +74,36 @@ public class ItemTrigger : MonoBehaviour
         }
     }
 
-    private void confirmSell()
+    private void confirmBuy()
     {
         
         //TODO - kurangi coin player
          int itemPrice = currentItem.price;
-            if (CoinManager.Instance.canSubstractCoin(itemPrice))
+         if (CoinManager.Instance.canSubstractCoin(itemPrice))
+         {
+            CoinManager.Instance.substractCoin(itemPrice); 
+            //TODO - ganti text harga dengan sold out
+            if (hargaText != null)
             {
-                CoinManager.Instance.substractCoin(itemPrice); 
-                //TODO - ganti text harga dengan sold out
-                if (hargaText != null)
-                {
-                    hargaText.text = "Sold Out"; 
-                }
-                InventoryManager.Instance.AddItem(currentItem);
-                //TODO - Destroy object furniturenya
-                Destroy(this.gameObject);
+                hargaText.text = "Sold Out"; 
+            }
+            InventoryManager.Instance.AddItem(currentItem);
+            DataPersistenceManager.Instance.saveGame();
+            //TODO - Destroy object furniturenya
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.Log("Not enough coins to purchase the item.");
+            NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
+            if (notifPanel != null)
+            {
+                notifPanel.showCanvas();
             }
             else
             {
-                Debug.Log("Not enough coins to purchase the item.");
-                NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
-                if (notifPanel != null)
-                {
-                    notifPanel.showCanvas();
-                }
-                else
-                {
-                    Debug.Log("Notif panel is not found");
-                }
+                Debug.Log("Notif panel is not found");
             }
+        }
     }
 }

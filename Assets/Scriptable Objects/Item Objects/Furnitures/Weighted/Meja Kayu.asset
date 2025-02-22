@@ -20,6 +20,6 @@ MonoBehaviour:
   place: 0
   sellPrice: 25
   scale_inSlot: 0.18
-  scale_inBackground: 1
+  scale_inBackground: 0.35
   furniturePrefab: {fileID: 1753941558196769759, guid: c68297f7b9bdfa849b1361a2fa3a6c05, type: 3}
   dropBehavior: {fileID: 11400000, guid: 85dec9b158984174d9d132d89eee4a6b, type: 2}
