@@ -7,15 +7,14 @@ using System.Collections.Generic;
 public class BoutiqueManager : MonoBehaviour
 {
     [SerializeField] private GameObject DialogKasir;
-    [SerializeField] private GameObject RandomizeButton;
+    [SerializeField] private Button RandomizeButton;
     [SerializeField] private GameObject SimpanButton;
     [SerializeField] private GameObject UseClothButton;
-    [SerializeField] private GameObject CoinIcon;
-    [SerializeField] private TextMeshProUGUI CoinNominalText;
     [SerializeField] private GameObject[] curtains;
     [SerializeField] private GameObject[] costumeCharacters;
     [SerializeField] private SO_itemList itemDatabase;
     [SerializeField] private SpriteRenderer playerAvatarRenderer;
+    [SerializeField] private Sprite gachaBtnSprite;
 
     private SO_Skin selectedSkin;
     private bool isRandomizing = false;
@@ -25,18 +24,14 @@ public class BoutiqueManager : MonoBehaviour
     private void Start()
     {
         DialogKasir.SetActive(false);
-        RandomizeButton.SetActive(false);
+        RandomizeButton.gameObject.SetActive(false);
         SimpanButton.SetActive(false);
         UseClothButton.SetActive(false);
-        CoinIcon.SetActive(false);
-        CoinNominalText.gameObject.SetActive(false);
 
         RandomizeCostumeInside();
         HideAllCharacters();
         CloseAllCurtains();
-        DisplayRandomizationCost();
 
-        RandomizeButton.GetComponent<Button>().onClick.AddListener(RandomizeCostume);
         SimpanButton.GetComponent<Button>().onClick.AddListener(SaveSelectedCostume);
         UseClothButton.GetComponent<Button>().onClick.AddListener(UseSelectedCostume);
     }
@@ -46,21 +41,20 @@ public class BoutiqueManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             DialogKasir.SetActive(true);
-            RandomizeButton.SetActive(true);
-            CoinIcon.SetActive(true);
-            CoinNominalText.gameObject.SetActive(true);
-            DisplayRandomizationCost();
+            RandomizeButton.GetComponent<Image>().sprite = gachaBtnSprite;
+            RandomizeButton.gameObject.SetActive(true);
+            RandomizeButton.onClick.AddListener(OnRandomizeClicked);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (RandomizeButton != null)
         {
             DialogKasir.SetActive(false);
-            RandomizeButton.SetActive(false);
-            CoinIcon.SetActive(false);
-            CoinNominalText.gameObject.SetActive(false);
+            RandomizeButton.GetComponent<Image>().sprite = null;
+            RandomizeButton.gameObject.SetActive(false);
+            RandomizeButton.onClick.RemoveAllListeners();
         }
     }
 
@@ -99,6 +93,24 @@ public class BoutiqueManager : MonoBehaviour
         }
     }
 
+    public void OnRandomizeClicked()
+    {
+        Debug.Log("Randomize button clicked");
+        ConfirmationBehavior confirmationPanel = FindAnyObjectByType<ConfirmationBehavior>();
+
+        if (confirmationPanel != null)
+        {
+            confirmationPanel.showConfirmDecorationPanel(
+                () => RandomizeCostume(),
+                () => Debug.Log("Cancel Buy")
+            );
+        }
+        else
+        {
+            Debug.Log("Confirmation panel not found!");
+        }
+    }
+
     private void RandomizeCostume()
     {
         if (!isRandomizing)
@@ -106,17 +118,23 @@ public class BoutiqueManager : MonoBehaviour
             if (CoinManager.Instance.canSubstractCoin(randomizationCost))
             {
                 CoinManager.Instance.substractCoin(randomizationCost); // Koin langsung dikurangi
-                DisplayRandomizationCost();
                 isRandomizing = true;
-                RandomizeButton.SetActive(false);
+                RandomizeButton.gameObject.SetActive(false);
                 DialogKasir.SetActive(false);
-                CoinIcon.SetActive(false);
-                CoinNominalText.gameObject.SetActive(false);
                 StartCoroutine(RandomizeProcess());
             }
             else
             {
                 Debug.Log("Koin tidak cukup untuk randomisasi!");
+                NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
+                if (notifPanel != null)
+                {
+                    notifPanel.showCanvas();
+                }
+                else
+                {
+                    Debug.Log("Notif panel is not found");
+                }
             }
         }
     }
@@ -190,14 +208,9 @@ public class BoutiqueManager : MonoBehaviour
             {
                 Debug.LogWarning("Avatar Manager not found!");
             }
-            Debug.Log("Kostum telah digunakan: " + selectedSkin.name);
+            //Debug.Log("Kostum telah digunakan: " + selectedSkin.name);
         }
         SimpanButton.SetActive(false);
         UseClothButton.SetActive(false);
-    }
-
-    private void DisplayRandomizationCost()
-    {
-        CoinNominalText.text = randomizationCost.ToString();
     }
 }
