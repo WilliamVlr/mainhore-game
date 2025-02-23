@@ -47,6 +47,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("OnSceneLoaded called");
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         loadGame();
     }
@@ -80,6 +81,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void saveGame()
     {
+        Debug.Log("Save game Data Persistence Manager called");
         if(this.gameData == null)
         {
             Debug.LogWarning("No data was found. A new game must be started before data can be saved.");
@@ -112,6 +114,11 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+
+        foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            Debug.Log(dataPersistenceObj.ToString());
+        }
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
