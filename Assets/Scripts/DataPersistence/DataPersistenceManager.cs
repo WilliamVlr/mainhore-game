@@ -38,24 +38,17 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += onSceneLoaded;
-        SceneManager.sceneUnloaded += onSceneUnloaded;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= onSceneLoaded;
-        SceneManager.sceneUnloaded -= onSceneUnloaded;
     }
 
     public void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         loadGame();
-    }
-
-    public void onSceneUnloaded(Scene scene)
-    {
-        saveGame();
     }
 
     public void newGame()
@@ -106,6 +99,14 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         saveGame();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            saveGame();
+        }
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()

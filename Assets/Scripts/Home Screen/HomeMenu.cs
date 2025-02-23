@@ -24,12 +24,16 @@ public class HomeMenu : MonoBehaviour
 
         DataPersistenceManager.Instance.newGame();
 
+        DataPersistenceManager.Instance.saveGame();
+        
         SceneManager.LoadSceneAsync("House");
     }
 
     public void onContinueClicked()
     {
         disableMenuButtons();
+
+        DataPersistenceManager.Instance.saveGame();
 
         SceneManager.LoadSceneAsync("House");
     }
