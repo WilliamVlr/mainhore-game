@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CUCI TANGAN.unity
     guid: a24a909f649830e4490022f682f27763
+  - enabled: 1
+    path: Assets/Scenes/Toko Furniture.unity
+    guid: 0cd4fc9628538f045b6778e529272136
+  - enabled: 1
+    path: Assets/Scenes/Butik.unity
+    guid: 33be7c8b1d05cf742a6440c9c161eff8
   m_configObjects: {}

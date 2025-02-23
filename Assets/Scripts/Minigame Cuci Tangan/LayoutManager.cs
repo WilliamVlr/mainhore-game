@@ -75,13 +75,14 @@ public class LayoutManager : MonoBehaviour
 
     public void restartMinigame()
     {
+        DataPersistenceManager.Instance.saveGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //Debug.Log("Restarting Minigame");
     }
 
     public void returnToHomeScreen()
     {
         Time.timeScale = 1;
+        DataPersistenceManager.Instance.saveGame();
         SceneManager.LoadScene("House");
     }
 

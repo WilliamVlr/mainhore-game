@@ -15,11 +15,11 @@ MonoBehaviour:
   id: Jendela Merah
   itemName: Jendela Merah
   sprite: {fileID: 1660032999, guid: 531868c8e0056944893ecedd7a024256, type: 3}
-  price: 100
+  price: 2100
   desc: 
   place: 0
   sellPrice: 68
   scale_inSlot: 0.18
-  scale_inBackground: 1
+  scale_inBackground: 0.35
   furniturePrefab: {fileID: 7516308070001164282, guid: c41c1fdb8ab6bf84d82eee18436b6ed3, type: 3}
   dropBehavior: {fileID: 11400000, guid: b813f6fb83db285499da7feee1315691, type: 2}

@@ -131,14 +131,16 @@ public abstract class Minigame : MonoSingleton<Minigame>
     public void restartMinigame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //Debug.Log("Restarting Minigame");
+        Debug.Log("Calling DataPersistenceManager.SaveGame from Minigame class");
+        DataPersistenceManager.Instance.saveGame();
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void returnToHomeScreen()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainScreen");
+        DataPersistenceManager.Instance.saveGame();
+        SceneManager.LoadSceneAsync("MainScreen");
     }
 
     private void Update()
