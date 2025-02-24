@@ -462,7 +462,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 763180841}
+        m_TargetAssemblyTypeName: SoundUIController, Assembly-CSharp
+        m_MethodName: AdjustMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &60855914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,7 +1378,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 763180841}
+        m_TargetAssemblyTypeName: SoundUIController, Assembly-CSharp
+        m_MethodName: AdjustSFXVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &480801652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1843,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 582282674}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 763180841}
+        m_TargetAssemblyTypeName: SoundUIController, Assembly-CSharp
+        m_MethodName: ToggleMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &582282674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,7 +3964,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1147325518}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 763180841}
+        m_TargetAssemblyTypeName: SoundUIController, Assembly-CSharp
+        m_MethodName: ToggleSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1147325518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4214,9 +4262,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5374e02b179917048b8323727f513ac4, type: 3}
   - name: Jalan
     clip: {fileID: 8300000, guid: 0d9affccef3e1504fa78af697fd9f9a0, type: 3}
-  sfxList:
-  - name: 
-    clip: {fileID: 0}
+  sfxList: []
   _musicIsMuted: 0
   _sfxIsMuted: 0
 --- !u!4 &1254265596
@@ -4681,7 +4727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4358663862353931994, guid: 7efcd6d95e87c5a41bdbb90862917b51, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5990,7 +6036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8878281230846876226, guid: 931a5d0b8e62ee845a5303489087146d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
