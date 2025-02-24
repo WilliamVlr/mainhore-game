@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pengaturan
+  m_text: Audio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1fd823c7cf8bfe841b2e832fdaceb542, type: 2}
   m_sharedMaterial: {fileID: 5161044879014271636, guid: 1fd823c7cf8bfe841b2e832fdaceb542, type: 2}
@@ -2455,11 +2455,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicButton: {fileID: 582282673}
-  musicSprite: {fileID: 0}
-  musicSprite_mute: {fileID: 0}
+  musicSprite: {fileID: 21300000, guid: 7fb916dacec3258488478cac7d9a96a5, type: 3}
+  musicSprite_mute: {fileID: 21300000, guid: 6facb2952549891449cb042b861fcad9, type: 3}
   sfxButton: {fileID: 1147325517}
-  sfxSprite: {fileID: 0}
-  sfxSprite_mute: {fileID: 0}
+  sfxSprite: {fileID: 21300000, guid: 6883f50263a827949ad3a43b591adf30, type: 3}
+  sfxSprite_mute: {fileID: 21300000, guid: fa0a8b4ae6f90ac4ba283e8f44fa9f73, type: 3}
   _musicSlider: {fileID: 18251417}
   _sfxSlider: {fileID: 315050964}
 --- !u!1001 &864745394
@@ -5921,7 +5921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 171.555
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.y
