@@ -108,7 +108,9 @@ public abstract class SlotUI : MonoBehaviour, IPointerDownHandler, IPointerExitH
 
     private void confirmSell()
     {
+        CoinManager.Instance.addCoin(currentItem.price);
         InventoryManager.Instance.RemoveItem(currentItem);
+        DataPersistenceManager.Instance.saveGame();
     }
 
     public abstract void secondAction();

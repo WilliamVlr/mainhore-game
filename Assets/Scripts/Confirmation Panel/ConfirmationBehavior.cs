@@ -12,6 +12,7 @@ public class ConfirmationBehavior : MonoBehaviour
 
     [Header("Jual Confirmation")]
     public GameObject jualConfirmation;
+    public TextMeshProUGUI jualBeliTxt;
     public TextMeshProUGUI hargaTxt;
     public Image objJual;
 
@@ -65,6 +66,40 @@ public class ConfirmationBehavior : MonoBehaviour
         // Activate selling panel first
         jualConfirmation.gameObject.SetActive(true);
 
+        jualBeliTxt.text = "Jual untuk";
+        hargaTxt.text = item.price.ToString();  // Set the price text
+        objJual.sprite = item.sprite;
+        objJual.SetNativeSize();
+        float height = objJual.GetComponent<RectTransform>().rect.height;
+
+        if (height > 600f)
+        {
+            objJual.rectTransform.localScale = new Vector3(0.25f, 0.25f, 0);
+        }
+        else
+        {
+            objJual.rectTransform.localScale = new Vector3(0.4f, 0.4f, 0);
+        }
+
+        // Assign the actions to the buttons
+        yesAction = onYes;
+        noAction = onNo;
+
+        // Force layout update on all children inside the 'judulJualGroup'
+        foreach (Transform child in jualConfirmation.transform)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(child.GetComponent<RectTransform>());
+        }
+
+        showCanvas();
+    }
+
+    public void showConfirmBuyingPanel(SO_item item, UnityAction onYes, UnityAction onNo)
+    {
+        // Activate selling panel first
+        jualConfirmation.gameObject.SetActive(true);
+
+        jualBeliTxt.text = "Beli untuk";
         hargaTxt.text = item.price.ToString();  // Set the price text
         objJual.sprite = item.sprite;
         objJual.SetNativeSize();

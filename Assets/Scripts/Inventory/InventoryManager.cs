@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Timeline;
-using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour, IDataPersistence
 {

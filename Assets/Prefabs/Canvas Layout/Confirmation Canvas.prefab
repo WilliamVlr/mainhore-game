@@ -1085,6 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decorationConfirmation: {fileID: 506167864773219101}
   jualConfirmation: {fileID: 6534374821597865795}
+  jualBeliTxt: {fileID: 4116341201120127445}
   hargaTxt: {fileID: 5551441892610875162}
   objJual: {fileID: 4755703789731851984}
   upgradeInvConfirmation: {fileID: 2380773021750509694}

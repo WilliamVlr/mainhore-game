@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Cermin Klasik
   itemName: Cermin Klasik
   sprite: {fileID: 2053538598, guid: 65e7dc8325a461540991000fa16710b7, type: 3}
-  price: 50
+  price: 2750
   desc: 
   place: 0
   sellPrice: 38

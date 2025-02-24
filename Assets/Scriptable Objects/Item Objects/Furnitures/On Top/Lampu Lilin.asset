@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Lampu Lilin
   itemName: Lampu Lilin
   sprite: {fileID: 1262600544, guid: 880a74a60bd8ab749ae739e47de5b2e0, type: 3}
-  price: 100
+  price: 2345
   desc: 
   place: 0
   sellPrice: 55
