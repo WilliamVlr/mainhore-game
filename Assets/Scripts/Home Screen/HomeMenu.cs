@@ -21,12 +21,8 @@ public class HomeMenu : MonoBehaviour
     public void onNewGameClicked()
     {
         disableMenuButtons();
-
-        DataPersistenceManager.Instance.newGame();
-
-        DataPersistenceManager.Instance.saveGame();
         
-        SceneManager.LoadSceneAsync("House");
+        SceneManager.LoadSceneAsync("PilihKarakter");
     }
 
     public void onContinueClicked()

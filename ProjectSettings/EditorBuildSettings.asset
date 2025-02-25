@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Home Screen.unity
     guid: efd68ee4a20ec9343b313d3f664a74ee
   - enabled: 1
+    path: Assets/Scenes/PilihKarakter.unity
+    guid: 67d26ca6035bf7449a60002ba9fd694c
+  - enabled: 1
     path: Assets/Scenes/House.unity
     guid: a3b65d0adca3ced4aa6de778e969ede3
   - enabled: 1
