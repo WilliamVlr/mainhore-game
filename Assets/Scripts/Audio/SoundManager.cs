@@ -44,7 +44,7 @@ public class SoundManager : MonoBehaviour, IDataPersistence
         _sfxIsMuted = sfxSource.mute;
         lastMusicVol = musicSource.volume;
         lastSfxVol = sfxSource.volume;
-        PlayMusicInList("Start");
+        // PlayMusicInList("Start");
     }
 
     public float getCurrentMusicVol()

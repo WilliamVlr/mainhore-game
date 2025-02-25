@@ -32,26 +32,26 @@ public class SoundUIController : MonoBehaviour
     public void AdjustMusicVolume()
     {
         SoundManager.Instance.AdjustMusicVolume(_musicSlider.value);
-        if(_musicSlider.value == 0){
-            musicButton.image.sprite = musicSprite_mute;
-        } else {
-            musicButton.image.sprite = musicSprite;
-        }
+        // if(_musicSlider.value == 0){
+        //     musicButton.image.sprite = musicSprite_mute;
+        // } else {
+        //     musicButton.image.sprite = musicSprite;
+        // }
     }
 
     public void AdjustSFXVolume()
     {
         SoundManager.Instance.AdjustSFXVolume(_sfxSlider.value);
-        if(_sfxSlider.value == 0){
-            sfxButton.image.sprite = sfxSprite_mute;
-        } else {
-            sfxButton.image.sprite = sfxSprite;
-        }
+        // if(_sfxSlider.value == 0){
+        //     sfxButton.image.sprite = sfxSprite_mute;
+        // } else {
+        //     sfxButton.image.sprite = sfxSprite;
+        // }
     }
 
     public void loadUI()
     {
-        if (SoundManager.Instance._musicIsMuted || _musicSlider.value == 0)
+        if (SoundManager.Instance._musicIsMuted)
         {
             musicButton.image.sprite = musicSprite_mute;
             _musicSlider.value = 0f;
@@ -62,7 +62,7 @@ public class SoundUIController : MonoBehaviour
             _musicSlider.value = SoundManager.Instance.getCurrentMusicVol();
         }
 
-        if (SoundManager.Instance._sfxIsMuted || _sfxSlider.value == 0)
+        if (SoundManager.Instance._sfxIsMuted)
         {
             sfxButton.image.sprite = sfxSprite_mute;
             _sfxSlider.value = 0f;
