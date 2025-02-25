@@ -17,13 +17,13 @@ public class GameData
 
     // the values defined in this constructor will be the default values
     // the game starts with when there's no data to load
-    public GameData() //TODO - add parameter string _usn from user input and chosen initial skin
+    public GameData(string usn, string skin)
     {
         // TODO - set username to username the user typed
-        this.username = "Ganteng Nomor 1 Duar";
+        this.username = usn;
 
         //TODO - set user active skin to chosen skin
-        this.activeSkin = "Fox";
+        this.activeSkin = skin;
 
         // Set initial default value for each player attributes
         this.coinAmount = 0;
