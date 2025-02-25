@@ -15,7 +15,8 @@ public class MinigameLayouts
     public GameObject winLayout;
     public GameObject loseLayout;
     public CanvasBehavior staticLayout;
-    public CanvasBehavior coinLayout; 
+    public CanvasBehavior coinLayout;
+    public CanvasBehavior baseInGameCanvas;
 }
 
 //Handle layers in minigame scene, handle scoring & target, and coin gained
@@ -84,6 +85,26 @@ public abstract class Minigame : MonoSingleton<Minigame>
         }
     }
 
+    public virtual void SetLevel1()
+    {
+        //Must be override in child
+    }
+
+    public virtual void SetLevel2()
+    {
+        //Must be override in child
+    }
+
+    public virtual void SetLevel3()
+    {
+        //Must be override in child
+    }
+
+    public void SetTargetScore(int target)
+    {
+        this.targetScore = target;
+    }
+
     public virtual void checkScore() {
         if (currentScore >= targetScore)
         {
@@ -149,6 +170,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
         {
             hideLayout(layouts.playLayout);
             showLayout(layouts.endLayout);
+            layouts.baseInGameCanvas.hideCanvas();
             layouts.coinLayout.showCanvas();
             layouts.staticLayout.showCanvas();
             if (isWin)
