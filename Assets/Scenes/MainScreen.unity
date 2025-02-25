@@ -2104,6 +2104,7 @@ GameObject:
   - component: {fileID: 1347948063}
   - component: {fileID: 1347948067}
   - component: {fileID: 1347948066}
+  - component: {fileID: 1347948068}
   m_Layer: 0
   m_Name: NpcUI
   m_TagString: Npc
@@ -2262,6 +2263,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1347948068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347948062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02460c8eed6637c4ea646db1e4e8dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1939925789}
+  button: {fileID: 1805619907}
 --- !u!1 &1365412732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,7 +2711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1805619908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2804,7 +2819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 844663fa7db6ac44195fe5a928a7b5fa, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3229,8 +3244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82680e3c39e831648b8d1f5b50311a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npc: {fileID: 1347948062}
-  image: {fileID: 21300000, guid: 596e57b151eb9ef41ba0f88b96f25324, type: 3}
 --- !u!1 &1947567843
 GameObject:
   m_ObjectHideFlags: 0
