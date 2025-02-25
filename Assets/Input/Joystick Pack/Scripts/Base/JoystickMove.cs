@@ -28,7 +28,30 @@ public class JoystickMove : MonoBehaviour
     {
         rb_player = player.GetComponent<Rigidbody2D>();
         rb_background = background.GetComponent<Rigidbody2D>();
-        notmid = 0;
+
+        backgroundPosition = background.transform.position;
+        playerPosition = player.transform.position;
+
+        if (backgroundPosition.x <= -(backgroundRightLimit) || backgroundPosition.x >= backgroundLeftLimit)
+        {
+            if (Mathf.Abs(playerPosition.x) < 1f && notmid == 1)
+            {
+                isBgMoving = 1;
+                notmid = 0;
+                //Debug.Log(notmid);
+            }
+            else
+            {
+                isBgMoving = 0; // gaboleh gerak
+                notmid = 1;
+                //Debug.Log(notmid);
+            }
+        }
+        else
+        {
+            isBgMoving = 1;
+            notmid = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -39,9 +62,28 @@ public class JoystickMove : MonoBehaviour
 
         _playerdirection.setDirection(movementJoystick);
 
+        // check bg
+        if (isBgMoving == 1 || notmid == 0)
+        {
+            checkMovY();
+            rb_background.velocity = new Vector2(-movementJoystick.Direction.x * playerSpeed, 0);
+        }
+        else
+        {
+            if ( ( backgroundPosition.x < -(backgroundRightLimit + 0.5f) && movementJoystick.Direction.x > 0 ) || (backgroundPosition.x < backgroundLeftLimit + 0.5f && movementJoystick.Direction.x < 0) )
+            {
+                checkMovY();
+                rb_background.velocity = new Vector2(-movementJoystick.Direction.x * playerSpeed, 0);
+            } else
+            {
+                checkMovX();
+                rb_background.velocity = new Vector2(0, 0);
+            }
+        }
+
         if (backgroundPosition.x <= -(backgroundRightLimit) || backgroundPosition.x >= backgroundLeftLimit)
         {
-            if (Mathf.Abs(playerPosition.x) < 0.3 && notmid == 1)
+            if (Mathf.Abs(playerPosition.x) < 0.3f && notmid == 1)
             {
                 isBgMoving = 1;
                 notmid = 0;
@@ -59,17 +101,7 @@ public class JoystickMove : MonoBehaviour
             isBgMoving = 1;
         }
 
-        // check bg
-        if (isBgMoving == 1)
-        {
-            checkMovY();
-            rb_background.velocity = new Vector2(-movementJoystick.Direction.x * playerSpeed, 0);
-        }
-        else
-        {
-            checkMovX();
-            rb_background.velocity = new Vector2(0, 0);
-        }
+        
     }
 
     void checkMovX()
