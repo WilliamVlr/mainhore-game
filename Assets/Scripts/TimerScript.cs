@@ -17,14 +17,31 @@ public class TimerScript : MonoBehaviour
 
     private bool isColorUpdating = true;
 
-    private void Start()
+    private void Awake()
     {
         timerSlider = timerUI.GetComponent<Slider>();
         timerSliderFill = timerSlider.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
+    }
 
-        timer = timerSlider.value;
-        maxtime = timerSlider.value;
-        //Debug.Log(maxtime);
+    private void Start()
+    {
+        //SetTimerMaxValue(timer);
+    }
+
+    public void SetTimerMaxValue(float maxDur)
+    {
+        if (timerSlider != null)
+        {
+            timerSlider.maxValue = maxDur;
+            timerSlider.value = maxDur;
+            maxtime = maxDur;
+            timer = maxDur;
+            SetTimerText((int) maxDur);
+        }
+        else
+        {
+            Debug.LogWarning("Timer Slider not found");
+        }
     }
 
     private void Update()
@@ -42,6 +59,14 @@ public class TimerScript : MonoBehaviour
             }
 
             updateText((int)timer);
+        }
+    }
+
+    public void SetTimerText(int timer)
+    {
+        if (timer > 0)
+        {
+            timerTxt.text = timer.ToString();
         }
     }
 
