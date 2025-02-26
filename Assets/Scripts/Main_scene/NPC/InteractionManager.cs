@@ -18,6 +18,7 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private float fadeDuration;
 
     private int isInteract = 0;
+    private int clicked = 0;
 
     private void Awake()
     {
@@ -38,8 +39,11 @@ public class InteractionManager : MonoBehaviour
     }
     public void enableInteraction(GameObject Interaction)
     {
-        Interaction.SetActive(true);
-        Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(Interaction, fadeDuration));
+        if(clicked == 0)
+        {
+            Interaction.SetActive(true);
+            Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(Interaction, fadeDuration));
+        }
     }
     
     public void disableInteraction(GameObject Interaction)
@@ -50,15 +54,24 @@ public class InteractionManager : MonoBehaviour
 
     public void StartInstruction(Conversation conversation)
     {
-        currentLine = null;
-        conversations.Clear();
-
-        foreach (ConversationLine line in conversation.conversationLines)
+        if (clicked == 0)
         {
-            conversations.AddLast(line);
-        }
+            Debug.Log("clicked 0");
+            currentLine = null;
+            conversations.Clear();
+            clicked = 1;
 
-        DisplayNextInstructionLine();
+            foreach (ConversationLine line in conversation.conversationLines)
+            {
+                conversations.AddLast(line);
+            }
+
+            DisplayNextInstructionLine();
+        }
+        else
+        {
+            DisplayNextInstructionLine();
+        }
     }
 
     public void DisplayNextInstructionLine()
@@ -75,6 +88,7 @@ public class InteractionManager : MonoBehaviour
                 StartCoroutine(FadeOutAndUpdateContent());
                 instructionAreaObject.gameObject.SetActive(false);
                 setInteract(0);
+                clicked = 0;
                 return;
             }
             currentLine = currentLine.Next;
