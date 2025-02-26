@@ -24,6 +24,7 @@ public class FurnitureRandomizer : MonoBehaviour
     private void Start()
     {
         RandomizeObjects();
+        SoundManager.Instance.PlayMusicInList("Furnitur");
     }
 
     private void RandomizeObjects()
