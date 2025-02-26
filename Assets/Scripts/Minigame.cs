@@ -44,6 +44,11 @@ public abstract class Minigame : MonoSingleton<Minigame>
     private Fader fader;
     public float fadeDuration = 1.0f;
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayMusicInList("Jalan");
+    }
+
     public override void Init()
     {
         setTargetScoreTxt();
@@ -179,10 +184,12 @@ public abstract class Minigame : MonoSingleton<Minigame>
                 CoinManager.Instance.addCoin(coinGained);
                 setCoinGainedTxt();
                 showLayout(layouts.winLayout);
+                SoundManager.Instance.PlayMusicInList("win");
             } 
             else
             {
                 showLayout(layouts.loseLayout);
+                SoundManager.Instance.PlayMusicInList("Lose");
             }
             isEnded = true;
         }

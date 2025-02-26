@@ -36,6 +36,8 @@ public class Spawner : MonoBehaviour
         spawnAreaMax = new Vector2(maxPosition.x - 1.5f, maxPosition.y - 1f);
 
         timerText = timerObject.GetComponent<TextMeshProUGUI>();
+
+        SoundManager.Instance.PlayMusicInList("House");
     }
 
     void Awake()
@@ -55,6 +57,7 @@ public class Spawner : MonoBehaviour
             {
                 //Debug.Log("Clicked");
                 HandleVirusClick(hit.collider.gameObject);
+                SoundManager.Instance.PlaySFXInList("virus pecah");
             }
         }
     }
@@ -148,15 +151,18 @@ public class Spawner : MonoBehaviour
     {
         spawnCount = 15;
         virusSpeed = 5f;
+        SoundManager.Instance.StopMusic();
     }
     public void SetLevel2()
     {
         spawnCount = 20;
         virusSpeed = 8f;
+        SoundManager.Instance.StopMusic();
     }
     public void SetLevel3()
     {
         spawnCount = 25;
         virusSpeed = 10f;
+        SoundManager.Instance.StopMusic();
     }
 }

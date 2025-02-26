@@ -31,6 +31,7 @@ public class MinigameCafeManager : Minigame
         targetScore = 8;
         coinMultiplier = 1;
         Init();
+        SoundManager.Instance.StopMusic();
     }
 
     public override void SetLevel2()
@@ -39,6 +40,7 @@ public class MinigameCafeManager : Minigame
         targetScore = 15;
         coinMultiplier = 2;
         Init();
+        SoundManager.Instance.StopMusic();
     }
     public override void SetLevel3()
     {
@@ -46,5 +48,6 @@ public class MinigameCafeManager : Minigame
         targetScore = 15;
         coinMultiplier = 3;
         Init();
+        SoundManager.Instance.StopMusic();
     }
 }

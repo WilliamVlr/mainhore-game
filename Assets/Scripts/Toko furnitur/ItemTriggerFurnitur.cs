@@ -81,7 +81,8 @@ public class ItemTrigger : MonoBehaviour
          int itemPrice = currentItem.price;
          if (CoinManager.Instance.canSubstractCoin(itemPrice))
          {
-            CoinManager.Instance.substractCoin(itemPrice); 
+            CoinManager.Instance.substractCoin(itemPrice);
+            SoundManager.Instance.PlaySFXInList("Coin berkurang");
             //TODO - ganti text harga dengan sold out
             if (hargaText != null)
             {
