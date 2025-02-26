@@ -143,4 +143,20 @@ public class Spawner : MonoBehaviour
         }
         return true;
     }
+
+    public void SetLevel1()
+    {
+        spawnCount = 10;
+        virusSpeed = 10f;
+    }
+    public void SetLevel2()
+    {
+        spawnCount = 20;
+        virusSpeed = 5000f;
+    }
+    public void SetLevel3()
+    {
+        spawnCount = 25;
+        virusSpeed = 100000f;
+    }
 }
