@@ -45,8 +45,6 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        VirusMove virusMove = virus.GetComponent<VirusMove>();
-        virusMove.speed = virusSpeed;
         //Debug.Log(virusSpeed);
         if (Input.GetMouseButtonDown(0))
         {
@@ -112,7 +110,9 @@ public class Spawner : MonoBehaviour
             if (IsPositionValid(randomPosition, dynamicMinDistance))
             {
                 spawnedPositions.Add(randomPosition);
-                Instantiate(virus, randomPosition, Quaternion.identity);
+                GameObject virusNew = Instantiate(virus, randomPosition, Quaternion.identity);
+                VirusMove virusMove = virusNew.GetComponent<VirusMove>();
+                virusMove.speed = virusSpeed;
                 spawned++;
                 attempts = 0;
             }
@@ -146,17 +146,17 @@ public class Spawner : MonoBehaviour
 
     public void SetLevel1()
     {
-        spawnCount = 10;
-        virusSpeed = 10f;
+        spawnCount = 15;
+        virusSpeed = 5f;
     }
     public void SetLevel2()
     {
         spawnCount = 20;
-        virusSpeed = 5000f;
+        virusSpeed = 8f;
     }
     public void SetLevel3()
     {
         spawnCount = 25;
-        virusSpeed = 100000f;
+        virusSpeed = 10f;
     }
 }
