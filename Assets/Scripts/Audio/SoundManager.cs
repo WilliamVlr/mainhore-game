@@ -44,7 +44,7 @@ public class SoundManager : MonoBehaviour, IDataPersistence
         _sfxIsMuted = sfxSource.mute;
         lastMusicVol = musicSource.volume;
         lastSfxVol = sfxSource.volume;
-        // PlayMusicInList("Start");
+        PlayMusicInList("Start");
     }
 
     public float getCurrentMusicVol()
@@ -54,6 +54,21 @@ public class SoundManager : MonoBehaviour, IDataPersistence
     public float getCurrentSfxVol()
     {
         return sfxSource.volume;
+    }
+
+    public void StopSFX()
+    {
+        sfxSource?.Stop();
+    }
+
+    public void LoopSFX()
+    {
+        sfxSource.loop = true;
+    }
+
+    public void UnloopSFX()
+    {
+        sfxSource.loop = false;
     }
 
     private void loadUITrigger()

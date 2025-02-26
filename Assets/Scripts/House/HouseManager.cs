@@ -61,6 +61,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         staticCanvas.showCanvas();
         joystickCanvas.showCanvas();
         exitPanel.SetActive(false);
+        SoundManager.Instance.PlayMusicInList("House");
     }
 
     public void PlaceFurniture(SO_Furniture item)
