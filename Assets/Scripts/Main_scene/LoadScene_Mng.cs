@@ -36,6 +36,7 @@ public class LoadScene_Mng : MonoBehaviour
 
         spr_RightBtn = RightBtn.GetComponent<Image>();
         RightBtn.gameObject.SetActive(false);
+        SoundManager.Instance.PlayMusicInList("Jalan");
     }
 
     void Update()

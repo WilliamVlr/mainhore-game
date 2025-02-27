@@ -37,17 +37,17 @@ public class InventoryUI : MonoBehaviour
         skinButton.onClick.RemoveAllListeners();
         addSlotButton.onClick.RemoveAllListeners();
 
-        furnitureButton.onClick.AddListener(ShowFurniture);
-        skinButton.onClick.AddListener(ShowSkins);
+        furnitureButton.onClick.AddListener(ToggleFurniture);
+        skinButton.onClick.AddListener(ToggleSkins);
         addSlotButton.onClick.AddListener(OnAddSlotClicked);
 
         SetButtonInactive(furnitureButton);
         SetButtonInactive(skinButton);
 
         // Initially display all items (no filter)
-        //ShowAllItems();
+        ShowAllItems();
         showCanvas();
-        ShowFurniture();
+        //ShowFurniture();
 
         // Attach listener for scroll events
         if (scrollRect != null)
@@ -115,6 +115,9 @@ public class InventoryUI : MonoBehaviour
 
         invMax.text = InventoryManager.Instance.maxCapacity.ToString();
         invCapacity.text = InventoryManager.Instance.playerInventory.Count.ToString();
+
+        SetButtonInactive(skinButton);
+        SetButtonInactive(furnitureButton);
     }
 
     private void Update()
@@ -146,6 +149,30 @@ public class InventoryUI : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ToggleFurniture()
+    {
+        if(furnitureButton.GetComponent<Image>().color == Color.white)
+        {
+            ShowFurniture();
+        } 
+        else
+        {
+            ShowAllItems();
+        }
+    }
+
+    public void ToggleSkins()
+    {
+        if (skinButton.GetComponent<Image>().color == Color.white)
+        {
+            ShowSkins();
+        }
+        else
+        {
+            ShowAllItems();
+        }
     }
 
     public void ShowFurniture()

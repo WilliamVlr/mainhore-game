@@ -35,7 +35,7 @@ public class WinLoseCondition : MonoBehaviour
     {
         if (_Time.text == "00" && check == 0)  // Game over due to time running out
         {
-            if (_spawner.VirusDestroyed == 10)  // If the time is up and enough viruses are destroyed, it's a win
+            if (_spawner.VirusDestroyed == _spawner.SpawnCount)  // If the time is up and enough viruses are destroyed, it's a win
             {
                 //Debug.Log("You Win!");
                 StartCoroutine(Fader.FadeOutGameObject(Timer, (float)0.5));
@@ -43,6 +43,7 @@ public class WinLoseCondition : MonoBehaviour
                 _isWin.Condition();
                 check++; // Prevent further checks after a condition is met
                 gameDoneCheck++;
+                SoundManager.Instance.PlaySFXInList("win");
             }
             else
             {
@@ -67,6 +68,7 @@ public class WinLoseCondition : MonoBehaviour
                 _isLose.Condition();
                 check++; // Prevent further checks after a condition is met
                 gameDoneCheck++;
+                SoundManager.Instance.PlaySFXInList("Lose");
             }
         }
         else if (_spawner.VirusDestroyed == _spawner.SpawnCount && check == 0)  // If enough viruses are destroyed before time is up
@@ -77,6 +79,7 @@ public class WinLoseCondition : MonoBehaviour
             _isWin.Condition();
             check++; // Prevent further checks after a condition is met
             gameDoneCheck++;
+            SoundManager.Instance.PlaySFXInList("win");
         }
         
     }

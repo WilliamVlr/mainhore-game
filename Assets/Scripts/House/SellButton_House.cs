@@ -84,6 +84,7 @@ public class SellButton_House : MonoBehaviour
     private void confirmSell()
     {
         CoinManager.Instance.addCoin(furniture.furnitureData.price);
+        SoundManager.Instance.PlaySFXInList("Coin bertambah");
         FindObjectOfType<HouseManager>().RemoveFurniture(furniture);
         DataPersistenceManager.Instance.saveGame();
     }

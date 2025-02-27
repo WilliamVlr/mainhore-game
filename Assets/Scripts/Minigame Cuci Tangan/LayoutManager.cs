@@ -24,6 +24,7 @@ public class LayoutManager : MonoBehaviour
     {
         fader = FindObjectOfType<Fader>();
         Time.timeScale = 0;
+        SoundManager.Instance.PlayMusicInList("House");
     }
 
     public void showCanvas(CanvasBehavior canvas)
