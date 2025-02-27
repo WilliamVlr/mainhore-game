@@ -26,15 +26,15 @@ public class NpcInteraction : MonoBehaviour
         {
             conversation.conversationLines = new List<ConversationLine>();
 
-            int random = (int)Random.Range(0, 3);
+            int random = (int)Random.Range(0, conversationModule.ConversationList.Count);
+            //Debug.Log(conversationModule.ConversationList.Count);
 
-            Debug.Log(random);
+            SO_ListConversation selectedList = conversationModule.ConversationList[random];
+            //Debug.Log(selectedList);
 
-            SO_ListConversation selectedList = conversationModule.ConversationList[2];
-
-            foreach (SO_Conversation conv in selectedList.ConversationData)
+            foreach (ConversationLine conv in selectedList.conversationLines)
             {
-                conversation.conversationLines.Add(new ConversationLine { Conversation = conv.conv });
+                conversation.conversationLines.Add(conv);
             }
         }
 

@@ -6,13 +6,8 @@ public class CheckInteraction : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject button;
-
-    private Rigidbody2D rbplayer, rbnpc;
     private void Awake()
     {
-        rbplayer = player.GetComponent<Rigidbody2D>();
-        rbnpc = GetComponent<Rigidbody2D>();
-
         // Initially hide the button
         button.SetActive(false);
     }
@@ -21,7 +16,7 @@ public class CheckInteraction : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            Debug.Log("Player entered NPC area!");
+            //Debug.Log("Player entered NPC area!");
             button.SetActive(true); // Show interaction button
         }
     }
@@ -30,7 +25,7 @@ public class CheckInteraction : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            Debug.Log("Player left NPC area!");
+            //Debug.Log("Player left NPC area!");
             button.SetActive(false); // Hide interaction button
         }
     }

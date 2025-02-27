@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ee28b8597e3d54ab37087f0dd373ee, type: 3}
-  m_Name: 1-1
+  m_Script: {fileID: 11500000, guid: ec30f661bf9153e4c92ee8ff5fdbbbdd, type: 3}
+  m_Name: list_1
   m_EditorClassIdentifier: 
-  conv: 1.message
+  conversationLines:
+  - Conversation: asd1
+  - Conversation: asd2
+  - Conversation: asd3
