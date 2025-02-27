@@ -20,6 +20,8 @@ public class InteractionManager : MonoBehaviour
     private int isInteract = 0;
     private int clicked = 0;
 
+    public int Clicked => clicked;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -56,7 +58,7 @@ public class InteractionManager : MonoBehaviour
     {
         if (clicked == 0)
         {
-            Debug.Log("clicked 0");
+            //Debug.Log("clicked 0");
             currentLine = null;
             conversations.Clear();
             clicked = 1;
