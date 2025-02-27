@@ -116,6 +116,7 @@ public class CustomerCafe : MonoBehaviour
         Draggable item = collision.gameObject.GetComponent<Draggable>();
         if(item != null)
         {
+            SoundManager.Instance.PlaySFXInList("resto makan");
             CheckOrder(item);
             Destroy(item.gameObject);
         }
@@ -140,6 +141,7 @@ public class CustomerCafe : MonoBehaviour
             {
                 customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[2];
                 orderFinished = true;
+                SoundManager.Instance.PlaySFXInList("cust marah");
                 ShowResponseAndDestroy("Pesanan Salah!"); // Wrong order message
             }
 
@@ -148,6 +150,7 @@ public class CustomerCafe : MonoBehaviour
                 MinigameCafeManager.Instance.addScore();
                 customerSpriteRenderer.sprite = chosenCustomerSpriteSet.customerSpriteSet[0];
                 orderFinished = true;
+                SoundManager.Instance.PlaySFXInList("cust senang");
                 ShowResponseAndDestroy("Terima kasih!"); // Thank you message
             }
         }
@@ -180,6 +183,7 @@ public class CustomerCafe : MonoBehaviour
             orderPanel.SetActive(false);
 
             //Show Response terlalu lama
+            SoundManager.Instance.PlaySFXInList("cust marah");
             ShowResponseAndDestroy("Terlalu Lama!");
         }
     }

@@ -20,6 +20,7 @@ public class BoutiqueManager : MonoBehaviour
     private bool isRandomizing = false;
     private const int randomizationCost = 1000;
     private List<SO_Skin> allSkins;
+    private SO_Skin[] costumerCharacters_data;
 
     private void Start()
     {
@@ -34,6 +35,8 @@ public class BoutiqueManager : MonoBehaviour
 
         SimpanButton.GetComponent<Button>().onClick.AddListener(SaveSelectedCostume);
         UseClothButton.GetComponent<Button>().onClick.AddListener(UseSelectedCostume);
+
+        SoundManager.Instance.PlayMusicInList("Butik");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -61,6 +64,7 @@ public class BoutiqueManager : MonoBehaviour
     private void RandomizeCostumeInside()
     {
         allSkins = new List<SO_Skin>();
+        costumerCharacters_data = new SO_Skin[3];
         foreach (SO_item item in itemDatabase.availItems)
         {
             if (item is SO_Skin skin)
@@ -85,9 +89,13 @@ public class BoutiqueManager : MonoBehaviour
         {
             SO_Skin chosenSkin = allSkins[chosenIndices[i]];
             SpriteRenderer spriteRenderer = costumeCharacters[i].GetComponentInChildren<SpriteRenderer>();
+            costumerCharacters_data[i] = chosenSkin;
 
             if (spriteRenderer != null && chosenSkin.sprite != null)
+            {
                 spriteRenderer.sprite = chosenSkin.sprite;
+                Debug.Log("Sprite should be changed");
+            }
 
             costumeCharacters[i].SetActive(false);
         }
@@ -97,6 +105,7 @@ public class BoutiqueManager : MonoBehaviour
     {
         Debug.Log("Randomize button clicked");
         ConfirmationBehavior confirmationPanel = FindAnyObjectByType<ConfirmationBehavior>();
+        RandomizeCostumeInside();
 
         if (confirmationPanel != null)
         {
@@ -118,6 +127,7 @@ public class BoutiqueManager : MonoBehaviour
             if (CoinManager.Instance.canSubstractCoin(randomizationCost))
             {
                 CoinManager.Instance.substractCoin(randomizationCost); // Koin langsung dikurangi
+                SoundManager.Instance.PlaySFXInList("Coin berkurang");
                 isRandomizing = true;
                 RandomizeButton.gameObject.SetActive(false);
                 DialogKasir.SetActive(false);
@@ -147,7 +157,7 @@ public class BoutiqueManager : MonoBehaviour
         ShowCharacter(chosenIndex);
         SimpanButton.SetActive(true);
         UseClothButton.SetActive(true);
-        selectedSkin = allSkins[chosenIndex];
+        selectedSkin = costumerCharacters_data[chosenIndex];
         isRandomizing = false;
     }
 

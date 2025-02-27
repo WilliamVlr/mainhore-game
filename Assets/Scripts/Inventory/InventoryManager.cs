@@ -123,8 +123,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
         int nextUpgradeCost = CalculateUpgradeCost();
 
         //Check
-        //bool isSufficient = CoinManager.Instance.canSubstractCoin(nextUpgradeCost);
-        bool isSufficient = false;
+        bool isSufficient = CoinManager.Instance.canSubstractCoin(nextUpgradeCost);
 
         if (isSufficient)
         {
@@ -132,6 +131,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
             CoinManager.Instance.substractCoin(nextUpgradeCost);
             maxCapacity += slotsPerUpgrade; // Increase the inventory capacity by 5 slots
             upgradeCount++; // Increment the number of upgrades purchased
+            UpdateUI();
             Debug.Log("Purchased " + slotsPerUpgrade + " inventory slots for " + nextUpgradeCost + " coins!");
         } 
         else
@@ -160,8 +160,8 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
         }
         else
         {
-            // Multiply the cost by 2.5 for each subsequent upgrade
-            return Mathf.CeilToInt(initialUpgradeCost * Mathf.Pow(2.5f, upgradeCount));
+            // Multiply the cost by upgradeCount+1 for each subsequent upgrade
+            return Mathf.CeilToInt(initialUpgradeCost * (upgradeCount + 1));
         }
     }
 

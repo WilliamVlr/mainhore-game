@@ -36,6 +36,8 @@ public class Spawner : MonoBehaviour
         spawnAreaMax = new Vector2(maxPosition.x - 1.5f, maxPosition.y - 1f);
 
         timerText = timerObject.GetComponent<TextMeshProUGUI>();
+
+        SoundManager.Instance.PlayMusicInList("House");
     }
 
     void Awake()
@@ -45,8 +47,6 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        VirusMove virusMove = virus.GetComponent<VirusMove>();
-        virusMove.speed = virusSpeed;
         //Debug.Log(virusSpeed);
         if (Input.GetMouseButtonDown(0))
         {
@@ -57,6 +57,7 @@ public class Spawner : MonoBehaviour
             {
                 //Debug.Log("Clicked");
                 HandleVirusClick(hit.collider.gameObject);
+                SoundManager.Instance.PlaySFXInList("virus pecah");
             }
         }
     }
@@ -112,7 +113,9 @@ public class Spawner : MonoBehaviour
             if (IsPositionValid(randomPosition, dynamicMinDistance))
             {
                 spawnedPositions.Add(randomPosition);
-                Instantiate(virus, randomPosition, Quaternion.identity);
+                GameObject virusNew = Instantiate(virus, randomPosition, Quaternion.identity);
+                VirusMove virusMove = virusNew.GetComponent<VirusMove>();
+                virusMove.speed = virusSpeed;
                 spawned++;
                 attempts = 0;
             }
@@ -146,17 +149,20 @@ public class Spawner : MonoBehaviour
 
     public void SetLevel1()
     {
-        spawnCount = 10;
-        virusSpeed = 10f;
+        spawnCount = 15;
+        virusSpeed = 5f;
+        SoundManager.Instance.StopMusic();
     }
     public void SetLevel2()
     {
         spawnCount = 20;
-        virusSpeed = 5000f;
+        virusSpeed = 8f;
+        SoundManager.Instance.StopMusic();
     }
     public void SetLevel3()
     {
         spawnCount = 25;
-        virusSpeed = 100000f;
+        virusSpeed = 10f;
+        SoundManager.Instance.StopMusic();
     }
 }
