@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class NpcRandomPosition : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    int random;
+    [SerializeField] private int l,r;
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        random = (int)Random.Range(l, r + 1);
+        transform.position = new Vector2(random, -2.7f);
     }
 }

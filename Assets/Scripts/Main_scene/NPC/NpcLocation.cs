@@ -10,7 +10,7 @@ public class NpcLocation : MonoBehaviour
     void Update()
     {
         Vector3 npcPosition = transform.position;
-        npcPosition.x = background.transform.position.x;
+        npcPosition.x = background.transform.position.x + transform.parent.position.x;
         transform.position = npcPosition;
     }
 }
