@@ -10,6 +10,7 @@ public class MinigameCafeManager : Minigame
     private GameObject targetPanel;
     [SerializeField] private TimerScript timer;
     [SerializeField] private int coinMultiplier;
+    [SerializeField] private List<CafeCustomerSpawner> spawners;
 
     public override void checkScore()
     {
@@ -30,6 +31,10 @@ public class MinigameCafeManager : Minigame
         timer.SetTimerMaxValue(35f);
         targetScore = 8;
         coinMultiplier = 1;
+        foreach (var spawner in spawners)
+        {
+            spawner.SetCustomerWaitTime(4, 6);
+        }
         Init();
         SoundManager.Instance.StopMusic();
     }
@@ -39,6 +44,10 @@ public class MinigameCafeManager : Minigame
         timer.SetTimerMaxValue(30f);
         targetScore = 15;
         coinMultiplier = 2;
+        foreach (var spawner in spawners)
+        {
+            spawner.SetCustomerWaitTime(3, 5);
+        }
         Init();
         SoundManager.Instance.StopMusic();
     }
@@ -47,6 +56,10 @@ public class MinigameCafeManager : Minigame
         timer.SetTimerMaxValue(25f);
         targetScore = 15;
         coinMultiplier = 3;
+        foreach (var spawner in spawners)
+        {
+            spawner.SetCustomerWaitTime(2, 4);
+        }
         Init();
         SoundManager.Instance.StopMusic();
     }

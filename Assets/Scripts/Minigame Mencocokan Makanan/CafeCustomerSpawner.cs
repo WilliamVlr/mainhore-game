@@ -8,11 +8,19 @@ public class CafeCustomerSpawner : MonoBehaviour
     public Transform customerSpawnPoint;
     public RectTransform customerPanelSpawnPoint;
     public GameObject parentCustomerLayer;
+    private float customerWaitingLow;
+    private float customerWaitingUpper;
     // Start is called before the first frame update
     void Start()
     {
         //SpawnCustomer();
-        StartCoroutine(WaitAndSpawnCustomer(1f, 5f));
+        StartCoroutine(WaitAndSpawnCustomer(1f, 2f));
+    }
+
+    public void SetCustomerWaitTime(float low, float upper)
+    {
+        customerWaitingLow = low;
+        customerWaitingUpper = upper;
     }
 
     private void SpawnCustomer()
@@ -33,6 +41,7 @@ public class CafeCustomerSpawner : MonoBehaviour
         if(customerScript != null )
         {
             customerScript.OnCustomerDestroyed += HandleCustomerDestroyed;
+            customerScript.SetTimeMinMax(customerWaitingLow, customerWaitingUpper);
         }
     }
 
@@ -47,11 +56,13 @@ public class CafeCustomerSpawner : MonoBehaviour
 
     private IEnumerator WaitAndSpawnCustomer(float upper, float lower)
     {
+        Debug.Log("Wait and spawn cust called");
         // Wait for a random time between lower bound and upper bound
         float waitTime = Random.Range(lower, upper);
         yield return new WaitForSeconds(waitTime);
 
         // Spawn a new customer
         SpawnCustomer();
+        Debug.Log("Customer spawned");
     }
 }

@@ -55,9 +55,23 @@ public class CustomerCafe : MonoBehaviour
         StartCoroutine(WaitAndReact());
     }
 
+    public void SetTimeMinMax(float min, float max)
+    {
+        waitTimeMin = min;
+        waitTimeMax = max;
+    }
+
+    public void SetTimeMult(float mult)
+    {
+        waitTimeMultiplier = mult;
+    }
+
     private void setWaitTimeInterval(float dur, float mult)
     {
         waitTimeInterval = dur * mult;
+        Debug.Log("wait time interval = " + waitTimeInterval.ToString());
+        Debug.Log("wait time max = " + waitTimeMax.ToString());
+        Debug.Log("wait time min = " + waitTimeMin.ToString());
         if(waitTimeInterval > waitTimeMax) waitTimeInterval = waitTimeMax;
         else if (waitTimeInterval < waitTimeMin) waitTimeInterval = waitTimeMin;
     }
