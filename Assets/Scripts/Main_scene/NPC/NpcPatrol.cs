@@ -44,7 +44,7 @@ public class NpcPatrol : MonoBehaviour
 
     void Update()
     {
-        Debug.Log((int)delayAfterPause);
+        //Debug.Log((int)delayAfterPause);
         if ((InteractionManager.Instance.getInteract()) == 1)
         {
             //Debug.Log("Manual");

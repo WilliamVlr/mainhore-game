@@ -7,6 +7,7 @@ public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager Instance;
 
+    [SerializeField] private GameObject joystick;
     [SerializeField] private GameObject instructionAreaObject;
     private TextMeshProUGUI instructionArea;
 
@@ -18,6 +19,9 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private float fadeDuration;
 
     private int isInteract = 0;
+    private int clicked = 0;
+
+    public int Clicked => clicked;
 
     private void Awake()
     {
@@ -38,27 +42,55 @@ public class InteractionManager : MonoBehaviour
     }
     public void enableInteraction(GameObject Interaction)
     {
-        Interaction.SetActive(true);
-        Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(Interaction, fadeDuration));
+        if (clicked == 0)
+        {
+            Interaction.SetActive(true);
+            disableJoystick();
+            Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(Interaction, fadeDuration));
+        }
     }
-    
+
     public void disableInteraction(GameObject Interaction)
     {
         Coroutine fadeOutInstructionArea = StartCoroutine(fader.FadeOutGameObject(Interaction, fadeDuration));
         Interaction.SetActive(false);
     }
 
+    public void enableJoystick()
+    {
+        if (clicked == 0)
+        {
+            joystick.SetActive(true);
+            Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(joystick, fadeDuration));
+        }
+    }
+
+    public void disableJoystick()
+    {
+        Coroutine fadeOutInstructionArea = StartCoroutine(fader.FadeOutGameObject(joystick, fadeDuration));
+        joystick.SetActive(false);
+    }
+
     public void StartInstruction(Conversation conversation)
     {
-        currentLine = null;
-        conversations.Clear();
-
-        foreach (ConversationLine line in conversation.conversationLines)
+        if (clicked == 0)
         {
-            conversations.AddLast(line);
-        }
+            //Debug.Log("clicked 0");
+            currentLine = null;
+            conversations.Clear();
+            clicked = 1;
 
-        DisplayNextInstructionLine();
+            foreach (ConversationLine line in conversation.conversationLines)
+            {
+                conversations.AddLast(line);
+            }
+
+            DisplayNextInstructionLine();
+        }
+        else
+        {
+            DisplayNextInstructionLine();
+        }
     }
 
     public void DisplayNextInstructionLine()
@@ -75,6 +107,8 @@ public class InteractionManager : MonoBehaviour
                 StartCoroutine(FadeOutAndUpdateContent());
                 instructionAreaObject.gameObject.SetActive(false);
                 setInteract(0);
+                clicked = 0;
+                enableJoystick();
                 return;
             }
             currentLine = currentLine.Next;
