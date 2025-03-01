@@ -56,7 +56,7 @@ public class CafeCustomerSpawner : MonoBehaviour
 
     private IEnumerator WaitAndSpawnCustomer(float upper, float lower)
     {
-        Debug.Log("Wait and spawn cust called");
+        //Debug.Log("Wait and spawn cust called");
         // Wait for a random time between lower bound and upper bound
         float waitTime = Random.Range(lower, upper);
         yield return new WaitForSeconds(waitTime);

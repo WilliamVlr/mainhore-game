@@ -47,7 +47,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded called");
+        //Debug.Log("OnSceneLoaded called");
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         loadGame();
     }
@@ -115,10 +115,10 @@ public class DataPersistenceManager : MonoBehaviour
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
-        foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
-        {
-            Debug.Log(dataPersistenceObj.ToString());
-        }
+        //foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        //{
+        //    Debug.Log(dataPersistenceObj.ToString());
+        //}
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }

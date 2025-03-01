@@ -86,7 +86,10 @@ public class SoundManager : MonoBehaviour, IDataPersistence
 
         if(s != null)
         {
-            PlayMusic(s.clip);
+            if(musicSource.clip != s.clip)
+            {
+                PlayMusic(s.clip);
+            }
         }
     }
 

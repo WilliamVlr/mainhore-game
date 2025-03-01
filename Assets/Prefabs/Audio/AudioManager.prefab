@@ -178,15 +178,17 @@ MonoBehaviour:
   sfxSource: {fileID: 5346757633387534966}
   musicList:
   - name: Start
-    clip: {fileID: 8300000, guid: 6b3768e6e2b6ad440b1507d59b191bcf, type: 3}
+    clip: {fileID: 8300000, guid: 831d30e491c2a6f4bb8db06cd92e2bfa, type: 3}
   - name: House
-    clip: {fileID: 8300000, guid: 5374e02b179917048b8323727f513ac4, type: 3}
+    clip: {fileID: 8300000, guid: 266f6e538ac452a4299b1d961e5cf537, type: 3}
   - name: Jalan
-    clip: {fileID: 8300000, guid: 0d9affccef3e1504fa78af697fd9f9a0, type: 3}
+    clip: {fileID: 8300000, guid: 6f394cd86c7132c4289d5051866e4363, type: 3}
   - name: Butik
-    clip: {fileID: 8300000, guid: 3c0f345678cb9514c8c99efb2821c0ee, type: 3}
+    clip: {fileID: 8300000, guid: bdf706629e8cdc040b46ecdef58be612, type: 3}
   - name: Furnitur
-    clip: {fileID: 8300000, guid: 5eac4b2f26d3e9c4ba7ddf5f1f224e43, type: 3}
+    clip: {fileID: 8300000, guid: a8cd7df923dd01446973dc2fb83dfdcb, type: 3}
+  - name: virus ketawa
+    clip: {fileID: 8300000, guid: 0b0c628b3066875419e03d33700c9abc, type: 3}
   sfxList:
   - name: Coin bertambah
     clip: {fileID: 8300000, guid: 1d21557b96c98d54f8d6dc39be96b7d5, type: 3}
@@ -196,8 +198,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8c39859363adc114e8a64144cbb49f9a, type: 3}
   - name: win
     clip: {fileID: 8300000, guid: 292e2e98a41bff940addb0388e12cbac, type: 3}
-  - name: virus ketawa
-    clip: {fileID: 8300000, guid: 0b0c628b3066875419e03d33700c9abc, type: 3}
   - name: virus pecah
     clip: {fileID: 8300000, guid: afb6645197eb43740b39d1b15ea4b773, type: 3}
   - name: resto makan
@@ -209,7 +209,7 @@ MonoBehaviour:
   - name: cust senang
     clip: {fileID: 8300000, guid: 4b44ae50781eb144aa57ad31c393511d, type: 3}
   - name: berjalan
-    clip: {fileID: 8300000, guid: de3af14afd28b1d46a1eb08d58fe95fc, type: 3}
+    clip: {fileID: 8300000, guid: 8f52a521dc4fcd843b8853eeefac4750, type: 3}
   _musicIsMuted: 0
   _sfxIsMuted: 0
 --- !u!1 &5421624546486081418
