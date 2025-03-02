@@ -184,12 +184,12 @@ public abstract class Minigame : MonoSingleton<Minigame>
                 CoinManager.Instance.addCoin(coinGained);
                 setCoinGainedTxt();
                 showLayout(layouts.winLayout);
-                SoundManager.Instance.PlayMusicInList("win");
+                SoundManager.Instance.PlaySFXInList("win");
             } 
             else
             {
                 showLayout(layouts.loseLayout);
-                SoundManager.Instance.PlayMusicInList("Lose");
+                SoundManager.Instance.PlaySFXInList("Lose");
             }
             isEnded = true;
         }

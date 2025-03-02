@@ -50,7 +50,7 @@ public class CafeCustomerSpawner : MonoBehaviour
         // Start the coroutine to wait and spawn a new customer
         if(this != null)
         {
-            StartCoroutine(WaitAndSpawnCustomer(1f, 3f));
+            StartCoroutine(WaitAndSpawnCustomer(1f, 2f));
         }
     }
 

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject virus;
     [SerializeField] private GameObject[] virusPrefabs;
@@ -22,6 +22,9 @@ public class Spawner : MonoBehaviour
     private int spawned = 0;
     [SerializeField] private int _virusDestroyed = 0;
     [SerializeField] private float virusSpeed;
+    [SerializeField] private Button[] levelButtons;
+    private int chosenLevel;
+    private int progress;
 
     private TextMeshProUGUI timerText;
 
@@ -66,6 +69,15 @@ public class Spawner : MonoBehaviour
         if(_virusDestroyed == Math.Round((float) spawnCount/2))
         {
             SoundManager.Instance.PlayMusicInList("virus dikit");
+        }
+
+        if(_virusDestroyed == spawnCount)
+        {
+            int level = chosenLevel - 1;
+            if (progress < 2)
+            {
+                progress = level + 1;
+            }
         }
     }
 
@@ -160,6 +172,7 @@ public class Spawner : MonoBehaviour
         virusSpeed = 5f;
         virus = virusPrefabs[0];
         SoundManager.Instance.StopMusic();
+        chosenLevel = 1;
     }
     public void SetLevel2()
     {
@@ -167,6 +180,7 @@ public class Spawner : MonoBehaviour
         virusSpeed = 8f;
         virus = virusPrefabs[1];
         SoundManager.Instance.StopMusic();
+        chosenLevel = 2;
     }
     public void SetLevel3()
     {
@@ -174,5 +188,30 @@ public class Spawner : MonoBehaviour
         virusSpeed = 10f;
         virus = virusPrefabs[2];
         SoundManager.Instance.StopMusic();
+        chosenLevel = 3;
+    }
+
+    public void PopulateLevelButtonInteractable()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            levelButtons[i].interactable = false;
+        }
+
+        for (int i = 0; i <= progress; i++)
+        {
+            levelButtons[i].interactable = true;
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.progress = data.minigamesProgress["cuci tangan"];
+        PopulateLevelButtonInteractable();
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.minigamesProgress["cuci tangan"] = this.progress;
     }
 }

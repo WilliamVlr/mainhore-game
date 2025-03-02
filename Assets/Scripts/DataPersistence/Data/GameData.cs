@@ -13,6 +13,7 @@ public class GameData
     public int inventoryMaxCap;
 
     public JsonableDictionaryWrapper<string, Vector3> placedFurnitures;
+    public JsonableDictionaryWrapper<string, int> minigamesProgress;
     public Vector3 mainBackgroundPos;
 
     // the values defined in this constructor will be the default values
@@ -30,6 +31,11 @@ public class GameData
         this.inventoryItemsID = new JsonableListWrapper<string>();
         this.inventoryMaxCap = 10;
         this.placedFurnitures = new JsonableDictionaryWrapper<string, Vector3>();
+        this.minigamesProgress = new JsonableDictionaryWrapper<string, int>()
+        {
+            {"cuci tangan", 0},
+            {"cafe", 0},
+        };
         this.mainBackgroundPos = new Vector3(11, 0, 0);
     }
 }

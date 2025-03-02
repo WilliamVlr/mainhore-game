@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Handle layers in minigame scene, handle timer, handle scoring & target
-public class MinigameCafeManager : Minigame
+public class MinigameCafeManager : Minigame, IDataPersistence
 {
     [SerializeField]
     private GameObject targetPanel;
     [SerializeField] private TimerScript timer;
     [SerializeField] private int coinMultiplier;
     [SerializeField] private List<CafeCustomerSpawner> spawners;
+    [SerializeField] private Button[] levelButtons;
+    private int chosenLevel;
+    private int progress;
 
     public override void checkScore()
     {
@@ -18,6 +23,11 @@ public class MinigameCafeManager : Minigame
         {
             isWin = true;
             targetPanel.GetComponent<Animator>().SetBool("targetAccomplished", true);
+            int level = chosenLevel - 1;
+            if(progress < 2)
+            {
+                progress = level + 1;
+            }
         }
     }
 
@@ -37,6 +47,7 @@ public class MinigameCafeManager : Minigame
         }
         Init();
         SoundManager.Instance.StopMusic();
+        chosenLevel = 1;
     }
 
     public override void SetLevel2()
@@ -50,6 +61,7 @@ public class MinigameCafeManager : Minigame
         }
         Init();
         SoundManager.Instance.StopMusic();
+        chosenLevel = 2;
     }
     public override void SetLevel3()
     {
@@ -62,5 +74,30 @@ public class MinigameCafeManager : Minigame
         }
         Init();
         SoundManager.Instance.StopMusic();
+        chosenLevel = 3;
+    }
+
+    public void PopulateLevelButtonInteractable()
+    {
+        for(int i = 0; i < levelButtons.Length; i++)
+        {
+            levelButtons[i].interactable = false;
+        }
+
+        for (int i = 0; i <= progress; i++)
+        {
+            levelButtons[i].interactable = true;
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.progress = data.minigamesProgress["cafe"];
+        PopulateLevelButtonInteractable();
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.minigamesProgress["cafe"] = this.progress;
     }
 }

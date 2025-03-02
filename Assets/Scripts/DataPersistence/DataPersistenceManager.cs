@@ -81,7 +81,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void saveGame()
     {
-        Debug.Log("Save game Data Persistence Manager called");
+        //Debug.Log("Save game Data Persistence Manager called");
         if(this.gameData == null)
         {
             Debug.LogWarning("No data was found. A new game must be started before data can be saved.");
