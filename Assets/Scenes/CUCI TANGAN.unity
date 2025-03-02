@@ -2835,6 +2835,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LayoutManager, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7277059461894408263, guid: 62033391822841d44af0bf0940616914, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546606144625602708, guid: 62033391822841d44af0bf0940616914, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3732,6 +3740,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virus: {fileID: 8391441700490664089, guid: ac7ec9f2c6a38c847a5b5024b040c57e, type: 3}
+  virusPrefabs:
+  - {fileID: 8391441700490664089, guid: ac7ec9f2c6a38c847a5b5024b040c57e, type: 3}
+  - {fileID: 8695773587858726603, guid: 6849219e048cf0d4499718a439ef38c2, type: 3}
+  - {fileID: 5009350582096362316, guid: 3dfe8c9e860b1254bb12af4f0a34734a, type: 3}
   timerObject: {fileID: 1775321303}
   pauseInterface: {fileID: 285743316}
   spawnAreaMin: {x: 0, y: 0}

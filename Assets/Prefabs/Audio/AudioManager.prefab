@@ -187,8 +187,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: bdf706629e8cdc040b46ecdef58be612, type: 3}
   - name: Furnitur
     clip: {fileID: 8300000, guid: a8cd7df923dd01446973dc2fb83dfdcb, type: 3}
-  - name: virus ketawa
-    clip: {fileID: 8300000, guid: 0b0c628b3066875419e03d33700c9abc, type: 3}
+  - name: virus banyak
+    clip: {fileID: 8300000, guid: 9a7448c0831692e4f83e5b913bffce31, type: 3}
+  - name: virus dikit
+    clip: {fileID: 8300000, guid: eb52a2c48cb706e4cbd4c797f3149cab, type: 3}
   sfxList:
   - name: Coin bertambah
     clip: {fileID: 8300000, guid: 1d21557b96c98d54f8d6dc39be96b7d5, type: 3}

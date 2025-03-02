@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject virus;
+    [SerializeField] private GameObject[] virusPrefabs;
     [SerializeField] private GameObject timerObject;
     [SerializeField] private GameObject pauseInterface;
 
@@ -59,6 +61,11 @@ public class Spawner : MonoBehaviour
                 HandleVirusClick(hit.collider.gameObject);
                 SoundManager.Instance.PlaySFXInList("virus pecah");
             }
+        }
+
+        if(_virusDestroyed == Math.Round((float) spawnCount/2))
+        {
+            SoundManager.Instance.PlayMusicInList("virus dikit");
         }
     }
 
@@ -130,8 +137,8 @@ public class Spawner : MonoBehaviour
     Vector2 GetRandomPosition()
     {
         return new Vector2(
-            Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-            Random.Range(spawnAreaMin.y, spawnAreaMax.y)
+            UnityEngine.Random.Range(spawnAreaMin.x, spawnAreaMax.x),
+            UnityEngine.Random.Range(spawnAreaMin.y, spawnAreaMax.y)
         );
     }
 
@@ -151,18 +158,21 @@ public class Spawner : MonoBehaviour
     {
         spawnCount = 15;
         virusSpeed = 5f;
+        virus = virusPrefabs[0];
         SoundManager.Instance.StopMusic();
     }
     public void SetLevel2()
     {
         spawnCount = 20;
         virusSpeed = 8f;
+        virus = virusPrefabs[1];
         SoundManager.Instance.StopMusic();
     }
     public void SetLevel3()
     {
         spawnCount = 25;
         virusSpeed = 10f;
+        virus = virusPrefabs[2];
         SoundManager.Instance.StopMusic();
     }
 }
