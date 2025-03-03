@@ -118,6 +118,7 @@ public class SoundManager : MonoBehaviour, IDataPersistence
     public void StopMusic()
     {
         musicSource?.Stop();
+        musicSource.clip = null;
     }
 
     public void ToggleMusic()
