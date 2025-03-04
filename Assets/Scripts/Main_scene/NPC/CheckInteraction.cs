@@ -6,9 +6,12 @@ public class CheckInteraction : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject button;
+    private GameObject collidedplayer;
+    public GameObject Collided => collidedplayer;
     private void Awake()
     {
         // Initially hide the button
+        collidedplayer = null;
         button.SetActive(false);
     }
 
@@ -17,6 +20,9 @@ public class CheckInteraction : MonoBehaviour
         if (other.gameObject == player)
         {
             //Debug.Log("Player entered NPC area!");
+            collidedplayer = this.gameObject;
+            //Debug.Log(collidedplayer.transform.position.x);
+            //collidedplayer.transform.Rotate(10, 10, 10);
             button.SetActive(true); // Show interaction button
         }
     }
@@ -25,8 +31,11 @@ public class CheckInteraction : MonoBehaviour
     {
         if (other.gameObject == player)
         {
+            //collidedplayer.SetActive(true);
             //Debug.Log("Player left NPC area!");
+            collidedplayer = null;
             button.SetActive(false); // Hide interaction button
         }
     }
+
 }

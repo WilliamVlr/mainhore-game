@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1738626553766845338}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractionManager, Assembly-CSharp
         m_MethodName: enableInteraction
         m_Mode: 2
@@ -133,7 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1044608271154009364}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NpcInteraction, Assembly-CSharp
         m_MethodName: TriggerInstruction
         m_Mode: 1
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1738626553766845338}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractionManager, Assembly-CSharp
         m_MethodName: DisplayNextInstructionLine
         m_Mode: 1
@@ -540,8 +540,6 @@ GameObject:
   - component: {fileID: 3165509025640760569}
   - component: {fileID: 3493083323963625037}
   - component: {fileID: 9054702870537960585}
-  - component: {fileID: 1044608271154009364}
-  - component: {fileID: 1738626553766845338}
   - component: {fileID: 7012327072492456474}
   m_Layer: 0
   m_Name: NpcManager
@@ -601,39 +599,6 @@ MonoBehaviour:
   NpcUI: {fileID: 5046669707490443022}
   npcpatrol: {fileID: 3493083323963625037}
   listNpcAnim: {fileID: 11400000, guid: 3254fcc11aef03349897675f7b74ea45, type: 2}
---- !u!114 &1044608271154009364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4488996884983059439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9c1704fcc43ad49ad66f3c5c0895ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversation:
-    conversationLines:
-    - Conversation: element 1
-    - Conversation: element 2
-    - Conversation: element 3
-  conversationModule: {fileID: 11400000, guid: 0ebc14aeb50ba7345b1337e7ed44ed95, type: 2}
---- !u!114 &1738626553766845338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4488996884983059439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f376f97006a5f224680b7b3081250446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  instructionAreaObject: {fileID: 3975282779376264166}
-  fadeDuration: 0.2
 --- !u!114 &7012327072492456474
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,12 +21,21 @@ public class NpcPatrol : MonoBehaviour
     [SerializeField] private float minStopDuration = 1f;
     [SerializeField] private float maxStopDuration = 3f;
 
-    private bool isStopped = false;
+    [SerializeField] private bool isStopped = false;
     private float stopTimer = 0f;
 
     private float delayAfterPause = 0f;
 
-    public bool IsStopped => isStopped;
+    public bool IsStopped()
+    {
+        return isStopped;
+    }
+
+    public void IsStopped(bool a)
+    {
+        isStopped = a;
+    }
+
     public float CurrentSpeed => currentSpeed;
 
     void Start()
@@ -37,18 +46,13 @@ public class NpcPatrol : MonoBehaviour
         currentPoint = pointB.transform.localPosition; // Gunakan localPosition
     }
 
-    public void setStop()
-    {
-        isStopped = !isStopped;
-    }
-
     void Update()
     {
         //Debug.Log((int)delayAfterPause);
         if ((InteractionManager.Instance.getInteract()) == 1)
         {
             //Debug.Log("Manual");
-            isStopped = true;
+            //isStopped = true;
             if (stopTimer > 0f)
             {
                 stopTimer = 0f;
