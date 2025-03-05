@@ -35,10 +35,10 @@ public abstract class Minigame : MonoSingleton<Minigame>
     protected int coinGained;
 
     //Timer object
-    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] protected TextMeshProUGUI timerText;
 
     //Layouts
-    [SerializeField] private MinigameLayouts layouts;
+    [SerializeField] protected MinigameLayouts layouts;
 
     //Animation Scripts
     private Fader fader;
@@ -59,7 +59,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
         fader = FindObjectOfType<Fader>();
     }
 
-    private void resetIsWin()
+    protected void resetIsWin()
     {
         isWin = false;
     }
@@ -122,7 +122,7 @@ public abstract class Minigame : MonoSingleton<Minigame>
         return coinGained;
     }
 
-    private void setCoinGainedTxt()
+    protected void setCoinGainedTxt()
     {
         coinGainedTXT.text = $"+{coinGained}";
     }
@@ -169,29 +169,13 @@ public abstract class Minigame : MonoSingleton<Minigame>
         SceneManager.LoadSceneAsync("MainScreen");
     }
 
-    private void Update()
+    protected void Update()
     {
-        if(Time.timeScale == 1f && timerText.text == "00" && !isEnded)
-        {
-            hideLayout(layouts.playLayout);
-            showLayout(layouts.endLayout);
-            layouts.baseInGameCanvas.hideCanvas();
-            layouts.coinLayout.showCanvas();
-            layouts.staticLayout.showCanvas();
-            if (isWin)
-            {
-                coinGained = calculateCoinGained();
-                CoinManager.Instance.addCoin(coinGained);
-                setCoinGainedTxt();
-                showLayout(layouts.winLayout);
-                SoundManager.Instance.PlayMusicInList("win");
-            } 
-            else
-            {
-                showLayout(layouts.loseLayout);
-                SoundManager.Instance.PlayMusicInList("Lose");
-            }
-            isEnded = true;
-        }
+        CheckResult();
+    }
+
+    protected virtual void CheckResult()
+    {
+        //override to change the logic for showing end result panel
     }
 }
