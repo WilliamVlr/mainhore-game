@@ -8,11 +8,14 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance;
 
     [SerializeField] private GameObject joystick;
-    [SerializeField] private GameObject instructionAreaObject;
+    private GameObject instructionAreaObject;
     private TextMeshProUGUI instructionArea;
 
     private LinkedList<ConversationLine> conversations;
     private LinkedListNode<ConversationLine> currentLine;
+
+    [SerializeField] private CheckInteraction checkInter1;
+    [SerializeField] private CheckInteraction checkInter2;
 
     //Animation Scripts
     private Fader fader;
@@ -28,7 +31,39 @@ public class InteractionManager : MonoBehaviour
         if (Instance == null) Instance = this;
         conversations = new LinkedList<ConversationLine>();
         fader = FindObjectOfType<Fader>();
-        instructionArea = instructionAreaObject.GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    GameObject Interaction, dialog, npcManager;
+    Transform npcDialogTransform;
+    NpcPatrol npcPatrol;
+    private void Update()
+    {
+        if (checkInter1.Collided)
+        {
+            Interaction = checkInter1.Collided;
+        }
+        else if(checkInter2.Collided)
+        {
+            Interaction = checkInter2.Collided;
+        }
+        else
+        {
+            Interaction = null;
+        }
+
+        if (Interaction)
+        {
+            //Interaction.transform.Rotate(1, 1, 1);
+            npcDialogTransform = Interaction.transform.Find("ConversationCanvas/NpcDialog");
+            dialog = npcDialogTransform.gameObject;
+            instructionArea = dialog.GetComponentInChildren<TextMeshProUGUI>();
+            instructionAreaObject = dialog;
+
+            npcManager = Interaction.transform.parent.parent.gameObject;
+            //Debug.Log("NpcManager object found: " + npcManager.name);
+
+            npcPatrol = npcManager.GetComponent<NpcPatrol>();
+        }
     }
 
     public int getInteract()
@@ -40,20 +75,22 @@ public class InteractionManager : MonoBehaviour
     {
         isInteract = Inter;
     }
-    public void enableInteraction(GameObject Interaction)
+    public void enableInteraction()
     {
         if (clicked == 0)
         {
-            Interaction.SetActive(true);
+            dialog.SetActive(true);
+            npcPatrol.IsStopped(true);
             disableJoystick();
-            Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(Interaction, fadeDuration));
+            Coroutine fadeInInstructionArea = StartCoroutine(fader.FadeInGameObject(dialog, fadeDuration));
         }
     }
 
-    public void disableInteraction(GameObject Interaction)
+    public void disableInteraction()
     {
-        Coroutine fadeOutInstructionArea = StartCoroutine(fader.FadeOutGameObject(Interaction, fadeDuration));
-        Interaction.SetActive(false);
+        Coroutine fadeOutInstructionArea = StartCoroutine(fader.FadeOutGameObject(dialog, fadeDuration));
+        dialog.SetActive(false);
+        npcPatrol.IsStopped(false);
     }
 
     public void enableJoystick()
@@ -109,6 +146,7 @@ public class InteractionManager : MonoBehaviour
                 setInteract(0);
                 clicked = 0;
                 enableJoystick();
+                npcPatrol.IsStopped(false);
                 return;
             }
             currentLine = currentLine.Next;
