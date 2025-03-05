@@ -37,6 +37,8 @@ public class CoinManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
+        Debug.Log("Coin manager amount: " + coinAmount);
+        Debug.Log("data coin amount: " +  data.coinAmount);
         data.coinAmount = this.coinAmount;
     }
 

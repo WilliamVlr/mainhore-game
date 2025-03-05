@@ -173,6 +173,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
         virus = virusPrefabs[0];
         SoundManager.Instance.StopMusic();
         chosenLevel = 1;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
     }
     public void SetLevel2()
     {
@@ -181,6 +182,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
         virus = virusPrefabs[1];
         SoundManager.Instance.StopMusic();
         chosenLevel = 2;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
     }
     public void SetLevel3()
     {
@@ -189,6 +191,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
         virus = virusPrefabs[2];
         SoundManager.Instance.StopMusic();
         chosenLevel = 3;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
     }
 
     public void PopulateLevelButtonInteractable()

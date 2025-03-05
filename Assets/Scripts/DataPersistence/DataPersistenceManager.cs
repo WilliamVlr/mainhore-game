@@ -55,6 +55,12 @@ public class DataPersistenceManager : MonoBehaviour
     public void newGame(string usn="Player", string skin="Fox")
     {
         this.gameData = new GameData(usn, skin);
+        Debug.Log(gameData.coinAmount);
+
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.LoadData(gameData);
+        }
     }
 
     public void loadGame()

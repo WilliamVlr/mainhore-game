@@ -23,8 +23,8 @@ public class MinigameLayouts
 public abstract class Minigame : MonoSingleton<Minigame>
 {
     //Scoring
-    [SerializeField] private TextMeshProUGUI currentScoreTXT;
-    [SerializeField] private TextMeshProUGUI targetScoreTXT;
+    [SerializeField] protected TextMeshProUGUI currentScoreTXT;
+    [SerializeField] protected TextMeshProUGUI targetScoreTXT;
     protected int currentScore;
     [SerializeField] protected int targetScore;
     protected bool isWin;
@@ -159,14 +159,14 @@ public abstract class Minigame : MonoSingleton<Minigame>
         Time.timeScale = 1;
         Debug.Log("Calling DataPersistenceManager.SaveGame from Minigame class");
         DataPersistenceManager.Instance.saveGame();
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void returnToHomeScreen()
     {
         Time.timeScale = 1;
         DataPersistenceManager.Instance.saveGame();
-        SceneManager.LoadSceneAsync("MainScreen");
+        SceneManager.LoadScene("MainScreen");
     }
 
     protected void Update()
