@@ -18,6 +18,14 @@ public class ProfileManager : MonoBehaviour, IDataPersistence
     [SerializeField] private TextMeshProUGUI namaSkin;
     // private string profileName;
 
+    public static ProfileManager Instance;
+
+    private void Awake(){
+        if(Instance == null){
+            Instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +55,13 @@ public class ProfileManager : MonoBehaviour, IDataPersistence
     public void SaveUsername()
     {
         DataPersistenceManager.Instance.saveGame();
+    }
+
+    public void ChangeProfile(SO_Skin skin)
+    {
+        Debug.Log("Masuk");
+        imgChar.sprite = skin.sprite;
+        namaSkin.text = skin.itemName;
     }
 
 
