@@ -36,6 +36,32 @@ public class MinigameCafeManager : Minigame, IDataPersistence
         return currentScore * 10 * coinMultiplier;
     }
 
+    protected override void CheckResult()
+    {
+        if (Time.timeScale == 1f && timerText.text == "00" && !isEnded)
+        {
+            hideLayout(layouts.playLayout);
+            showLayout(layouts.endLayout);
+            layouts.baseInGameCanvas.hideCanvas();
+            layouts.coinLayout.showCanvas();
+            layouts.staticLayout.showCanvas();
+            if (isWin)
+            {
+                coinGained = calculateCoinGained();
+                CoinManager.Instance.addCoin(coinGained);
+                setCoinGainedTxt();
+                showLayout(layouts.winLayout);
+                SoundManager.Instance.PlayMusicInList("win");
+            }
+            else
+            {
+                showLayout(layouts.loseLayout);
+                SoundManager.Instance.PlayMusicInList("Lose");
+            }
+            isEnded = true;
+        }
+    }
+
     public override void SetLevel1()
     {
         timer.SetTimerMaxValue(35f);

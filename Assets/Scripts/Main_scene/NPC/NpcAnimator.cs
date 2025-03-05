@@ -21,7 +21,7 @@ public class NpcAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        stopped = npcpatrol.IsStopped;
+        stopped = npcpatrol.IsStopped();
         currSpeed = npcpatrol.CurrentSpeed;
 
         //Debug.Log(check);
