@@ -14,6 +14,13 @@ public class MinigameCafeManager : Minigame, IDataPersistence
     [SerializeField] private int coinMultiplier;
     [SerializeField] private List<CafeCustomerSpawner> spawners;
     [SerializeField] private Button[] levelButtons;
+    [SerializeField] private Sprite winPanelImg;
+    [SerializeField] private Sprite losePanelImg;
+    [SerializeField] private Image resultPanel;
+    [SerializeField] private TextMeshProUGUI targetTxtResult;
+    [SerializeField] private TextMeshProUGUI skormuTxtResult;
+    [SerializeField] private CanvasBehavior resultCanvas;
+
     private int chosenLevel;
     private int progress;
 
@@ -41,25 +48,41 @@ public class MinigameCafeManager : Minigame, IDataPersistence
         if (Time.timeScale == 1f && timerText.text == "00" && !isEnded)
         {
             hideLayout(layouts.playLayout);
-            showLayout(layouts.endLayout);
             layouts.baseInGameCanvas.hideCanvas();
             layouts.coinLayout.showCanvas();
             layouts.staticLayout.showCanvas();
+            targetTxtResult.text = targetScore.ToString();
+            skormuTxtResult.text = currentScore.ToString();
             if (isWin)
             {
-                coinGained = calculateCoinGained();
-                CoinManager.Instance.addCoin(coinGained);
-                setCoinGainedTxt();
-                showLayout(layouts.winLayout);
-                SoundManager.Instance.PlayMusicInList("win");
+                SetWinPanel();
             }
             else
             {
-                showLayout(layouts.loseLayout);
-                SoundManager.Instance.PlayMusicInList("Lose");
+                SetLosePanel();
             }
+            resultCanvas.showCanvas();
             isEnded = true;
         }
+    }
+
+    public void SetWinPanel()
+    {
+        resultPanel.sprite = winPanelImg;
+        coinGained = calculateCoinGained();
+        CoinManager.Instance.addCoin(coinGained);
+        setCoinGainedTxt();
+        targetTxtResult.color = new Color32(85, 180, 1, 255);
+        SoundManager.Instance.PlaySFXInList("win");
+    }
+
+    public void SetLosePanel()
+    {
+        resultPanel.sprite = losePanelImg;
+        coinGained = 0;
+        setCoinGainedTxt();
+        targetTxtResult.color = new Color32(231, 26, 0, 255);
+        SoundManager.Instance.PlaySFXInList("Lose");
     }
 
     public override void SetLevel1()
