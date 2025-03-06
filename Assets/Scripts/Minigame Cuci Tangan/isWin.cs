@@ -31,15 +31,18 @@ public class isWin : MonoBehaviour
         //Debug.Log(timerScript.timerRemains() + "sec");
         //Debug.Log(spawner.SpawnCount);
         int multiplier = 1;
+        int initialCoin = 0;
         if(spawner.SpawnCount == 15)
         {
-            multiplier = 2;
+            multiplier = 3;
+            initialCoin = 150;
         } 
         else if (spawner.SpawnCount == 25)
         {
             multiplier = 5;
+            initialCoin = 300;
         }
-        coinGained = timerScript.timerRemains() * spawner.SpawnCount * multiplier;
+        coinGained = initialCoin + timerScript.timerRemains() * spawner.SpawnCount * multiplier;
         layoutmanager.showCanvas(coincanvas);
         layoutmanager.showCanvas(staticcanvas);
         CoinManager.Instance.addCoin(coinGained);

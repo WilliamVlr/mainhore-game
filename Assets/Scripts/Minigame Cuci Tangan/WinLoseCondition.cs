@@ -35,6 +35,7 @@ public class WinLoseCondition : MonoBehaviour
     {
         if (_Time.text == "00" && check == 0)  // Game over due to time running out
         {
+            SoundManager.Instance.PlayMusicInList("House");
             if (_spawner.VirusDestroyed == _spawner.SpawnCount)  // If the time is up and enough viruses are destroyed, it's a win
             {
                 //Debug.Log("You Win!");
@@ -73,6 +74,7 @@ public class WinLoseCondition : MonoBehaviour
         }
         else if (_spawner.VirusDestroyed == _spawner.SpawnCount && check == 0)  // If enough viruses are destroyed before time is up
         {
+            SoundManager.Instance.PlayMusicInList("House");
             //Debug.Log("You Win!");
             StartCoroutine(Fader.FadeOutGameObject(Timer, 1));
 

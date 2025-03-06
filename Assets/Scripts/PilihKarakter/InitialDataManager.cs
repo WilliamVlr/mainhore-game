@@ -27,7 +27,7 @@ public class InitialDataManager : MonoBehaviour
 
         DataPersistenceManager.Instance.saveGame();
 
-        SceneManager.LoadSceneAsync("House");
+        SceneManager.LoadScene("House");
     }
     
 }

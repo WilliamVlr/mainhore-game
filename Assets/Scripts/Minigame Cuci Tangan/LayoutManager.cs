@@ -60,6 +60,7 @@ public class LayoutManager : MonoBehaviour
         hideLayout(FirstLayout);
         showLayout(PauseLayout);
         Time.timeScale = 1;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
     }
 
     public void openInstruksi()
