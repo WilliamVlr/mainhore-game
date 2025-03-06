@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f37a23afd109f41458773be103d3e86a, type: 3}
-  m_Name: ListNpcAnim
+  m_Script: {fileID: 11500000, guid: ec30f661bf9153e4c92ee8ff5fdbbbdd, type: 3}
+  m_Name: list_5
   m_EditorClassIdentifier: 
-  listAnim:
-  - {fileID: 11400000, guid: c22728d078d7f4b4baac58b26ce02022, type: 2}
-  - {fileID: 11400000, guid: cd134956692a6f4459fea4549e19340b, type: 2}
+  conversationLines:
+  - Conversation: Pisang adalah buah yang bisa mengambang di air!

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec30f661bf9153e4c92ee8ff5fdbbbdd, type: 3}
-  m_Name: list_1
+  m_Script: {fileID: 11500000, guid: f37a23afd109f41458773be103d3e86a, type: 3}
+  m_Name: LeftListNpcAnim
   m_EditorClassIdentifier: 
-  conversationLines:
-  - Conversation: Tidur 9-11 jam bikin tubuh kuat dan otak pintar!
+  listAnim:
+  - {fileID: 11400000, guid: 74c165120c596374798a81ac7b805c5c, type: 2}
+  - {fileID: 11400000, guid: 31caf32bd5c579e499f24cc56ce219c8, type: 2}
