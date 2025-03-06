@@ -21,6 +21,9 @@ public class BoutiqueManager : MonoBehaviour
     [SerializeField] private Light2D finalSpotlight;
     [SerializeField] private CanvasBehavior joystickCanvas;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private CanvasBehavior resultCanvas;
+    [SerializeField] private TextMeshProUGUI karakterName;
+    [SerializeField] private Image karakterImg;
 
     private SO_Skin selectedSkin;
     private bool isRandomizing = false;
@@ -32,8 +35,6 @@ public class BoutiqueManager : MonoBehaviour
     {
         DialogKasir.SetActive(false);
         RandomizeButton.gameObject.SetActive(false);
-        SimpanButton.SetActive(false);
-        UseClothButton.SetActive(false);
 
         RandomizeCostumeInside();
         HideAllCharacters();
@@ -176,9 +177,11 @@ public class BoutiqueManager : MonoBehaviour
         int chosenIndex = Random.Range(0, costumeCharacters.Length);
         yield return StartCoroutine(OpenCurtain(chosenIndex));
         ShowCharacter(chosenIndex);
-        SimpanButton.SetActive(true);
-        UseClothButton.SetActive(true);
         selectedSkin = costumerCharacters_data[chosenIndex];
+        karakterName.text = selectedSkin.itemName;
+        karakterImg.sprite = selectedSkin.sprite;
+        yield return new WaitForSeconds(0.5f);
+        resultCanvas.showCanvas();
         isRandomizing = false;
     }
 
@@ -237,8 +240,7 @@ public class BoutiqueManager : MonoBehaviour
             InventoryManager.Instance.AddItem(selectedSkin);
             Debug.Log("Kostum disimpan ke inventory: " + selectedSkin.name);
         }
-        SimpanButton.SetActive(false);
-        UseClothButton.SetActive(false);
+        resultCanvas.hideCanvas();
     }
 
     private void UseSelectedCostume()
@@ -262,8 +264,7 @@ public class BoutiqueManager : MonoBehaviour
             }
             //Debug.Log("Kostum telah digunakan: " + selectedSkin.name);
         }
-        SimpanButton.SetActive(false);
-        UseClothButton.SetActive(false);
+        resultCanvas.hideCanvas();
     }
 
     private void ResetCameraPos()
