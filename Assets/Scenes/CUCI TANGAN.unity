@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 72796000}
   - component: {fileID: 72795999}
   m_Layer: 5
-  m_Name: Home Button
+  m_Name: Next Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,11 +272,23 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 241721621}
         m_TargetAssemblyTypeName: Minigame, Assembly-CSharp
-        m_MethodName: returnToHomeScreen
-        m_Mode: 1
+        m_MethodName: hideLayout
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 253247240}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 241721621}
+        m_TargetAssemblyTypeName: Minigame, Assembly-CSharp
+        m_MethodName: showLayout
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 458452843}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -518,7 +530,20 @@ MonoBehaviour:
   losePanelImg: {fileID: 21300000, guid: 8377df73eab315b41994785b54205981, type: 3}
   resultPanel: {fileID: 1136234520}
   resultCanvas: {fileID: 1136234519}
+  resultImg: {fileID: 1134032010}
+  resultTxt: {fileID: 928593986}
   _spawner: {fileID: 6829951551171081016}
+  virusList:
+  - virusName: Influenza
+    diseaseName: flu
+    loseSprite: {fileID: 21300000, guid: 541886185684e0b44a2f7a4987407246, type: 3}
+  - virusName: Paramyxovirus
+    diseaseName: gondong
+    loseSprite: {fileID: 21300000, guid: f391f9e7149c1d64f8514cc68be70fe8, type: 3}
+  - virusName: Notovirus
+    diseaseName: muntaber
+    loseSprite: {fileID: 21300000, guid: a2145d3899120b7439cbab3bd9f83a81, type: 3}
+  winSprite: {fileID: 21300000, guid: e0a956102e57864408b4ff7dea07be4a, type: 3}
 --- !u!1 &248291867
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +859,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &458452843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8410434999278616221, guid: 7429c50059de19a4aaf251c54e51c745, type: 3}
+  m_PrefabInstance: {fileID: 1136234515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,6 +2545,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6787505762032572093, guid: 06514fab56393a2439e39b71aebee912, type: 3}
+      propertyPath: musicList.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f838465146d0fd4194647940cb30c14, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3213,7 +3247,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 170}
-  m_SizeDelta: {x: 250, y: 250}
+  m_SizeDelta: {x: 325, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1134032010
 MonoBehaviour:
@@ -3228,15 +3262,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 541886185684e0b44a2f7a4987407246, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3507,7 +3541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8072781887696246249, guid: 7429c50059de19a4aaf251c54e51c745, type: 3}
       propertyPath: m_Alpha
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8410434999278616221, guid: 7429c50059de19a4aaf251c54e51c745, type: 3}
       propertyPath: m_Name
@@ -4568,7 +4602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803872512
@@ -4872,6 +4906,7 @@ MonoBehaviour:
   - {fileID: 606580857}
   - {fileID: 606580856}
   - {fileID: 606580855}
+  chosenLevel: 0
 --- !u!1 &7346372025945306773
 GameObject:
   m_ObjectHideFlags: 0
