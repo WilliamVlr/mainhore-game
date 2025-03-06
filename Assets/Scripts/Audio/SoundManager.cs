@@ -86,7 +86,10 @@ public class SoundManager : MonoBehaviour, IDataPersistence
 
         if(s != null)
         {
-            PlayMusic(s.clip);
+            if(musicSource.clip != s.clip)
+            {
+                PlayMusic(s.clip);
+            }
         }
     }
 
@@ -115,6 +118,7 @@ public class SoundManager : MonoBehaviour, IDataPersistence
     public void StopMusic()
     {
         musicSource?.Stop();
+        musicSource.clip = null;
     }
 
     public void ToggleMusic()

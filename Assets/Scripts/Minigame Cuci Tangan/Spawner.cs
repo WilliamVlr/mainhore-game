@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject virus;
+    [SerializeField] private GameObject[] virusPrefabs;
     [SerializeField] private GameObject timerObject;
     [SerializeField] private GameObject pauseInterface;
 
@@ -20,6 +22,9 @@ public class Spawner : MonoBehaviour
     private int spawned = 0;
     [SerializeField] private int _virusDestroyed = 0;
     [SerializeField] private float virusSpeed;
+    [SerializeField] private Button[] levelButtons;
+    private int chosenLevel;
+    private int progress;
 
     private TextMeshProUGUI timerText;
 
@@ -58,6 +63,20 @@ public class Spawner : MonoBehaviour
                 //Debug.Log("Clicked");
                 HandleVirusClick(hit.collider.gameObject);
                 SoundManager.Instance.PlaySFXInList("virus pecah");
+            }
+        }
+
+        if(_virusDestroyed == Math.Round((float) spawnCount/2))
+        {
+            SoundManager.Instance.PlayMusicInList("virus dikit");
+        }
+
+        if(_virusDestroyed == spawnCount)
+        {
+            int level = chosenLevel - 1;
+            if (progress < 2)
+            {
+                progress = level + 1;
             }
         }
     }
@@ -130,8 +149,8 @@ public class Spawner : MonoBehaviour
     Vector2 GetRandomPosition()
     {
         return new Vector2(
-            Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-            Random.Range(spawnAreaMin.y, spawnAreaMax.y)
+            UnityEngine.Random.Range(spawnAreaMin.x, spawnAreaMax.x),
+            UnityEngine.Random.Range(spawnAreaMin.y, spawnAreaMax.y)
         );
     }
 
@@ -151,18 +170,51 @@ public class Spawner : MonoBehaviour
     {
         spawnCount = 15;
         virusSpeed = 5f;
+        virus = virusPrefabs[0];
         SoundManager.Instance.StopMusic();
+        chosenLevel = 1;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
     }
     public void SetLevel2()
     {
         spawnCount = 20;
         virusSpeed = 8f;
+        virus = virusPrefabs[1];
         SoundManager.Instance.StopMusic();
+        chosenLevel = 2;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
     }
     public void SetLevel3()
     {
         spawnCount = 25;
         virusSpeed = 10f;
+        virus = virusPrefabs[2];
         SoundManager.Instance.StopMusic();
+        chosenLevel = 3;
+        SoundManager.Instance.PlayMusicInList("virus banyak");
+    }
+
+    public void PopulateLevelButtonInteractable()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            levelButtons[i].interactable = false;
+        }
+
+        for (int i = 0; i <= progress; i++)
+        {
+            levelButtons[i].interactable = true;
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.progress = data.minigamesProgress["cuci tangan"];
+        PopulateLevelButtonInteractable();
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.minigamesProgress["cuci tangan"] = this.progress;
     }
 }
