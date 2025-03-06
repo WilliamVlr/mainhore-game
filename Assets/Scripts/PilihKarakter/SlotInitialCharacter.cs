@@ -27,12 +27,13 @@ public class SlotInitialCharacter : MonoBehaviour, IPointerDownHandler
     {
         if(activeSlot == this)
         {
-            InitialDataManager.Instance.Skin = skinData.itemName;
+            InitialDataManager.Instance.Skin = skinData.ID;
             charPreview.sprite = skinData.sprite;
             activeSlot.OnSlotTouched();
             return;
+        } else {
+            OnSlotUntouched();
         }
-        OnSlotUntouched();
     }
 
     public string getSkinName()
@@ -48,7 +49,7 @@ public class SlotInitialCharacter : MonoBehaviour, IPointerDownHandler
         }
 
         activeSlot = this;
-        InitialDataManager.Instance.Skin = skinData.itemName;
+        InitialDataManager.Instance.Skin = skinData.ID;
         charPreview.sprite = skinData.sprite;
         activeSlot.OnSlotTouched();
     }

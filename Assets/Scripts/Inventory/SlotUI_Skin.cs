@@ -21,6 +21,7 @@ public class SlotUI_Skin : SlotUI
         AvatarManager avatarMng = FindAnyObjectByType<AvatarManager>();
         if (avatarMng != null)
         {
+            ProfileManager.Instance.ChangeProfile((SO_Skin)currentItem);
             SO_Skin oldSkin = avatarMng.changeSkin((SO_Skin)currentItem);
             InventoryManager.Instance.RemoveItem(currentItem);
             InventoryManager.Instance.AddItem(oldSkin);

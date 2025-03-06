@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: list_3
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: fgh6
-  - Conversation: fgh7
-  - Conversation: fgh8
+  - Conversation: Makan apel bikin tubuh kuat dan sehat!

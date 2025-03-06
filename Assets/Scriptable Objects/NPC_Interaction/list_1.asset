@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: list_1
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: asd1
-  - Conversation: asd2
-  - Conversation: asd3
+  - Conversation: Tidur 9-11 jam bikin tubuh kuat dan otak pintar!

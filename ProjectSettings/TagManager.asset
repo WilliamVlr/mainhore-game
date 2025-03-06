@@ -19,6 +19,8 @@ TagManager:
   - Virus
   - Instruksi_Button
   - FurnitureButtons
+  - Npc
+  - NpcDialog
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8c5b87209948644a8653bb38260b10, type: 3}
+  m_Name: domba_walk
+  m_EditorClassIdentifier: 
+  NpcAnim: {fileID: 9100000, guid: d05f1c8ec50bf31469ee31aca4f4229e, type: 2}

@@ -16,6 +16,8 @@ public class HomeMenu : MonoBehaviour
         {
             continueButton.interactable = false;
         }
+
+        SoundManager.Instance.PlayMusicInList("Start");
     }
 
     public void onNewGameClicked()
