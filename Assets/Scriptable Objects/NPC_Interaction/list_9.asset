@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec30f661bf9153e4c92ee8ff5fdbbbdd, type: 3}
-  m_Name: list_1
+  m_Name: list_9
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Tidur 9-11 jam bikin tubuh kuat dan otak pintar!
+  - Conversation: Mandi tiap hari bisa menghilangkan kuman nakal di kulit!
