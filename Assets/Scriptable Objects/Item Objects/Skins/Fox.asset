@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fox
   m_EditorClassIdentifier: 
   id: Fox
-  itemName: Fox
+  itemName: Rubah
   sprite: {fileID: 21300000, guid: 7506ee91f6a32274b956ed01910bae9b, type: 3}
   price: 1000
   desc: 

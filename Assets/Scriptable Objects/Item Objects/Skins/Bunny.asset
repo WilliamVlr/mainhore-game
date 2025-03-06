@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bunny
   m_EditorClassIdentifier: 
   id: Bunny
-  itemName: Bunny
+  itemName: Kelinci
   sprite: {fileID: 21300000, guid: 48e9ac0fd8637c54a9b96fbeebd30735, type: 3}
   price: 1000
   desc: 

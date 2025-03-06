@@ -22,6 +22,7 @@ public class InitialDataManager : MonoBehaviour
 
     public void createNewGame()
     {
+        Debug.Log("Skin: " + Skin);
         DataPersistenceManager.Instance.newGame(Username, Skin);
 
         DataPersistenceManager.Instance.saveGame();
