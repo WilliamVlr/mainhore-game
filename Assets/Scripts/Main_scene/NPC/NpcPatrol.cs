@@ -119,7 +119,7 @@ public class NpcPatrol : MonoBehaviour
             rb.velocity = new Vector2(currentSpeed, 0);
             if (currentSpeed > 0)
             {
-                NpcUI.transform.localScale = new Vector2(3f, 3f);
+                NpcUI.transform.localScale = new Vector2(0.35f, 0.35f);
             }
         }
         else
@@ -127,7 +127,7 @@ public class NpcPatrol : MonoBehaviour
             rb.velocity = new Vector2(currentSpeed, 0);
             if (currentSpeed < 0)
             {
-                NpcUI.transform.localScale = new Vector2(-3f, 3f);
+                NpcUI.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
         }
 
