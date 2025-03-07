@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: list_2
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Tubuh kita sebagian besar adalah air. Minum cukup biar tetap sehat!
+  - Conversation: Tubuh kita sebagian besar adalah air.!
+  - Conversation: Minum cukup biar tetap sehat

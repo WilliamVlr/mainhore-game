@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: list_1
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Tidur 9-11 jam bikin tubuh kuat dan otak pintar!
+  - Conversation: Tidur 8-11 jam bikin tubuh kuat dan otak pintar!
+  - Conversation: Kamu jangan lupa tidur ya!

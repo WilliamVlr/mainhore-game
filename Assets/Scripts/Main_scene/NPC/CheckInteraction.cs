@@ -17,7 +17,8 @@ public class CheckInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject == player)
+        InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
+        if (other.gameObject == player && !inventoryUI.IsOpen())
         {
             //Debug.Log("Player entered NPC area!");
             collidedplayer = this.gameObject;

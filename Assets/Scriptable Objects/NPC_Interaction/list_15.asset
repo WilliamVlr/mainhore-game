@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: list_15
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Baju kotor bisa menyimpan ribuan kuman, jadi harus dicuci!
+  - Conversation: 'Baju kotor bisa menyimpan ribuan kuman, '
+  - Conversation: jadi jangan lupa dicuci!

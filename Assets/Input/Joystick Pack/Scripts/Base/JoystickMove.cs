@@ -95,9 +95,6 @@ public class JoystickMove : MonoBehaviour
             checkMovX();
             rb_background.velocity = new Vector2(0, 0);
         }
-
-        
-
         
     }
 

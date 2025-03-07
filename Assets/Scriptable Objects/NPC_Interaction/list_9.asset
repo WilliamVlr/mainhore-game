@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: list_9
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Mandi tiap hari bisa menghilangkan kuman nakal di kulit!
+  - Conversation: Kerja di kafe sangat sulit
+  - Conversation: Banyak pelanggan yang tidak sabaran
+  - Conversation: Aku selalu kalah di sana.

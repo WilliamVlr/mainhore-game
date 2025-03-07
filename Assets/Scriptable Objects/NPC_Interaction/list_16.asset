@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: list_16
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: "Lebah harus terbang 100.000 kali untuk membuat\_1\_toples\_madu!"
+  - Conversation: 'Lebah harus terbang 100.000 kali '
+  - Conversation: "untuk membuat\_1\_toples\_madu!"

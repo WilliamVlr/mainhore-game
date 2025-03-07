@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: list_5
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Pisang adalah buah yang bisa mengambang di air!
+  - Conversation: Pisang bisa mengambang di air loh!

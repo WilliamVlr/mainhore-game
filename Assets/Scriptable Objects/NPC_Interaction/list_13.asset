@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conversationLines:
   - Conversation: "Cuci tangan selama 20 detik bisa membunuh\_banyak\_kuman"
+  - Conversation: Coba dekati wastafel rumahmu
+  - Conversation: Kamu akan melihatnya sendiri!
