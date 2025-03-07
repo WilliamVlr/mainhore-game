@@ -1273,7 +1273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 171.555
       objectReference: {fileID: 0}
     - target: {fileID: 8681641539356493433, guid: 34996f45917531c438f515aa64fad3f2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1545,7 +1545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 382.62, y: -75}
+  m_AnchoredPosition: {x: 476.515, y: -75}
   m_SizeDelta: {x: 100, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774912924
@@ -1962,7 +1962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 475, y: 0}
+  m_AnchoredPosition: {x: 568.895, y: 0}
   m_SizeDelta: {x: 64.76, y: 120}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1011597215
@@ -4258,7 +4258,7 @@ MonoBehaviour:
   - {fileID: 57496870}
   - {fileID: 1375422925}
   - {fileID: 1724303158}
-  itemDatabase: {fileID: 11400000, guid: 5e3e17b59a4eb9644b9e83cbff9fa28f, type: 2}
+  itemDatabase: {fileID: 11400000, guid: f4d8d52e89ef3a942a5bb0f44215b905, type: 2}
   playerAvatarRenderer: {fileID: 858459589}
   gachaBtnSprite: {fileID: 21300000, guid: 2fd8496c65078bb4dae273dbabe61033, type: 3}
   globalLight: {fileID: 1317755857}

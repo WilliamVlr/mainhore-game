@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5260504a7237274ab144dd4105b2871, type: 3}
-  m_Name: Fox
+  m_Name: Domba
   m_EditorClassIdentifier: 
-  id: Fox
-  itemName: Rubah
-  sprite: {fileID: 21300000, guid: fb8932c8d9711864e96ca3473397d798, type: 3}
+  id: Domba
+  itemName: Domba
+  sprite: {fileID: 21300000, guid: c2e227e6115223343a48bb8271417daa, type: 3}
   price: 1000
   desc: 
   place: 0
-  sellPrice: 400
+  sellPrice: 1000
   scale_inSlot: 0.9
-  idleAnimation: {fileID: 11400000, guid: 8b6348a7afceaec4db533dc747582708, type: 2}
-  movingAnimation: {fileID: 11400000, guid: c581bc4cc82868d49bfd0dfb4659ec17, type: 2}
+  idleAnimation: {fileID: 11400000, guid: 45ff1ca61dee29b4aad19ef016100fc6, type: 2}
+  movingAnimation: {fileID: 11400000, guid: 9eaf1a99b7c27fc4b9538c0f78d3ea27, type: 2}

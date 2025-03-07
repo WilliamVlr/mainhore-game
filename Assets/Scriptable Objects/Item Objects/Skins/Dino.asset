@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5260504a7237274ab144dd4105b2871, type: 3}
-  m_Name: Fox
+  m_Name: Dino
   m_EditorClassIdentifier: 
-  id: Fox
-  itemName: Rubah
-  sprite: {fileID: 21300000, guid: fb8932c8d9711864e96ca3473397d798, type: 3}
+  id: Dino
+  itemName: Dino
+  sprite: {fileID: 21300000, guid: 9fd4407922dc6b84bbe848b57bb692b2, type: 3}
   price: 1000
   desc: 
   place: 0
-  sellPrice: 400
+  sellPrice: 1000
   scale_inSlot: 0.9
-  idleAnimation: {fileID: 11400000, guid: 8b6348a7afceaec4db533dc747582708, type: 2}
-  movingAnimation: {fileID: 11400000, guid: c581bc4cc82868d49bfd0dfb4659ec17, type: 2}
+  idleAnimation: {fileID: 11400000, guid: 11b1f9383b766534e929c78327e2f5c6, type: 2}
+  movingAnimation: {fileID: 11400000, guid: bc715e81c6db1d441a4eba36c675a7da, type: 2}

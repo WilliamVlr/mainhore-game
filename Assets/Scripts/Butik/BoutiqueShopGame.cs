@@ -129,6 +129,19 @@ public class BoutiqueManager : MonoBehaviour
 
     private void RandomizeCostume()
     {
+        if (InventoryManager.Instance.isFull())
+        {
+            NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
+            if (notifPanel != null)
+            {
+                notifPanel.showInvFull();
+            }
+            else
+            {
+                Debug.Log("Notif panel is not found");
+            }
+            return;
+        }
         if (!isRandomizing)
         {
             if (CoinManager.Instance.canSubstractCoin(randomizationCost))
@@ -149,7 +162,7 @@ public class BoutiqueManager : MonoBehaviour
                 NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
                 if (notifPanel != null)
                 {
-                    notifPanel.showCanvas();
+                    notifPanel.showCoinInsuff();
                 }
                 else
                 {

@@ -76,9 +76,22 @@ public class ItemTrigger : MonoBehaviour
 
     private void confirmBuy()
     {
-        
+        if (InventoryManager.Instance.isFull())
+        {
+            NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
+            if (notifPanel != null)
+            {
+                notifPanel.showInvFull();
+            }
+            else
+            {
+                Debug.Log("Notif panel is not found");
+            }
+            return;
+        }
+
         //TODO - kurangi coin player
-         int itemPrice = currentItem.price;
+        int itemPrice = currentItem.price;
          if (CoinManager.Instance.canSubstractCoin(itemPrice))
          {
             CoinManager.Instance.substractCoin(itemPrice);
@@ -99,7 +112,7 @@ public class ItemTrigger : MonoBehaviour
             NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
             if (notifPanel != null)
             {
-                notifPanel.showCanvas();
+                notifPanel.showCoinInsuff();
             }
             else
             {

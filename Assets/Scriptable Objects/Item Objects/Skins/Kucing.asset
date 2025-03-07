@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5260504a7237274ab144dd4105b2871, type: 3}
-  m_Name: Fox
+  m_Name: Kucing
   m_EditorClassIdentifier: 
-  id: Fox
-  itemName: Rubah
-  sprite: {fileID: 21300000, guid: fb8932c8d9711864e96ca3473397d798, type: 3}
+  id: Kucing
+  itemName: Kucing
+  sprite: {fileID: 21300000, guid: 5040523313aed84449c47235923ae0fb, type: 3}
   price: 1000
   desc: 
   place: 0
-  sellPrice: 400
+  sellPrice: 900
   scale_inSlot: 0.9
-  idleAnimation: {fileID: 11400000, guid: 8b6348a7afceaec4db533dc747582708, type: 2}
-  movingAnimation: {fileID: 11400000, guid: c581bc4cc82868d49bfd0dfb4659ec17, type: 2}
+  idleAnimation: {fileID: 11400000, guid: 8706a3a45da476f4bbdf7226801b2321, type: 2}
+  movingAnimation: {fileID: 11400000, guid: f2d0de1abdca24842853744465a14399, type: 2}
