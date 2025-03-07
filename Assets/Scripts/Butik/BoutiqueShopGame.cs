@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 
 public class BoutiqueManager : MonoBehaviour
 {
@@ -15,6 +16,14 @@ public class BoutiqueManager : MonoBehaviour
     [SerializeField] private SO_itemList itemDatabase;
     [SerializeField] private SpriteRenderer playerAvatarRenderer;
     [SerializeField] private Sprite gachaBtnSprite;
+    [SerializeField] private Light2D globalLight;
+    [SerializeField] private Light2D spotLight;
+    [SerializeField] private Light2D finalSpotlight;
+    [SerializeField] private CanvasBehavior joystickCanvas;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private CanvasBehavior resultCanvas;
+    [SerializeField] private TextMeshProUGUI karakterName;
+    [SerializeField] private Image karakterImg;
 
     private SO_Skin selectedSkin;
     private bool isRandomizing = false;
@@ -26,8 +35,6 @@ public class BoutiqueManager : MonoBehaviour
     {
         DialogKasir.SetActive(false);
         RandomizeButton.gameObject.SetActive(false);
-        SimpanButton.SetActive(false);
-        UseClothButton.SetActive(false);
 
         RandomizeCostumeInside();
         HideAllCharacters();
@@ -126,6 +133,9 @@ public class BoutiqueManager : MonoBehaviour
         {
             if (CoinManager.Instance.canSubstractCoin(randomizationCost))
             {
+                joystickCanvas.hideCanvas();
+                mainCamera.transform.position = new Vector3(-6, 0, -10);
+                globalLight.intensity = 0.03f;
                 CoinManager.Instance.substractCoin(randomizationCost); // Koin langsung dikurangi
                 SoundManager.Instance.PlaySFXInList("Coin berkurang");
                 isRandomizing = true;
@@ -151,13 +161,27 @@ public class BoutiqueManager : MonoBehaviour
 
     private IEnumerator RandomizeProcess()
     {
-        yield return new WaitForSeconds(1f);
+        // Play the gacha animation from the Animator attached to spotLight
+        Animator spotLightAnimator = spotLight.GetComponent<Animator>();
+        if (spotLightAnimator != null)
+        {
+            spotLight.intensity = 1;
+            spotLightAnimator.SetTrigger("Gacha");
+
+            // Wait for animation to finish
+            yield return new WaitForSeconds(spotLightAnimator.GetCurrentAnimatorStateInfo(0).length);
+        }
+
+        yield return new WaitForSeconds(1.5f); // Small delay for smooth transition
+
         int chosenIndex = Random.Range(0, costumeCharacters.Length);
         yield return StartCoroutine(OpenCurtain(chosenIndex));
         ShowCharacter(chosenIndex);
-        SimpanButton.SetActive(true);
-        UseClothButton.SetActive(true);
         selectedSkin = costumerCharacters_data[chosenIndex];
+        karakterName.text = selectedSkin.itemName;
+        karakterImg.sprite = selectedSkin.sprite;
+        yield return new WaitForSeconds(0.5f);
+        resultCanvas.showCanvas();
         isRandomizing = false;
     }
 
@@ -185,6 +209,17 @@ public class BoutiqueManager : MonoBehaviour
     {
         HideAllCharacters();
         costumeCharacters[index].SetActive(true);
+        if (index == 0)
+        {
+            finalSpotlight.transform.localPosition = new Vector2(-4.2f, -0.3f);
+        } else if (index == 1)
+        {
+            finalSpotlight.transform.localPosition = new Vector2(-1f, -0.3f);
+        } else
+        {
+            finalSpotlight.transform.localPosition = new Vector2(2.7f, -0.3f);
+        }
+        finalSpotlight.intensity = 1;
     }
 
     private void HideAllCharacters()
@@ -195,17 +230,26 @@ public class BoutiqueManager : MonoBehaviour
 
     private void SaveSelectedCostume()
     {
+        globalLight.intensity = 1;
+        spotLight.intensity = 0;
+        finalSpotlight.intensity = 0;
+        joystickCanvas.showCanvas();
+        ResetCameraPos();
         if (selectedSkin != null)
         {
             InventoryManager.Instance.AddItem(selectedSkin);
             Debug.Log("Kostum disimpan ke inventory: " + selectedSkin.name);
         }
-        SimpanButton.SetActive(false);
-        UseClothButton.SetActive(false);
+        resultCanvas.hideCanvas();
     }
 
     private void UseSelectedCostume()
     {
+        globalLight.intensity = 1;
+        spotLight.intensity = 0;
+        finalSpotlight.intensity = 0;
+        joystickCanvas.showCanvas();
+        ResetCameraPos();
         if (selectedSkin != null && selectedSkin.sprite != null && playerAvatarRenderer != null)
         {
             AvatarManager avatarMng = FindAnyObjectByType<AvatarManager>();
@@ -220,7 +264,11 @@ public class BoutiqueManager : MonoBehaviour
             }
             //Debug.Log("Kostum telah digunakan: " + selectedSkin.name);
         }
-        SimpanButton.SetActive(false);
-        UseClothButton.SetActive(false);
+        resultCanvas.hideCanvas();
+    }
+
+    private void ResetCameraPos()
+    {
+        mainCamera.transform.position = new Vector3(0, 0, -10);
     }
 }

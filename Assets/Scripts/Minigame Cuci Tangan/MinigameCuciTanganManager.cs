@@ -4,6 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class VirusData
+{
+    public string virusName;
+    public string diseaseName;
+    public Sprite loseSprite;
+}
+
 public class MinigameCuciTanganManager : Minigame
 {
     //[SerializeField] private GameObject Timer;
@@ -15,12 +23,17 @@ public class MinigameCuciTanganManager : Minigame
     [SerializeField] private Sprite losePanelImg;
     [SerializeField] private Image resultPanel;
     [SerializeField] private CanvasBehavior resultCanvas;
+    [SerializeField] private Image resultImg;
+    [SerializeField] private TextMeshProUGUI resultTxt;
 
     GameObject[] viruses;
 
     int check = 0;
 
     [SerializeField] private Spawner _spawner;
+
+    [SerializeField] private VirusData[] virusList;
+    [SerializeField] private Sprite winSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +59,8 @@ public class MinigameCuciTanganManager : Minigame
                 //Debug.Log("You Win!");
                 //StartCoroutine(Fader.FadeOutGameObject(Timer, (float)0.5));
 
-                setWin();
+                isWin = true;
+                setWin(virusList[_spawner.chosenLevel - 1]);
                 check++; // Prevent further checks after a condition is met
                 gameDoneCheck++;
                 SoundManager.Instance.PlaySFXInList("win");
@@ -71,7 +85,8 @@ public class MinigameCuciTanganManager : Minigame
                     }
                 }
 
-                setLose();
+                isWin = false;
+                setLose(virusList[_spawner.chosenLevel - 1]);
                 check++; // Prevent further checks after a condition is met
                 gameDoneCheck++;
                 SoundManager.Instance.PlaySFXInList("Lose");
@@ -90,8 +105,8 @@ public class MinigameCuciTanganManager : Minigame
             SoundManager.Instance.PlayMusicInList("House");
             //Debug.Log("You Win!");
             //StartCoroutine(Fader.FadeOutGameObject(Timer, 1));
-
-            setWin();
+            isWin = true;
+            setWin(virusList[_spawner.chosenLevel - 1]);
             check++; // Prevent further checks after a condition is met
             gameDoneCheck++;
             SoundManager.Instance.PlaySFXInList("win");
@@ -99,7 +114,7 @@ public class MinigameCuciTanganManager : Minigame
         }
     }
 
-    private void setWin()
+    private void setWin(VirusData virus)
     {
         int multiplier = 1;
         int initialCoin = 0;
@@ -117,15 +132,19 @@ public class MinigameCuciTanganManager : Minigame
         CoinManager.Instance.addCoin(coinGained);
 
         resultPanel.sprite = winPanelImg;
+        resultImg.sprite = winSprite;
+        resultTxt.text = "Kamu berhasil membasmi virus " + virus.virusName + " dan terhindar dari penyakit " + virus.diseaseName;
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(85, 180, 1, 255);
         SoundManager.Instance.PlaySFXInList("win");
     }
 
-    private void setLose()
+    private void setLose(VirusData virus)
     {
         Time.timeScale = 0;
         resultPanel.sprite = losePanelImg;
+        resultImg.sprite = virus.loseSprite;
+        resultTxt.text = "Kamu terkena penyakit " + virus.diseaseName + " karena virus " + virus.virusName;
         coinGained = 0;
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(231, 26, 0, 255);

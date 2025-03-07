@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
     [SerializeField] private int _virusDestroyed = 0;
     [SerializeField] private float virusSpeed;
     [SerializeField] private Button[] levelButtons;
-    private int chosenLevel;
+    public int chosenLevel;
     private int progress;
 
     private TextMeshProUGUI timerText;
