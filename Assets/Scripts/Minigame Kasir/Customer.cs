@@ -35,8 +35,8 @@ public class Customer : MonoBehaviour
 
     private void Update()
     {
-        if(status == false)  walkIn();
-        if(status == true) walkOut();
+        // if(status==false)  walkIn();
+        // if(status == true) walkOut();
     }
 
     private void walkIn()
