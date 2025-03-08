@@ -4,4 +4,5 @@ using UnityEngine;
 {
     public Sprite questionImage;
     public string answer;
+    public AudioClip sfxItem;
 }

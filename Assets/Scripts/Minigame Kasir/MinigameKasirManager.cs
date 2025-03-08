@@ -10,7 +10,7 @@ using UnityEngine.Rendering.Universal;
 using TMPro;
 using Unity.Burst.CompilerServices;
 
-public class MinigameKasirManager : Minigame
+public class MinigameKasirManager : Minigame, IDataPersistence
 {
     public static MinigameKasirManager instance;
     private GameStatus gameStatus;
@@ -19,8 +19,15 @@ public class MinigameKasirManager : Minigame
     [SerializeField] private Letter[] optionArray;
     [SerializeField] private QuestionDataScriptable questionData;
     [SerializeField] private Image[] lives;
+    [SerializeField] private TimerScript timer;
     [SerializeField] private Canvas playPanel;
     [SerializeField] private CustomerHandler customerHandler;
+    [Header("Result Panel")]
+    [SerializeField] private CanvasBehavior resultCanvas;
+    [SerializeField] private Image resultPanel;
+    [SerializeField] private Sprite winPanelImg;
+    [SerializeField] private Sprite losePanelImg;
+    [SerializeField] private Button[] levelButtons;
 
     private char[] charArray;
     private string answerWord;
@@ -31,7 +38,8 @@ public class MinigameKasirManager : Minigame
     private int liveCount;
     private int availableHint;
 
-
+    private int chosenLevel;
+    private int progress;
     void Awake()
     {
         if(instance == null) instance = this;
@@ -46,7 +54,7 @@ public class MinigameKasirManager : Minigame
         charArray = new char[optionArray.Length];
         liveCount = lives.Length;
         playPanel.gameObject.SetActive(false);
-        SetQuestion();
+        SoundManager.Instance.PlayMusicInList("Jalan");
     }
 
     public GameStatus getGameStatus()
@@ -60,6 +68,52 @@ public class MinigameKasirManager : Minigame
         gameStatus = newGameStatus;
     }
 
+    protected override void CheckResult()
+    {
+        if (Time.timeScale == 1f && timerText.text == "00" && !isEnded)
+        {
+            layouts.baseInGameCanvas.hideCanvas();
+            layouts.coinLayout.showCanvas();
+            layouts.staticLayout.showCanvas();
+            targetScoreTXT.text = targetScore.ToString();
+            currentScoreTXT.text = currentScore.ToString();
+            if (isWin)
+            {
+                SetWinPanel();
+            }
+            else
+            {
+                SetLosePanel();
+            }
+            resultCanvas.showCanvas();
+            isEnded = true;
+        }
+    }
+
+    public void SetWinPanel()
+    {
+        resultPanel.sprite = winPanelImg;
+        coinGained = calculateCoinGained();
+        CoinManager.Instance.addCoin(coinGained);
+        setCoinGainedTxt();
+        targetScoreTXT.color = new Color32(85, 180, 1, 255);
+        SoundManager.Instance.PlaySFXInList("win");
+        int level = chosenLevel - 1;
+        if (progress < 2)
+        {
+            progress = level + 1;
+        }
+    }
+
+    public void SetLosePanel()
+    {
+        resultPanel.sprite = losePanelImg;
+        coinGained = 0;
+        setCoinGainedTxt();
+        targetScoreTXT.color = new Color32(231, 26, 0, 255);
+        SoundManager.Instance.PlaySFXInList("Lose");
+    }
+
     private void SetQuestion()
     {   
         customerHandler.spawnCustomer();
@@ -67,6 +121,7 @@ public class MinigameKasirManager : Minigame
         availableHint = 1;
         letterChoiceIndex.Clear();
         imageQuestion.sprite = questionData.questions[currentQuestionIndex].questionImage;
+        SoundManager.Instance.PlaySFX(questionData.questions[currentQuestionIndex].sfxItem);
         answerWord = questionData.questions[currentQuestionIndex].answer;
         ResetQuestion();
         
@@ -195,5 +250,37 @@ public class MinigameKasirManager : Minigame
             }
         }
         availableHint--;
+    }
+
+    public override void SetLevel1()
+    {
+        timer.SetTimerMaxValue(35f);
+        SetQuestion();
+        SoundManager.Instance.StopMusic();
+        chosenLevel = 1;
+    }
+
+    public void PopulateLevelButtonInteractable()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            levelButtons[i].interactable = false;
+        }
+
+        for (int i = 0; i <= progress; i++)
+        {
+            levelButtons[i].interactable = true;
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.progress = data.minigamesProgress["kasir"];
+        PopulateLevelButtonInteractable();
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.minigamesProgress["kasir"] = this.progress;
     }
 }

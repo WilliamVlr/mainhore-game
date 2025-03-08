@@ -35,6 +35,7 @@ public class GameData
         {
             {"cuci tangan", 0},
             {"cafe", 0},
+            {"kasir", 0 }
         };
         this.mainBackgroundPos = new Vector3(11, 0, 0);
     }
