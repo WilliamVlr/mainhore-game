@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Butik.unity
     guid: 33be7c8b1d05cf742a6440c9c161eff8
+  - enabled: 1
+    path: Assets/Scenes/MiniGameKasir.unity
+    guid: c09ee60fcf0258a468f0008c095d553d
   m_configObjects: {}
