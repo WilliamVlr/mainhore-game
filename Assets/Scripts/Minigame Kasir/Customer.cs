@@ -13,7 +13,8 @@ public class Customer : MonoBehaviour
     private Vector2 _startPos, _centerPos, _doorPos, _startScale, _endScale;
     private Vector2 camPos;
     private Vector3 currentPos;
-    private bool status = false;
+    private GameStatus gameStatus;
+    private bool walkedIn;
     private void Start()
     {
         camPos = Camera.main.ViewportToWorldPoint(new Vector2(1.05f, 0.5f));
@@ -30,24 +31,30 @@ public class Customer : MonoBehaviour
 
         transform.localPosition = _startPos;
         transform.localScale = _startScale;
-    }
 
+        walkedIn = false;
+    }
 
     private void Update()
-    {
-        // if(status==false)  walkIn();
-        // if(status == true) walkOut();
+    {   
+        gameStatus = MinigameKasirManager.instance.getGameStatus();
+        if(gameStatus == GameStatus.Starting || !walkedIn) walkIn();
+        else if(gameStatus == GameStatus.Ending) walkOut();
+        
     }
-
     private void walkIn()
     {   
         if(currentPos.x > _centerPos.x) 
-        {
+        {   
             currentPos -= moveSpeed * Time.deltaTime * transform.right;
             transform.localPosition = currentPos + magnitude * Mathf.Sin(Time.time * frequency) * transform.up;
         }
-        else{
-            status = true;
+        else
+        {
+            walkedIn = true;
+            gameStatus = GameStatus.Playing;
+            MinigameKasirManager.instance.setGameStatus(gameStatus);
+            MinigameKasirManager.instance.showPanel();
         }
     }
 
@@ -60,7 +67,9 @@ public class Customer : MonoBehaviour
             transform.localScale = _endScale;
         }
         else
-        {
+        {   
+            gameStatus = GameStatus.Starting;
+            MinigameKasirManager.instance.setGameStatus(gameStatus);
             Destroy(gameObject);
         }
 

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6117475963737123554}
   - component: {fileID: 494872902519598929}
   m_Layer: 5
-  m_Name: LetterBoxQuestionPrefab
+  m_Name: LetterBoxOptionPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

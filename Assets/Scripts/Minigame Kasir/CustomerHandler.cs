@@ -5,7 +5,7 @@ using UnityEngine;
 public class CustomerHandler : MonoBehaviour
 {
     [SerializeField] public Customer[] prefabs;
-    private void spawnCustomer()
+    public void spawnCustomer()
     {   
         Instantiate(prefabs[Random.Range(0, prefabs.Length)], this.transform);
     }

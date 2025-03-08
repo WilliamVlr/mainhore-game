@@ -27,6 +27,6 @@ public class Letter : MonoBehaviour
 
     private void CharSelected()
     {
-        
+        MinigameKasirManager.instance.SelectedOption(this);
     }
 }
