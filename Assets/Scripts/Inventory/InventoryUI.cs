@@ -278,4 +278,26 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
+    public void closeInventory()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if (animatorInv != null)
+        {
+            if (animatorInv.GetBool("isOpen"))
+            {
+                animatorInv.SetBool("isOpen", false);
+            }
+        }
+    }
+
+    public bool IsOpen()
+    {
+        Animator animatorInv = GetComponent<Animator>();
+        if (animatorInv != null)
+        {
+            return animatorInv.GetBool("isOpen");
+        }
+        return false;
+    }
 }

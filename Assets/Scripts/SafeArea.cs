@@ -28,6 +28,6 @@ public class SafeArea : MonoBehaviour
         rectTransform.offsetMin = new Vector2(offsetLeft, offsetBottom);
         CanvasScaler canvasScaler = _CanvasRect.GetComponent<CanvasScaler>();
         canvasScaler.referenceResolution = new Vector2(canvasScaler.referenceResolution.x, 
-            canvasScaler.referenceResolution.y + Mathf.Abs(offsetTop) + Mathf.Abs(offsetBottom));
+        canvasScaler.referenceResolution.y + Mathf.Abs(offsetTop) + Mathf.Abs(offsetBottom));
     }
 }

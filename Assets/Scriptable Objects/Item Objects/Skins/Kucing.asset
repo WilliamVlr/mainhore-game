@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5260504a7237274ab144dd4105b2871, type: 3}
+  m_Name: Kucing
+  m_EditorClassIdentifier: 
+  id: Kucing
+  itemName: Kucing
+  sprite: {fileID: 21300000, guid: 5040523313aed84449c47235923ae0fb, type: 3}
+  price: 1000
+  desc: 
+  place: 0
+  sellPrice: 900
+  scale_inSlot: 0.9
+  idleAnimation: {fileID: 11400000, guid: 8706a3a45da476f4bbdf7226801b2321, type: 2}
+  movingAnimation: {fileID: 11400000, guid: f2d0de1abdca24842853744465a14399, type: 2}

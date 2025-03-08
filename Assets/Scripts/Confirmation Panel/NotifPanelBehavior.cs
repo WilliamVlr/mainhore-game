@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class NotifPanelBehavior : MonoBehaviour
 {
     private CanvasGroup notifCanvasGroup;
+    [SerializeField] private GameObject coinInsuff;
+    [SerializeField] private GameObject invFull;
 
     public Button yesBtn;
 
@@ -22,6 +24,20 @@ public class NotifPanelBehavior : MonoBehaviour
             yesBtn.onClick.AddListener(hideCanvas);
         }
         hideCanvas();
+        coinInsuff.SetActive(false);
+        invFull.SetActive(false);
+    }
+
+    public void showCoinInsuff()
+    {
+        coinInsuff.SetActive(true);
+        showCanvas();
+    }
+
+    public void showInvFull()
+    {
+        invFull.SetActive(true);
+        showCanvas();
     }
 
     public void showCanvas()
@@ -36,5 +52,7 @@ public class NotifPanelBehavior : MonoBehaviour
         notifCanvasGroup.alpha = 0;
         notifCanvasGroup.interactable = false;
         notifCanvasGroup.blocksRaycasts = false;
+        coinInsuff.SetActive(false);
+        invFull.SetActive(false);
     }
 }

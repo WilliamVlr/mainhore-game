@@ -130,7 +130,10 @@ public abstract class Minigame : MonoSingleton<Minigame>
     public void showLayout(GameObject layout)
     {
         layout.SetActive(true);
-        StartCoroutine(fader.FadeInGameObject(layout, fadeDuration));
+        if(fader != null)
+        {
+            StartCoroutine(fader.FadeInGameObject(layout, fadeDuration));
+        }
     }
 
     public void showCanvas(CanvasBehavior canvas)
@@ -146,7 +149,10 @@ public abstract class Minigame : MonoSingleton<Minigame>
     public void hideLayout(GameObject layout)
     {
         layout.SetActive(false);
-        StartCoroutine(fader.FadeOutGameObject(layout, fadeDuration));
+        if(fader != null)
+        {
+            StartCoroutine(fader.FadeOutGameObject(layout, fadeDuration));
+        }
     }
 
     public void startMinigame()

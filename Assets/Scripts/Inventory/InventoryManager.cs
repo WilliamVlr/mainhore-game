@@ -45,14 +45,14 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
     // Add an item to the inventory
     public bool AddItem(SO_item item)
     {
-        if (playerInventory.Count >= maxCapacity)
+        if (isFull())
         {
             Debug.Log("Inventory is full! Expand your inventory by purchasing more space.");
             return false; // Return false if inventory is full
         }
 
-        if (!playerInventory.Contains(item))
-        {
+        //if (!playerInventory.Contains(item))
+        //{
             playerInventory.Add(item);
             UpdateUI();
             InventoryUI inventoryUI = FindObjectOfType<InventoryUI>();
@@ -65,10 +65,15 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
                 inventoryUI.ShowSkins();
             }
             return true;
-        }
+        //}
 
-        Debug.Log("Item already in inventory!");
-        return false;
+        //Debug.Log("Item already in inventory!");
+        //return false;
+    }
+
+    public bool isFull()
+    {
+        return playerInventory.Count == maxCapacity;
     }
 
     // Remove an item from the inventory
@@ -140,7 +145,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
             NotifPanelBehavior notifPanel = FindAnyObjectByType<NotifPanelBehavior>();
             if (notifPanel != null)
             {
-                notifPanel.showCanvas();
+                notifPanel.showCoinInsuff();
             }
             else
             {

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: list_14
   m_EditorClassIdentifier: 
   conversationLines:
-  - Conversation: Setahun punya 365 hari. Tapi di tahun kabisat, ada 366 hari
+  - Conversation: Setahun punya 365 hari.
+  - Conversation: Tapi di tahun kabisat, ada 366 hari
