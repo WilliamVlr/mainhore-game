@@ -6744,7 +6744,9 @@ MonoBehaviour:
   - {fileID: 858015885}
   - {fileID: 2077214226}
   - {fileID: 1858553254}
-  questionData: {fileID: 11400000, guid: 0a420e528af587b4a8f86a67c6e880b2, type: 2}
+  questionData1: {fileID: 11400000, guid: 0a420e528af587b4a8f86a67c6e880b2, type: 2}
+  questionData2: {fileID: 11400000, guid: a80c79982ccd2aa44aebc01b0abb65d7, type: 2}
+  questionData3: {fileID: 11400000, guid: 2f40c94020c56224d8b16c20633bc6c2, type: 2}
   lives:
   - {fileID: 948785740}
   - {fileID: 91385519}
@@ -6760,6 +6762,11 @@ MonoBehaviour:
   - {fileID: 588775589}
   - {fileID: 1625397959}
   - {fileID: 1818832949}
+  correctAudio: {fileID: 8300000, guid: 3436d23c46460224abf13182b6a27c0a, type: 3}
+  wrongAudio: {fileID: 8300000, guid: 2e6c76dbe891b224c9036c08d9cca8f0, type: 3}
+  hint: {fileID: 1176831276}
+  grayscaledHint: {fileID: 21300000, guid: 046d2faf850f69843a3d3cf4284cb37e, type: 3}
+  normalHint: {fileID: 21300000, guid: adeb8b8398149f2479c11c403430f678, type: 3}
 --- !u!114 &1929750325
 MonoBehaviour:
   m_ObjectHideFlags: 0
