@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 9f;
+    [SerializeField] float moveSpeed = 10f;
     [SerializeField] float frequency = 20f;
     [SerializeField] float magnitude = 0.5f;
 

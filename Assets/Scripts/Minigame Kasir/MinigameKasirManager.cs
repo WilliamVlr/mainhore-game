@@ -17,17 +17,30 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     [SerializeField] private Image imageQuestion;
     [SerializeField] private Letter[] answerArray;
     [SerializeField] private Letter[] optionArray;
-    [SerializeField] private QuestionDataScriptable questionData;
+    [SerializeField] private QuestionDataScriptable questionData1;
+    [SerializeField] private QuestionDataScriptable questionData2;
+    [SerializeField] private QuestionDataScriptable questionData3;
+    private QuestionDataScriptable questionData;
     [SerializeField] private Image[] lives;
     [SerializeField] private TimerScript timer;
     [SerializeField] private Canvas playPanel;
     [SerializeField] private CustomerHandler customerHandler;
+
     [Header("Result Panel")]
     [SerializeField] private CanvasBehavior resultCanvas;
     [SerializeField] private Image resultPanel;
     [SerializeField] private Sprite winPanelImg;
     [SerializeField] private Sprite losePanelImg;
     [SerializeField] private Button[] levelButtons;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip correctAudio;
+    [SerializeField] private AudioClip wrongAudio;
+
+    [Header("Hint")]
+    [SerializeField] private GameObject hint;
+    [SerializeField] private Sprite grayscaledHint;
+    [SerializeField] private Sprite normalHint;
 
     private char[] charArray;
     private string answerWord;
@@ -40,6 +53,10 @@ public class MinigameKasirManager : Minigame, IDataPersistence
 
     private int chosenLevel;
     private int progress;
+
+    private int mustBeAnsweredQuestion;
+    private int answeredQuestion;
+
     void Awake()
     {
         if(instance == null) instance = this;
@@ -54,6 +71,9 @@ public class MinigameKasirManager : Minigame, IDataPersistence
         charArray = new char[optionArray.Length];
         liveCount = lives.Length;
         playPanel.gameObject.SetActive(false);
+        isEnded = false;
+        mustBeAnsweredQuestion = -1;
+        answeredQuestion = 0;
         SoundManager.Instance.PlayMusicInList("Jalan");
     }
 
@@ -67,11 +87,30 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     {
         gameStatus = newGameStatus;
     }
+    public override int calculateCoinGained()
+    {
+        return (int) (liveCount*3 + chosenLevel*7)*answeredQuestion + timer.timerRemains()*answeredQuestion/2;
+    }
 
+    public override void checkScore()
+    {
+        if(liveCount == 0 || timerText.text == "00") isWin = false;
+        else if(mustBeAnsweredQuestion == 0)
+        {   
+            isWin = true; 
+        }
+    }
+
+    public override void addScore()
+    {
+        currentScore++;
+        setCurrentScoreTxt();
+    }
     protected override void CheckResult()
     {
-        if (Time.timeScale == 1f && timerText.text == "00" && !isEnded)
-        {
+        if (Time.timeScale == 1f && (timerText.text == "00" || liveCount == 0 || mustBeAnsweredQuestion == 0) && !isEnded)
+        {   
+            checkScore();
             layouts.baseInGameCanvas.hideCanvas();
             layouts.coinLayout.showCanvas();
             layouts.staticLayout.showCanvas();
@@ -108,7 +147,8 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     public void SetLosePanel()
     {
         resultPanel.sprite = losePanelImg;
-        coinGained = 0;
+        coinGained = calculateCoinGained();
+        CoinManager.Instance.addCoin(coinGained);
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(231, 26, 0, 255);
         SoundManager.Instance.PlaySFXInList("Lose");
@@ -121,7 +161,7 @@ public class MinigameKasirManager : Minigame, IDataPersistence
         availableHint = 1;
         letterChoiceIndex.Clear();
         imageQuestion.sprite = questionData.questions[currentQuestionIndex].questionImage;
-        SoundManager.Instance.PlaySFX(questionData.questions[currentQuestionIndex].sfxItem);
+        hint.GetComponent<Image>().sprite = normalHint;
         answerWord = questionData.questions[currentQuestionIndex].answer;
         ResetQuestion();
         
@@ -134,7 +174,8 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     }
 
     public void showPanel()
-    {
+    {   
+        SoundManager.Instance.PlaySFX(questionData.questions[currentQuestionIndex-1].sfxItem);
         playPanel.gameObject.SetActive(true);
         gameStatus = GameStatus.Playing;
     }
@@ -166,16 +207,24 @@ public class MinigameKasirManager : Minigame, IDataPersistence
         }
 
         if(correctAnswer && currentLetterIndex >= answerWord.Length)
-        {
+        {   
+            SoundManager.Instance.PlaySFX(correctAudio);
             closePanel();
-            if(currentQuestionIndex < questionData.questions.Count) Invoke("SetQuestion", 0.5f);
+            mustBeAnsweredQuestion--;
+            answeredQuestion++;
+            addScore();
+            CheckResult();
+            if(currentQuestionIndex < questionData.questions.Count && !isEnded) Invoke("SetQuestion", 0.5f);
         }
         else if(!correctAnswer && currentLetterIndex >= answerWord.Length)
         {
+            SoundManager.Instance.PlaySFX(wrongAudio);
             liveCount--;
             lives[liveCount].gameObject.SetActive(false);
             closePanel();
-            if(currentQuestionIndex < questionData.questions.Count) Invoke("SetQuestion", 0.5f);
+            mustBeAnsweredQuestion--;
+            CheckResult();
+            if(currentQuestionIndex < questionData.questions.Count && !isEnded) Invoke("SetQuestion", 0.5f);
         }
     }
 
@@ -220,41 +269,77 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     public void getHint()
     {   
         if(availableHint == 0) return;
-        if(currentLetterIndex > 0)
-        {   
-            int foundLastWrongIndex = currentLetterIndex;
-            for(int i = currentLetterIndex-1; i >= 0; i--)
-            {
-                if(Char.ToUpper(answerArray[i].charValue) != Char.ToUpper(answerWord[i]))
-                {
-                    foundLastWrongIndex = i;
-                }
-            }
+        // if(currentLetterIndex > 0)
+        // {   
+        //     int foundLastWrongIndex = currentLetterIndex;
+        //     for(int i = currentLetterIndex-1; i >= 0; i--)
+        //     {
+        //         if(Char.ToUpper(answerArray[i].charValue) != Char.ToUpper(answerWord[i]))
+        //         {
+        //             foundLastWrongIndex = i;
+        //         }
+        //     }
 
-            int needToRemoveCount = currentLetterIndex-foundLastWrongIndex;
-            for(int i = 0; i < needToRemoveCount; i++)
-            {
-                removeLastLetter();
-            }
-        }
-        else
+        //     int needToRemoveCount = currentLetterIndex-foundLastWrongIndex;
+        //     for(int i = 0; i < needToRemoveCount; i++)
+        //     {
+        //         removeLastLetter();
+        //     }
+        // }
+        // else
+        // {
+        for(int i = 0; i < optionArray.Length; i++)
         {
-            for(int i = 0; i < optionArray.Length; i++)
+            if((Char.ToUpper(optionArray[i].charValue) == Char.ToUpper(answerWord[currentLetterIndex])) && optionArray[i].isActiveAndEnabled)
             {
-                if((Char.ToUpper(optionArray[i].charValue) == Char.ToUpper(answerWord[currentLetterIndex])) && optionArray[i].isActiveAndEnabled)
-                {
-                    SelectedOption(optionArray[i]);
-                    Debug.Log("Found Hint");
-                    break;
-                }
+                SelectedOption(optionArray[i]);
+                Debug.Log("Found Hint");
+                break;
             }
         }
+        // }
         availableHint--;
+
+        if(availableHint == 0)
+        {
+            hint.GetComponent<Image>().sprite = grayscaledHint;
+        }
     }
 
     public override void SetLevel1()
     {
-        timer.SetTimerMaxValue(35f);
+        timer.SetTimerMaxValue(45f);
+        questionData = questionData1;
+        mustBeAnsweredQuestion = questionData.questions.Count();
+        targetScore = 5;
+        currentScore = 0;
+        setTargetScoreTxt();
+        SetQuestion();
+        SoundManager.Instance.StopMusic();
+        chosenLevel = 1;
+    }
+
+    public override void SetLevel2()
+    {
+        timer.SetTimerMaxValue(70f);
+        questionData = questionData2;
+        mustBeAnsweredQuestion = questionData.questions.Count();
+        targetScore = 8;
+        currentScore = 0;
+        setTargetScoreTxt();
+        SetQuestion();
+        SoundManager.Instance.StopMusic();
+        chosenLevel = 1;
+    }
+
+    public override void SetLevel3()
+    {
+        timer.SetTimerMaxValue(60f);
+        questionData = questionData2;
+        mustBeAnsweredQuestion = questionData.questions.Count();
+        targetScore = 8;
+        currentScore = 0;
+        setTargetScoreTxt();
         SetQuestion();
         SoundManager.Instance.StopMusic();
         chosenLevel = 1;

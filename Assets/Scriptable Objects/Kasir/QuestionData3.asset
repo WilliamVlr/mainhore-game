@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca0e31f63d2d0964383a70e4c0ee4790, type: 3}
+  m_Name: QuestionData3
+  m_EditorClassIdentifier: 
+  questions:
+  - questionImage: {fileID: 515365415, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Brokoli
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: 999842067, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Timun
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: -330576699, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Terong
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: 300640196, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Pensil
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: 535194489, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Pena
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: 1099096763, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Buku
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: -1994531510, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Kertas
+    sfxItem: {fileID: 0}
+  - questionImage: {fileID: 145284946, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
+    answer: Jangka
+    sfxItem: {fileID: 0}
