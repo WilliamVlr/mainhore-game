@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -149,5 +150,12 @@ public class MinigameCuciTanganManager : Minigame
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(231, 26, 0, 255);
         SoundManager.Instance.PlaySFXInList("Lose");
+    }
+
+    public void ReturnToHouse()
+    {
+        Time.timeScale = 1;
+        DataPersistenceManager.Instance.saveGame();
+        SceneManager.LoadScene("House");
     }
 }

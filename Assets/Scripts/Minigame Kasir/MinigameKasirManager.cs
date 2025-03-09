@@ -95,7 +95,7 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     public override void checkScore()
     {
         if(liveCount == 0 || timerText.text == "00") isWin = false;
-        else if(mustBeAnsweredQuestion == 0)
+        else if(mustBeAnsweredQuestion == 0 && liveCount == 3)
         {   
             isWin = true; 
         }
@@ -310,6 +310,7 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     {
         timer.SetTimerMaxValue(45f);
         questionData = questionData1;
+        questionData.ShuffleQuestions();
         mustBeAnsweredQuestion = questionData.questions.Count();
         targetScore = 5;
         currentScore = 0;
@@ -323,26 +324,28 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     {
         timer.SetTimerMaxValue(70f);
         questionData = questionData2;
+        questionData.ShuffleQuestions();
         mustBeAnsweredQuestion = questionData.questions.Count();
         targetScore = 8;
         currentScore = 0;
         setTargetScoreTxt();
         SetQuestion();
         SoundManager.Instance.StopMusic();
-        chosenLevel = 1;
+        chosenLevel = 2;
     }
 
     public override void SetLevel3()
     {
         timer.SetTimerMaxValue(60f);
-        questionData = questionData2;
+        questionData = questionData3;
+        questionData.ShuffleQuestions();
         mustBeAnsweredQuestion = questionData.questions.Count();
         targetScore = 8;
         currentScore = 0;
         setTargetScoreTxt();
         SetQuestion();
         SoundManager.Instance.StopMusic();
-        chosenLevel = 1;
+        chosenLevel = 3;
     }
 
     public void PopulateLevelButtonInteractable()

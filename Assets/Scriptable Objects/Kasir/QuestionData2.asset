@@ -15,25 +15,25 @@ MonoBehaviour:
   questions:
   - questionImage: {fileID: 1169109236, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Salak
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: 3ec029910a82ce045a03f4ee952a1f56, type: 3}
   - questionImage: {fileID: -1341051487, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Telur
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: 80d3a35d77fb0b2478a1944dc1039344, type: 3}
   - questionImage: {fileID: -2041981415, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Roti
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: 98c732961e62b824a8e21cdf30891d4e, type: 3}
   - questionImage: {fileID: -1014544739, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Susu
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: 883b466afcf8fa94d94bad2c3bd1d294, type: 3}
   - questionImage: {fileID: 629249570, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Daging
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: bff2b82bfc9f4164fa69c671fb84ac87, type: 3}
   - questionImage: {fileID: 1363589520, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Ikan
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: 5284bc019fbe7d647983e071a4786a1b, type: 3}
   - questionImage: {fileID: 1021819981, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Wortel
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: 4c4b26deff7e2624d8e885c630ebb65f, type: 3}
   - questionImage: {fileID: -1739863723, guid: 5b948e06da402d04ea0761bfdcae28c8, type: 3}
     answer: Sawi
-    sfxItem: {fileID: 0}
+    sfxItem: {fileID: 8300000, guid: b092859948ba1fc4fb1b1c87f3da9777, type: 3}
