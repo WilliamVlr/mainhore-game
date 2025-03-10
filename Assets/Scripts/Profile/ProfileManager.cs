@@ -59,7 +59,7 @@ public class ProfileManager : MonoBehaviour, IDataPersistence
 
     public void ChangeProfile(SO_Skin skin)
     {
-        Debug.Log("Masuk");
+        //Debug.Log("Masuk");
         imgChar.sprite = skin.sprite;
         namaSkin.text = skin.itemName;
     }
@@ -71,7 +71,7 @@ public class ProfileManager : MonoBehaviour, IDataPersistence
           if (data != null && inputField != null)
         {
             inputField.text = data.username;  // Set the input field text to the saved username
-            Debug.Log("Profile Name Loaded: " + data.username);
+            //Debug.Log("Profile Name Loaded: " + data.username);
         }
 
         string skinID = data.activeSkin;

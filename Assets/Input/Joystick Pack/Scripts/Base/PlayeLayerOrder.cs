@@ -14,7 +14,7 @@ public class PlayeLayerOrder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.localPosition.y <= -7.3)
+        if(transform.localPosition.y <= -7.85)
         {
             spriteRenderer.sortingOrder = 5;
         } 

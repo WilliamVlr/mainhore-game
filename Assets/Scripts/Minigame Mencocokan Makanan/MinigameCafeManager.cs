@@ -40,7 +40,10 @@ public class MinigameCafeManager : Minigame, IDataPersistence
 
     public override int calculateCoinGained()
     {
-        return currentScore * 10 * coinMultiplier;
+        int initial = 50;
+        if (chosenLevel == 2) initial = 100;
+        else if (chosenLevel == 3) initial = 200;
+        return initial + currentScore * 10 * coinMultiplier;
     }
 
     protected override void CheckResult()

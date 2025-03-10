@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         PausePanel.showCanvas();
-        SoundManager.Instance.StopMusic();
+        SoundManager.Instance.PauseMusic();
         Time.timeScale = 0;
     }
 

@@ -180,6 +180,7 @@ public class BoutiqueManager : MonoBehaviour
         {
             spotLight.intensity = 1;
             spotLightAnimator.SetTrigger("Gacha");
+            SoundManager.Instance.PlaySFXInList("gacha");
 
             // Wait for animation to finish
             yield return new WaitForSeconds(spotLightAnimator.GetCurrentAnimatorStateInfo(0).length);

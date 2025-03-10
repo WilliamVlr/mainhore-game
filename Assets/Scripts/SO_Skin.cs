@@ -10,4 +10,5 @@ public class SO_Skin : SO_item
     //Jangan lupa tambahin skin animation
     public SO_PlayerAnim idleAnimation;
     public SO_MovingAnim movingAnimation;
+    public Sprite profilePic;
 }

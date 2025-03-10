@@ -69,11 +69,11 @@ public class FurnitureRandomizer : MonoBehaviour
         }
 
         // Log the number of items found in each category
-        Debug.Log($"Total Furniture: {allFurniture.Count}");
-        Debug.Log($"Weighted Drop Small Furniture: {weightedSmallFurniture.Count}");
-        Debug.Log($"Weighted Drop Floor Furniture: {weightedFloorFurniture.Count}");
-        Debug.Log($"Wall Snap Furniture: {wallSnapFurniture.Count}");
-        Debug.Log($"Ceiling Snap Furniture: {ceilingSnapFurniture.Count}");
+        //Debug.Log($"Total Furniture: {allFurniture.Count}");
+        //Debug.Log($"Weighted Drop Small Furniture: {weightedSmallFurniture.Count}");
+        //Debug.Log($"Weighted Drop Floor Furniture: {weightedFloorFurniture.Count}");
+        //Debug.Log($"Wall Snap Furniture: {wallSnapFurniture.Count}");
+        //Debug.Log($"Ceiling Snap Furniture: {ceilingSnapFurniture.Count}");
 
         // Randomly select an item for each category and set the corresponding image
         if (weightedSmallFurniture.Count > 0)

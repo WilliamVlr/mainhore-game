@@ -22,3 +22,4 @@ MonoBehaviour:
   scale_inSlot: 0.9
   idleAnimation: {fileID: 11400000, guid: 51868a15f44ef3c4eb276061071e9f48, type: 2}
   movingAnimation: {fileID: 11400000, guid: dcbfa55871a39fb42a9d80e86eff737c, type: 2}
+  profilePic: {fileID: 21300000, guid: 1dc66059b1f07164d86c4aeb3f333b85, type: 3}

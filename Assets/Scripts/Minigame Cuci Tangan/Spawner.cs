@@ -62,7 +62,6 @@ public class Spawner : MonoBehaviour, IDataPersistence
             {
                 //Debug.Log("Clicked");
                 HandleVirusClick(hit.collider.gameObject);
-                SoundManager.Instance.PlaySFXInList("virus pecah");
             }
         }
 
@@ -104,6 +103,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
         {
             //Debug.Log("4");
             virusAnimator.PlayAnimator();
+            SoundManager.Instance.PlaySFXInList("virus pecah");
             _virusDestroyed++;
             StartCoroutine(DestroyAfterAnimation(virusObject));
         }

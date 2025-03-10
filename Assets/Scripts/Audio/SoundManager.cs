@@ -129,6 +129,11 @@ public class SoundManager : MonoBehaviour, IDataPersistence
         musicSource.clip = null;
     }
 
+    public void PauseMusic()
+    {
+        musicSource?.Stop();
+    }
+
     public void ContinueMusic()
     {
         musicSource?.Play();
