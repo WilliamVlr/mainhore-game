@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8c5b87209948644a8653bb38260b10, type: 3}
   m_Name: cat_walk
   m_EditorClassIdentifier: 
-  NpcAnim: {fileID: 9100000, guid: 141e403da35aa254bbb5ef8bd55b769a, type: 2}
+  NpcAnim: {fileID: 9100000, guid: 6c9960d6e68d3834a9ce53165d92331b, type: 2}

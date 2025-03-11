@@ -12,6 +12,16 @@ public class AvatarManager : MonoBehaviour, IDataPersistence
         SO_Skin oldSkin = currentSkin;
         currentSkin = newSkin;
 
+        if(ProfileManager.Instance != null)
+        {
+            ProfileManager.Instance.ChangeProfile(newSkin);
+        }
+
+        if(ProfileUIController.Instance != null)
+        {
+            ProfileUIController.Instance.changeProfilePic(newSkin.profilePic);
+        }
+
         return oldSkin;
     }
 
@@ -22,6 +32,16 @@ public class AvatarManager : MonoBehaviour, IDataPersistence
         if(item != null && item is SO_Skin)
         {
             currentSkin = (SO_Skin)item;
+
+            //if (ProfileManager.Instance != null)
+            //{
+            //    ProfileManager.Instance.ChangeProfile(currentSkin);
+            //}
+
+            //if (ProfileUIController.Instance != null)
+            //{
+            //    ProfileUIController.Instance.changeProfilePic(currentSkin.profilePic);
+            //}
         }
         else
         {

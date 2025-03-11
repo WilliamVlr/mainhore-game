@@ -68,6 +68,6 @@ public class LoadScene_Mng : MonoBehaviour
     public void CheckButtonClick()
     {
         DataPersistenceManager.Instance.saveGame();
-        SceneManager.LoadSceneAsync(currentSceneInfo.sceneName);
+        SceneManager.LoadScene(currentSceneInfo.sceneName);
     }
 }

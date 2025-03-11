@@ -39,14 +39,13 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         // Subscribe to the InventoryManager's event
-        inventoryManager = FindObjectOfType<InventoryManager>();
         inventoryAnimator = inventoryUI.GetComponent<Animator>();
     }
 
     public void Start()
     {
         
-        if (inventoryManager != null)
+        if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnUnpackFurniture.AddListener(PlaceFurniture);
         }

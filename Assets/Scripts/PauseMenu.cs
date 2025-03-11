@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject PausePanel;
+    public CanvasBehavior PausePanel;
 
     // Update is called once per frame
     void Update()
@@ -14,13 +14,15 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        PausePanel.SetActive(true);
+        PausePanel.showCanvas();
+        SoundManager.Instance.PauseMusic();
         Time.timeScale = 0;
     }
 
     public void Continue()
     {
-        PausePanel.SetActive(false);
+        PausePanel.hideCanvas();
+        SoundManager.Instance.ContinueMusic();
         Time.timeScale = 1;
     }
 }

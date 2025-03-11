@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject virus;
     [SerializeField] private GameObject[] virusPrefabs;
     [SerializeField] private GameObject timerObject;
-    [SerializeField] private GameObject pauseInterface;
+    [SerializeField] private CanvasGroup pauseInterface;
 
     [SerializeField] private Vector2 spawnAreaMin;
     [SerializeField] private Vector2 spawnAreaMax;
@@ -62,7 +62,6 @@ public class Spawner : MonoBehaviour, IDataPersistence
             {
                 //Debug.Log("Clicked");
                 HandleVirusClick(hit.collider.gameObject);
-                SoundManager.Instance.PlaySFXInList("virus pecah");
             }
         }
 
@@ -83,7 +82,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
 
     void HandleVirusClick(GameObject virusObject)
     {
-        if (timerText.text == "00" || pauseInterface.activeSelf)
+        if (timerText.text == "00" || pauseInterface.alpha == 1)
         {
             //Debug.Log("1");
             return;
@@ -104,6 +103,7 @@ public class Spawner : MonoBehaviour, IDataPersistence
         {
             //Debug.Log("4");
             virusAnimator.PlayAnimator();
+            SoundManager.Instance.PlaySFXInList("virus pecah");
             _virusDestroyed++;
             StartCoroutine(DestroyAfterAnimation(virusObject));
         }

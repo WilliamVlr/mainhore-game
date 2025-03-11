@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -117,16 +118,16 @@ public class MinigameCuciTanganManager : Minigame
     private void setWin(VirusData virus)
     {
         int multiplier = 1;
-        int initialCoin = 0;
+        int initialCoin = 50;
         if (_spawner.SpawnCount == 20)
         {
-            multiplier = 3;
-            initialCoin = 150;
+            multiplier = 2;
+            initialCoin = 100;
         }
         else if (_spawner.SpawnCount == 25)
         {
-            multiplier = 5;
-            initialCoin = 300;
+            multiplier = 3;
+            initialCoin = 200;
         }
         coinGained = initialCoin + timerScript.timerRemains() * _spawner.SpawnCount * multiplier;
         CoinManager.Instance.addCoin(coinGained);
@@ -149,5 +150,12 @@ public class MinigameCuciTanganManager : Minigame
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(231, 26, 0, 255);
         SoundManager.Instance.PlaySFXInList("Lose");
+    }
+
+    public void ReturnToHouse()
+    {
+        Time.timeScale = 1;
+        DataPersistenceManager.Instance.saveGame();
+        SceneManager.LoadScene("House");
     }
 }

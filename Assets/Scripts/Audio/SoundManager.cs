@@ -73,10 +73,18 @@ public class SoundManager : MonoBehaviour, IDataPersistence
 
     private void loadUITrigger()
     {
-        SoundUIController soundUI = FindAnyObjectByType<SoundUIController>();
-        if (soundUI != null)
+        //SoundUIController soundUI = FindAnyObjectByType<SoundUIController>();
+        SoundUIController[] soundUIs = FindObjectsOfType<SoundUIController>();
+        if(soundUIs.Length > 0)
         {
-            soundUI.loadUI();
+            foreach(SoundUIController soundUI in soundUIs)
+            {
+                if (soundUI != null)
+                {
+                    soundUI.loadUI();
+                }
+            }
+
         }
     }
 
@@ -119,6 +127,16 @@ public class SoundManager : MonoBehaviour, IDataPersistence
     {
         musicSource?.Stop();
         musicSource.clip = null;
+    }
+
+    public void PauseMusic()
+    {
+        musicSource?.Stop();
+    }
+
+    public void ContinueMusic()
+    {
+        musicSource?.Play();
     }
 
     public void ToggleMusic()

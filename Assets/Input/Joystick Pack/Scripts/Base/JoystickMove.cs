@@ -67,7 +67,7 @@ public class JoystickMove : MonoBehaviour
             if (backgroundPosition.x > backgroundLeftLimit && movementJoystick.Direction.x < 0)
             {
                 isBgMoving = 0; // gaboleh gerak
-                Debug.Log("kepanggil 1");
+                //Debug.Log("kepanggil 1");
             }
             else if (backgroundPosition.x < -backgroundRightLimit && movementJoystick.Direction.x > 0)
             {
