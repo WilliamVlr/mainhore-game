@@ -105,6 +105,11 @@ public class InteractionManager : MonoBehaviour
     public void disableJoystick()
     {
         Coroutine fadeOutInstructionArea = StartCoroutine(fader.FadeOutGameObject(joystick, fadeDuration));
+        Joystick joysticknya = joystick.transform.GetChild(0).transform.GetChild(0).GetComponent<Joystick>();
+        if(joysticknya != null)
+        {
+            joysticknya.ResetJoystick();
+        }
         joystick.SetActive(false);
     }
 
