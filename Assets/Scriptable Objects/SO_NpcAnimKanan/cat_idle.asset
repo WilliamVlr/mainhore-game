@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8c5b87209948644a8653bb38260b10, type: 3}
   m_Name: cat_idle
   m_EditorClassIdentifier: 
-  NpcAnim: {fileID: 9100000, guid: 09ca786768fee3a4b94cc1f7278df29b, type: 2}
+  NpcAnim: {fileID: 9100000, guid: d370f4af80db48d408a91ae5eceaa0f4, type: 2}

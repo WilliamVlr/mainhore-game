@@ -384,6 +384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataPersistenceManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -779,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4358663862353931994, guid: 7efcd6d95e87c5a41bdbb90862917b51, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2494,6 +2498,10 @@ PrefabInstance:
     - target: {fileID: 2220237270796834803, guid: 06514fab56393a2439e39b71aebee912, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220237270796834803, guid: 06514fab56393a2439e39b71aebee912, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4222708423670478540, guid: 06514fab56393a2439e39b71aebee912, type: 3}
       propertyPath: m_LocalPosition.x

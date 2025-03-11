@@ -36,7 +36,7 @@ public class SceneLoaderObject : MonoBehaviour
     public void loadScene()
     {
         DataPersistenceManager.Instance.saveGame();
-        SceneManager.LoadSceneAsync(sceneInfo.sceneName);
+        SceneManager.LoadScene(sceneInfo.sceneName);
     }
 
 }

@@ -873,7 +873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8878281230846876226, guid: 931a5d0b8e62ee845a5303489087146d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2479,7 +2479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4358663862353931994, guid: 7efcd6d95e87c5a41bdbb90862917b51, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3661,6 +3661,10 @@ PrefabInstance:
     - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
       propertyPath: m_Name
       value: DataPersistenceManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6082,8 +6086,8 @@ SceneRoots:
   - {fileID: 1580485777}
   - {fileID: 1236858512}
   - {fileID: 1046557563}
-  - {fileID: 1022007404}
   - {fileID: 472932927}
+  - {fileID: 1022007404}
   - {fileID: 1192103053}
   - {fileID: 1799469267}
   - {fileID: 64001077}
