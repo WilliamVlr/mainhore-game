@@ -40,9 +40,9 @@ public class MinigameCafeManager : Minigame, IDataPersistence
 
     public override int calculateCoinGained()
     {
-        int initial = 50;
-        if (chosenLevel == 2) initial = 100;
-        else if (chosenLevel == 3) initial = 200;
+        int initial = 100;
+        //if (chosenLevel == 2) initial = 100;
+        //else if (chosenLevel == 3) initial = 200;
         return initial + currentScore * 10 * coinMultiplier;
     }
 
@@ -82,7 +82,9 @@ public class MinigameCafeManager : Minigame, IDataPersistence
     public void SetLosePanel()
     {
         resultPanel.sprite = losePanelImg;
-        coinGained = 0;
+        coinGained = calculateCoinGained();
+        if (coinGained > 100) coinGained = 100;
+        CoinManager.Instance.addCoin(coinGained);
         setCoinGainedTxt();
         targetTxtResult.color = new Color32(231, 26, 0, 255);
         SoundManager.Instance.PlaySFXInList("Lose");

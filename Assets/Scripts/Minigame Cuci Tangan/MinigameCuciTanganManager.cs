@@ -42,6 +42,24 @@ public class MinigameCuciTanganManager : Minigame
         gameDoneCheck = 0;
     }
 
+    public override int calculateCoinGained()
+    {
+        int multiplier = 1;
+        int initialCoin = 50;
+        if (_spawner.SpawnCount == 20)
+        {
+            multiplier = 2;
+            initialCoin = 100;
+        }
+        else if (_spawner.SpawnCount == 25)
+        {
+            multiplier = 4;
+            initialCoin = 200;
+        }
+        return initialCoin + timerScript.timerRemains() * _spawner.VirusDestroyed * multiplier;
+
+    }
+
     protected override void CheckResult()
     {
         if (timerText.text == "00" && check == 0)  // Game over due to time running out
@@ -117,19 +135,7 @@ public class MinigameCuciTanganManager : Minigame
 
     private void setWin(VirusData virus)
     {
-        int multiplier = 1;
-        int initialCoin = 50;
-        if (_spawner.SpawnCount == 20)
-        {
-            multiplier = 2;
-            initialCoin = 100;
-        }
-        else if (_spawner.SpawnCount == 25)
-        {
-            multiplier = 3;
-            initialCoin = 200;
-        }
-        coinGained = initialCoin + timerScript.timerRemains() * _spawner.SpawnCount * multiplier;
+        coinGained = calculateCoinGained();
         CoinManager.Instance.addCoin(coinGained);
 
         resultPanel.sprite = winPanelImg;
@@ -146,7 +152,9 @@ public class MinigameCuciTanganManager : Minigame
         resultPanel.sprite = losePanelImg;
         resultImg.sprite = virus.loseSprite;
         resultTxt.text = "Kamu terkena penyakit " + virus.diseaseName + " karena virus " + virus.virusName;
-        coinGained = 0;
+        coinGained = calculateCoinGained();
+        if (coinGained > 50) coinGained = 50;
+        CoinManager.Instance.addCoin(coinGained);
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(231, 26, 0, 255);
         SoundManager.Instance.PlaySFXInList("Lose");

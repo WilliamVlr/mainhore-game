@@ -2587,8 +2587,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: d828a09bbf95dc84dba1753cbac2e6b4, type: 3}
-    m_FontSize: 34
+    m_Font: {fileID: 12800000, guid: 2a2ed5b9a2cb2ae43b897d067c030e8e, type: 3}
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2599,7 +2599,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: USERNAME
+  m_Text: Ganteng nomor 1
 --- !u!222 &746433747
 CanvasRenderer:
   m_ObjectHideFlags: 0
