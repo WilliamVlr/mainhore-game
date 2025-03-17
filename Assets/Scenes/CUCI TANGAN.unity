@@ -2069,6 +2069,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePlaceholder: {fileID: 1541815471}
   instructionAreaObject: {fileID: 1541815470}
+  nextButton: {fileID: 1541815473}
+  prevButton: {fileID: 1541815472}
   fadeDuration: 0.5
 --- !u!114 &709649925
 MonoBehaviour:
@@ -4299,6 +4301,16 @@ GameObject:
 --- !u!1 &1541815471 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7903962263830696359, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+  m_PrefabInstance: {fileID: 1541815468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1541815472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1408705984933834128, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+  m_PrefabInstance: {fileID: 1541815468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1541815473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 94886299701926920, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
   m_PrefabInstance: {fileID: 1541815468}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1660367706 stripped

@@ -11,6 +11,8 @@ public class InstructionManager : MonoBehaviour
 
     [SerializeField] private GameObject imagePlaceholder;
     [SerializeField] private GameObject instructionAreaObject;
+    [SerializeField] private GameObject nextButton;
+    [SerializeField] private GameObject prevButton;
     private TextMeshProUGUI instructionArea;
 
     private LinkedList<InstructionLine> instructions;
@@ -33,6 +35,7 @@ public class InstructionManager : MonoBehaviour
     {
         currentLine = null;
         instructions.Clear();
+        prevButton.SetActive(false);
 
         foreach (InstructionLine line in instruction.instructionLines)
         {
@@ -46,6 +49,7 @@ public class InstructionManager : MonoBehaviour
     {
         if(currentLine == null)
         {
+            prevButton.SetActive(false);
             currentLine = instructions.First;
         }
         else
@@ -53,6 +57,13 @@ public class InstructionManager : MonoBehaviour
             if (currentLine.Next == null)
             {
                 return;
+            }
+            prevButton.SetActive(true);
+            nextButton.SetActive(true);
+            if (currentLine.Next.Next == null)
+            {
+                //Debug.Log("Next Line is null");
+                nextButton.SetActive(false);
             }
             currentLine = currentLine.Next;
         }
@@ -64,6 +75,7 @@ public class InstructionManager : MonoBehaviour
     {
         if (currentLine == null)
         {
+            prevButton.SetActive(false);
             currentLine = instructions.First;
         }
         else
@@ -71,6 +83,13 @@ public class InstructionManager : MonoBehaviour
             if (currentLine.Previous == null)
             {
                 return;
+            }
+            nextButton.SetActive(true);
+            prevButton.SetActive(true);
+            if (currentLine.Previous.Previous == null)
+            {
+                //Debug.Log("Previous Line is null");
+                prevButton.SetActive(false);
             }
             currentLine = currentLine.Previous;
         }
