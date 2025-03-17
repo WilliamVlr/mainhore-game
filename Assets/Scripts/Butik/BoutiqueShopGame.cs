@@ -37,8 +37,9 @@ public class BoutiqueManager : MonoBehaviour
         RandomizeButton.gameObject.SetActive(false);
 
         RandomizeCostumeInside();
-        HideAllCharacters();
-        CloseAllCurtains();
+        //ShowAllCurtains();
+        //HideAllCharacters();
+        //CloseAllCurtains();
 
         SimpanButton.GetComponent<Button>().onClick.AddListener(SaveSelectedCostume);
         UseClothButton.GetComponent<Button>().onClick.AddListener(UseSelectedCostume);
@@ -124,6 +125,14 @@ public class BoutiqueManager : MonoBehaviour
         else
         {
             Debug.Log("Confirmation panel not found!");
+        }
+    }
+
+    public void ShowAllCurtains()
+    {
+        for (int i = 0; i < costumeCharacters.Length; i++)
+        {
+            costumeCharacters[i].SetActive(true);
         }
     }
 
