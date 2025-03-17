@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -141,14 +142,6 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         exitPanel.SetActive(true);
         CameraZoomOut();
 
-        foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
-        {
-            if (furniture.furnitureData.dropBehavior is CeilingSnapBehavior_SO)
-            {
-                furniture.transform.position = new Vector3(furniture.transform.position.x, MainCamera.orthographicSize - 3, furniture.transform.position.z);
-            }
-        }
-
         //Set up inventory
         inventoryUI.ShowFurniture();
         inventoryUI.skinButton.gameObject.SetActive(false);
@@ -165,12 +158,51 @@ public class HouseManager : MonoBehaviour, IDataPersistence
 
     public void CameraZoomIn()
     {
-        MainCamera.orthographicSize = 5f;
+        StartCoroutine(ZoomInCoroutine());
     }
 
     public void CameraZoomOut()
     {
-        MainCamera.orthographicSize = 6f;
+        StartCoroutine(ZoomOutCoroutine());
+    }
+
+    private IEnumerator ZoomInCoroutine()
+    {
+        Animator CameraAnimator = MainCamera.GetComponent<Animator>();
+        CameraAnimator.SetBool("ZoomOut", false);
+
+        // Wait until the animation finishes
+        yield return new WaitForSeconds(1f);
+
+        MainCamera.orthographicSize = 5f;
+
+        //foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        //{
+        //    if (furniture.furnitureData.dropBehavior is CeilingSnapBehavior_SO)
+        //    {
+        //        furniture.transform.position = new Vector3(furniture.transform.position.x, MainCamera.orthographicSize - 3, furniture.transform.position.z);
+        //    }
+        //}
+    }
+
+    private IEnumerator ZoomOutCoroutine()
+    {
+        Animator CameraAnimator = MainCamera.GetComponent<Animator>();
+
+        CameraAnimator.SetBool("ZoomOut", true);
+
+        // Wait until the animation finishes
+        yield return new WaitForSeconds(1f);
+
+        MainCamera.orthographicSize = 5.7f;
+
+        //foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        //{
+        //    if (furniture.furnitureData.dropBehavior is CeilingSnapBehavior_SO)
+        //    {
+        //        furniture.transform.position = new Vector3(furniture.transform.position.x, MainCamera.orthographicSize - 3, furniture.transform.position.z);
+        //    }
+        //}
     }
 
     public void UnfreezeFurnitures()
@@ -227,11 +259,6 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
         {
             furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-
-            if(furniture.furnitureData.dropBehavior is CeilingSnapBehavior_SO)
-            {
-                furniture.transform.position = new Vector3(furniture.transform.position.x, MainCamera.orthographicSize - 3, furniture.transform.position.z);
-            }
         }
 
         // Show character and non-house UI again
