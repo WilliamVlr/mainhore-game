@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8c5b87209948644a8653bb38260b10, type: 3}
   m_Name: domba_idle
   m_EditorClassIdentifier: 
-  NpcAnim: {fileID: 9100000, guid: c75bc78d1c981684b984dd9ef4eae783, type: 2}
+  NpcAnim: {fileID: 9100000, guid: a198f8c7b66e64d4d80d553f85a5e864, type: 2}

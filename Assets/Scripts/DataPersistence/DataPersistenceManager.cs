@@ -81,7 +81,11 @@ public class DataPersistenceManager : MonoBehaviour
         // push the loaded data to all other scripts that need it
         foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            dataPersistenceObj.LoadData(gameData);
+            if (dataPersistenceObj != null)
+            {
+                dataPersistenceObj.LoadData(gameData);
+                //Debug.Log("Loaded: " + dataPersistenceObj);
+            }
         }
     }
 
@@ -97,7 +101,11 @@ public class DataPersistenceManager : MonoBehaviour
         // pass the data to other script so they can handle it
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            dataPersistenceObj.SaveData(ref gameData);
+            if(dataPersistenceObj != null)
+            {
+                dataPersistenceObj.SaveData(ref gameData);
+                //Debug.Log("Saved: " + dataPersistenceObj);
+            }
         }
 
         // save that data to a file using the data handler

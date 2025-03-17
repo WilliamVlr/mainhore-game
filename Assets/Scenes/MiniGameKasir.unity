@@ -450,7 +450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4358663862353931994, guid: 7efcd6d95e87c5a41bdbb90862917b51, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -602,6 +602,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePlaceholder: {fileID: 1641173147}
   instructionAreaObject: {fileID: 742805178}
+  nextButton: {fileID: 954390546}
+  prevButton: {fileID: 954390545}
   fadeDuration: 0.5
 --- !u!114 &200749433
 MonoBehaviour:
@@ -961,7 +963,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 15
   m_TargetDisplay: 0
 --- !u!224 &227349602
 RectTransform:
@@ -1828,6 +1830,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 455623700}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: showCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 4440842285891870736, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
       propertyPath: m_Name
       value: CanvasProfil
@@ -2240,7 +2250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2587,8 +2597,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: d828a09bbf95dc84dba1753cbac2e6b4, type: 3}
-    m_FontSize: 34
+    m_Font: {fileID: 12800000, guid: 2a2ed5b9a2cb2ae43b897d067c030e8e, type: 3}
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2599,7 +2609,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: USERNAME
+  m_Text: Ganteng nomor 1
 --- !u!222 &746433747
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3410,6 +3420,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+--- !u!1 &954390545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1408705984933834128, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+  m_PrefabInstance: {fileID: 954390544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &954390546 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 94886299701926920, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+  m_PrefabInstance: {fileID: 954390544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &978943683
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -148,6 +148,7 @@ public class MinigameKasirManager : Minigame, IDataPersistence
     {
         resultPanel.sprite = losePanelImg;
         coinGained = calculateCoinGained();
+        if(coinGained > 70) coinGained = 70;
         CoinManager.Instance.addCoin(coinGained);
         setCoinGainedTxt();
         targetScoreTXT.color = new Color32(231, 26, 0, 255);

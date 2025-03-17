@@ -214,6 +214,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8f52a521dc4fcd843b8853eeefac4750, type: 3}
   - name: gacha
     clip: {fileID: 8300000, guid: 2d5b453eaab9e19429d12cd01c8e8a2f, type: 3}
+  - name: talk
+    clip: {fileID: 8300000, guid: 845fc113a290c5a4cadd3c0d2fe2c182, type: 3}
   _musicIsMuted: 0
   _sfxIsMuted: 0
 --- !u!1 &5421624546486081418

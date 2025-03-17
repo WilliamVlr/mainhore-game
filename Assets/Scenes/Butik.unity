@@ -787,6 +787,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1165357541}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: showCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 4440842285891870736, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
       propertyPath: m_Name
       value: CanvasProfil
@@ -873,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8878281230846876226, guid: 931a5d0b8e62ee845a5303489087146d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2253,6 +2261,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1788351398}
     - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
+      propertyPath: playerSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
       propertyPath: movementJoystick
       value: 
       objectReference: {fileID: 140494286}
@@ -2479,7 +2491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4358663862353931994, guid: 7efcd6d95e87c5a41bdbb90862917b51, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3664,7 +3676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4439,7 +4451,7 @@ MonoBehaviour:
   - {fileID: 1724303158}
   itemDatabase: {fileID: 11400000, guid: f4d8d52e89ef3a942a5bb0f44215b905, type: 2}
   playerAvatarRenderer: {fileID: 858459589}
-  gachaBtnSprite: {fileID: 21300000, guid: 2fd8496c65078bb4dae273dbabe61033, type: 3}
+  gachaBtnSprite: {fileID: 21300000, guid: a08a3c5db74655341878846a96b36103, type: 3}
   globalLight: {fileID: 1317755857}
   spotLight: {fileID: 583746623}
   finalSpotlight: {fileID: 1649502784}
@@ -5284,7 +5296,7 @@ PrefabInstance:
     - target: {fileID: 5223976406693046446, guid: ad896dd9cd66fbc4bae22336fa2d1d5e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d072a76fa7633034ab0531562a723062, type: 3}
+      objectReference: {fileID: 21300000, guid: a08a3c5db74655341878846a96b36103, type: 3}
     - target: {fileID: 5589175004958947837, guid: ad896dd9cd66fbc4bae22336fa2d1d5e, type: 3}
       propertyPath: m_Pivot.x
       value: 0

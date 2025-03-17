@@ -386,7 +386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8733098837386916603, guid: 2ab3d8c5be5671045bc4c1923cb3fffa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -783,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4358663862353931994, guid: 7efcd6d95e87c5a41bdbb90862917b51, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2069,6 +2069,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePlaceholder: {fileID: 1541815471}
   instructionAreaObject: {fileID: 1541815470}
+  nextButton: {fileID: 1541815473}
+  prevButton: {fileID: 1541815472}
   fadeDuration: 0.5
 --- !u!114 &709649925
 MonoBehaviour:
@@ -2501,7 +2503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2220237270796834803, guid: 06514fab56393a2439e39b71aebee912, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4222708423670478540, guid: 06514fab56393a2439e39b71aebee912, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4301,6 +4303,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7903962263830696359, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
   m_PrefabInstance: {fileID: 1541815468}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1541815472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1408705984933834128, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+  m_PrefabInstance: {fileID: 1541815468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1541815473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 94886299701926920, guid: 1df2ebc6b1a099241afdffdab8023ff3, type: 3}
+  m_PrefabInstance: {fileID: 1541815468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1660367706 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6573989582819840249, guid: ad896dd9cd66fbc4bae22336fa2d1d5e, type: 3}
@@ -4697,6 +4709,14 @@ PrefabInstance:
     - target: {fileID: 1787527858186089634, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1371220840}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: showCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4440842285891870736, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
       propertyPath: m_Name

@@ -167,10 +167,10 @@ public class FurnitureBehavior : MonoBehaviour
             if (!isDragging)
             {
                 // If the Y position is below the threshold, hold it at that Y value
-                if (transformer.position.y <= stopFallAtY)
+                if (transformer.localPosition.y <= stopFallAtY)
                 {
                     // Hold the position at the specified Y value
-                    transformer.position = new Vector2(transform.position.x, stopFallAtY);
+                    transformer.localPosition = new Vector2(transform.localPosition.x, stopFallAtY);
 
                     // Optionally, stop physics interactions
                     rb.bodyType = RigidbodyType2D.Static;
@@ -254,6 +254,28 @@ public class FurnitureBehavior : MonoBehaviour
         {
             // Update original position to the new position if no overlap
             originalPosition = transform.position;
+        }
+    }
+
+    public void AdjustInitialOverlap()
+    {
+        if(gameObject.layer == 8)
+        {
+            Debug.Log("Masuk dipanggil " + furnitureData.itemName);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5f);  // Adjust radius as necessary
+            foreach (Collider2D collider in colliders)
+            {
+                Debug.Log("Collider punya " + collider.gameObject.name);
+                if (collider.gameObject != gameObject && !collider.CompareTag("FurnitureButtons"))
+                {
+                    Debug.Log("Masuk collider " + collider.gameObject.name);
+                    SpriteRenderer otherRenderer = collider.GetComponent<SpriteRenderer>();
+                    if (otherRenderer != null)
+                    {
+                        spriteRenderer.sortingOrder = Mathf.Max(spriteRenderer.sortingOrder, otherRenderer.sortingOrder) + 1;
+                    }
+                }
+            }
         }
     }
 
