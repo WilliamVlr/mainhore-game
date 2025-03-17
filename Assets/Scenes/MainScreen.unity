@@ -437,6 +437,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1844950033}
+    - target: {fileID: 2011876912501659615, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: showCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 4440842285891870736, guid: 25aee9876c0e0af459150c4093eaddf6, type: 3}
       propertyPath: m_Name
       value: CanvasProfil
@@ -3951,8 +3959,8 @@ RectTransform:
   - {fileID: 1486164696}
   - {fileID: 2431426369549943006}
   - {fileID: 6184525362871485835}
-  - {fileID: 9120875145931994515}
   - {fileID: 1805619908}
+  - {fileID: 9120875145931994515}
   m_Father: {fileID: 8417076634376906312}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
