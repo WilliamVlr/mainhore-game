@@ -257,6 +257,28 @@ public class FurnitureBehavior : MonoBehaviour
         }
     }
 
+    public void AdjustInitialOverlap()
+    {
+        if(gameObject.layer == 8)
+        {
+            Debug.Log("Masuk dipanggil " + furnitureData.itemName);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5f);  // Adjust radius as necessary
+            foreach (Collider2D collider in colliders)
+            {
+                Debug.Log("Collider punya " + collider.gameObject.name);
+                if (collider.gameObject != gameObject && !collider.CompareTag("FurnitureButtons"))
+                {
+                    Debug.Log("Masuk collider " + collider.gameObject.name);
+                    SpriteRenderer otherRenderer = collider.GetComponent<SpriteRenderer>();
+                    if (otherRenderer != null)
+                    {
+                        spriteRenderer.sortingOrder = Mathf.Max(spriteRenderer.sortingOrder, otherRenderer.sortingOrder) + 1;
+                    }
+                }
+            }
+        }
+    }
+
     private void CreateButtons()
     {
         // Create buttons and position them relative to the parent (FurnitureBehavior gameObject)

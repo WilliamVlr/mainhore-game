@@ -12,6 +12,7 @@ public class SlotUI_Furniture : SlotUI
         if (house != null && house.IsInDecorationMode)
         {
             secondButton.gameObject.SetActive(true);
+            //sellButton.gameObject.SetActive(false);
         }
     }
     public override void secondAction()

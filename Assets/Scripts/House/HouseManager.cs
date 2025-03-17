@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-using System.Collections;
 
 public class HouseManager : MonoBehaviour, IDataPersistence
 {
@@ -12,6 +10,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
 
     [Header("Layout Reference")]
     public GameObject decorationModeButton;       // Decoration Mode button
+    public GameObject background;
     public CanvasBehavior staticCanvas;
     public CanvasBehavior coinCanvas;
     public CanvasBehavior joystickCanvas;
@@ -140,6 +139,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         staticCanvas.hideCanvas();
         decorationModeButton.SetActive(false);
         exitPanel.SetActive(true);
+        MinimizeBackground();
 
         //Set up inventory
         inventoryUI.ShowFurniture();
@@ -150,8 +150,37 @@ public class HouseManager : MonoBehaviour, IDataPersistence
 
         // Store initial furniture state (positions) before any changes
         //StoreOriginalFurnitureData();
+        UnfreezeFurnitures();
 
         CameraMovement_decor.onEnterDecorationMode();
+    }
+
+    public void MinimizeBackground()
+    {
+        background.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+        background.transform.position = new Vector3(background.transform.position.x, 0.5f, 0);
+    }
+
+    public void RestoreBackground()
+    {
+        background.transform.localScale = new Vector3(1f, 1f, 1f);
+        background.transform.position = new Vector3(background.transform.position.x, 0, 0);
+    }
+
+    public void UnfreezeFurnitures()
+    {
+        foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        {
+            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
+
+    public void FreezeFurnitures()
+    {
+        foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        {
+            furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
     }
 
     public void OnExitDecorationMode()
@@ -186,6 +215,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     {
         isInDecorationMode = false;
         joystickCanvas.showCanvas();
+        RestoreBackground();
 
         // reset all placed furnitures body type into Static
         foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
@@ -208,6 +238,13 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         CameraMovement_decor.onExitDecorationMode();
     }
 
+    public void AdjustInitialLayer()
+    {
+        foreach(FurnitureBehavior behavior in listFurnitureBehaviors)
+        {
+            behavior.AdjustInitialOverlap();
+        }
+    }
     public void LoadData(GameData data)
     {
         // Clear currect placed furnitures in house manager
@@ -233,12 +270,14 @@ public class HouseManager : MonoBehaviour, IDataPersistence
                     behavior.Initialize(itemFurniture);
                 }
                 placedFurnitures.TryAdd(itemFurniture.ID, newFurniture.transform.localPosition);  // Add to the list of placed furniture
+                Debug.Log("Loaded furniture: " + itemFurniture.name + " position: " + newFurniture.transform.localPosition.x + ", " + newFurniture.transform.localPosition.y);
                 listFurnitureBehaviors.Add(behavior);
-                itemFurniture.dropBehavior.HandleDrop(newFurniture);
+                //itemFurniture.dropBehavior.HandleDrop(newFurniture);
                 behavior.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             }
-
         }
+
+        AdjustInitialLayer();
     }
 
     public void SaveData(ref GameData data)
@@ -251,6 +290,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         foreach (KeyValuePair<string, Vector3> pair in placedFurnitures)
         {
             data.placedFurnitures.TryAdd(pair.Key, pair.Value);
+            //Debug.Log("Furniture name: " + pair.Key + " pos: " + pair.Value.x + ", " + pair.Value.y);
         }
         data.mainBackgroundPos = new Vector3(11, 0, 0);
     }
@@ -269,7 +309,10 @@ public class HouseManager : MonoBehaviour, IDataPersistence
                 {
                     if (keyID.Equals(fur.furnitureData.ID))
                     {
+                        Transform currentParent = fur.transform.parent;
+                        fur.transform.SetParent(furnitureContainer, true);
                         placedFurnitures[keyID] = fur.transform.localPosition;
+                        fur.transform.SetParent(currentParent, true);
                     }
                 }
             }

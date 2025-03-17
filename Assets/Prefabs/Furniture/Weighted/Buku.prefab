@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1185408747477299664}
   - component: {fileID: 8187657590218563184}
   - component: {fileID: 3795848232454447215}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Buku
   m_TagString: Untagged
   m_Icon: {fileID: 0}

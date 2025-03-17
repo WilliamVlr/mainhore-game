@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Timeline;
 
 public class InventoryManager : MonoBehaviour, IDataPersistence
 {
@@ -196,11 +195,18 @@ public class InventoryManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
+        if(this == null)
+        {
+            return;
+        }
+        //Debug.Log("Save Inventory Called");
         data.inventoryItemsID.list.Clear();
         foreach(SO_item item in playerInventory)
         {
             data.inventoryItemsID.list.Add(item.ID);
+            //Debug.Log("Added: " + item.ID);
         }
+        //Debug.Log("Save Inventory Ended");
         data.inventoryMaxCap = this.maxCapacity;
     }
 }

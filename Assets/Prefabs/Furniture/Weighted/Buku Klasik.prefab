@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6468156146823267721}
   - component: {fileID: 7058956230532210754}
   - component: {fileID: 7524541021758873592}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Buku Klasik
   m_TagString: Untagged
   m_Icon: {fileID: 0}

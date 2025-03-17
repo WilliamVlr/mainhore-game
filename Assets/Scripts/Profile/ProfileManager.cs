@@ -95,7 +95,7 @@ public class ProfileManager : MonoBehaviour, IDataPersistence
         {
             data.username = inputField.text;  // Save the username from inputField to data
             usernameUI.text = inputField.text;
-            Debug.Log("Profile Name Saved: " + data.username);
+            //Debug.Log("Profile Name Saved: " + data.username);
         } else if (isEmptyText()){
             inputField.text = data.username;
         }

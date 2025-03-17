@@ -39,6 +39,7 @@ public class CoinManager : MonoBehaviour, IDataPersistence
     {
         //Debug.Log("Coin manager amount: " + coinAmount);
         //Debug.Log("data coin amount: " +  data.coinAmount);
+        if (this == null) return;
         data.coinAmount = this.coinAmount;
     }
 
