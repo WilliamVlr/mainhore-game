@@ -169,6 +169,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     private IEnumerator ZoomInCoroutine()
     {
         Animator CameraAnimator = MainCamera.GetComponent<Animator>();
+        CameraAnimator.enabled = true;
         CameraAnimator.SetBool("ZoomOut", false);
 
         // Wait until the animation finishes
@@ -188,6 +189,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     private IEnumerator ZoomOutCoroutine()
     {
         Animator CameraAnimator = MainCamera.GetComponent<Animator>();
+        CameraAnimator.enabled = true;
 
         CameraAnimator.SetBool("ZoomOut", true);
 
@@ -195,6 +197,8 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         yield return new WaitForSeconds(1f);
 
         MainCamera.orthographicSize = 5.7f;
+
+        CameraAnimator.enabled = false;
 
         //foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
         //{

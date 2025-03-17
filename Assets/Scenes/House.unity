@@ -2542,12 +2542,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1975256708}
     - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
+      propertyPath: playerSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
       propertyPath: movementJoystick
       value: 
       objectReference: {fileID: 1591573269}
     - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
       propertyPath: backgroundLeftLimit
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
+      propertyPath: backgroundRightLimit
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6672723454948811310, guid: 673394aec912453499a5f36f434a1df5, type: 3}
       propertyPath: m_Name

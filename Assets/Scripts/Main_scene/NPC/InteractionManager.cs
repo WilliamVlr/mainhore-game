@@ -145,6 +145,7 @@ public class InteractionManager : MonoBehaviour
         {
             if (currentLine.Next == null)
             {
+                SoundManager.Instance.StopSFX();
                 clearInstruction();
                 StartCoroutine(FadeOutAndUpdateContent());
                 instructionAreaObject.gameObject.SetActive(false);
@@ -156,7 +157,8 @@ public class InteractionManager : MonoBehaviour
             }
             currentLine = currentLine.Next;
         }
-
+        SoundManager.Instance.StopSFX();
+        SoundManager.Instance.PlaySFXInList("talk");
         DisplayCurrentLine();
     }
 

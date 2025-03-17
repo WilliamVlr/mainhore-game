@@ -49,8 +49,8 @@ public class CameraMovement_DecorMode : MonoBehaviour
         currentPosition = transform.position;
 
         // Dynamically calculate the left and right thresholds based on the background's position
-        maxLeftThreshold = backgroundTransform.position.x - 20; // Left threshold is the current position of the background
-        maxRightThreshold = backgroundTransform.position.x + 15; // Right threshold is the background's position plus its width
+        maxLeftThreshold = backgroundTransform.position.x - 15; // Left threshold is the current position of the background
+        maxRightThreshold = backgroundTransform.position.x; // Right threshold is the background's position plus its width
     }
 
     // Call this function when the player exits decoration mode

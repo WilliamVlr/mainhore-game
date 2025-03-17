@@ -2261,6 +2261,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1788351398}
     - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
+      propertyPath: playerSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811172891580188517, guid: 673394aec912453499a5f36f434a1df5, type: 3}
       propertyPath: movementJoystick
       value: 
       objectReference: {fileID: 140494286}
