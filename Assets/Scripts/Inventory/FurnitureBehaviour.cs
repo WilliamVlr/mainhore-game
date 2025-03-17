@@ -167,10 +167,10 @@ public class FurnitureBehavior : MonoBehaviour
             if (!isDragging)
             {
                 // If the Y position is below the threshold, hold it at that Y value
-                if (transformer.position.y <= stopFallAtY)
+                if (transformer.localPosition.y <= stopFallAtY)
                 {
                     // Hold the position at the specified Y value
-                    transformer.position = new Vector2(transform.position.x, stopFallAtY);
+                    transformer.localPosition = new Vector2(transform.localPosition.x, stopFallAtY);
 
                     // Optionally, stop physics interactions
                     rb.bodyType = RigidbodyType2D.Static;

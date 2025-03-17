@@ -10,7 +10,7 @@ public class HouseManager : MonoBehaviour, IDataPersistence
 
     [Header("Layout Reference")]
     public GameObject decorationModeButton;       // Decoration Mode button
-    public GameObject background;
+    public Camera MainCamera;
     public CanvasBehavior staticCanvas;
     public CanvasBehavior coinCanvas;
     public CanvasBehavior joystickCanvas;
@@ -139,7 +139,15 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         staticCanvas.hideCanvas();
         decorationModeButton.SetActive(false);
         exitPanel.SetActive(true);
-        MinimizeBackground();
+        CameraZoomOut();
+
+        foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
+        {
+            if (furniture.furnitureData.dropBehavior is CeilingSnapBehavior_SO)
+            {
+                furniture.transform.position = new Vector3(furniture.transform.position.x, MainCamera.orthographicSize - 3, furniture.transform.position.z);
+            }
+        }
 
         //Set up inventory
         inventoryUI.ShowFurniture();
@@ -155,16 +163,14 @@ public class HouseManager : MonoBehaviour, IDataPersistence
         CameraMovement_decor.onEnterDecorationMode();
     }
 
-    public void MinimizeBackground()
+    public void CameraZoomIn()
     {
-        background.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-        background.transform.position = new Vector3(background.transform.position.x, 0.5f, 0);
+        MainCamera.orthographicSize = 5f;
     }
 
-    public void RestoreBackground()
+    public void CameraZoomOut()
     {
-        background.transform.localScale = new Vector3(1f, 1f, 1f);
-        background.transform.position = new Vector3(background.transform.position.x, 0, 0);
+        MainCamera.orthographicSize = 6f;
     }
 
     public void UnfreezeFurnitures()
@@ -215,12 +221,17 @@ public class HouseManager : MonoBehaviour, IDataPersistence
     {
         isInDecorationMode = false;
         joystickCanvas.showCanvas();
-        RestoreBackground();
+        CameraZoomIn();
 
         // reset all placed furnitures body type into Static
         foreach (FurnitureBehavior furniture in listFurnitureBehaviors)
         {
             furniture.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+            if(furniture.furnitureData.dropBehavior is CeilingSnapBehavior_SO)
+            {
+                furniture.transform.position = new Vector3(furniture.transform.position.x, MainCamera.orthographicSize - 3, furniture.transform.position.z);
+            }
         }
 
         // Show character and non-house UI again

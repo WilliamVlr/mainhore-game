@@ -1697,7 +1697,6 @@ GameObject:
   - component: {fileID: 1286936797}
   - component: {fileID: 1286936798}
   - component: {fileID: 1286936799}
-  - component: {fileID: 1286936800}
   - component: {fileID: 1286936801}
   - component: {fileID: 1286936802}
   m_Layer: 0
@@ -1819,33 +1818,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.4947176, y: 4.563778}
   m_EdgeRadius: 0
---- !u!50 &1286936800
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286936796}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1286936801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,7 +1825,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286936796}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3f2b4093201e94597c57f1057c4a7c, type: 3}
   m_Name: 
@@ -2820,7 +2792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: f4d8d52e89ef3a942a5bb0f44215b905, type: 2}
   decorationModeButton: {fileID: 279887401}
-  background: {fileID: 1975256708}
+  MainCamera: {fileID: 1891301836}
   staticCanvas: {fileID: 1045089717}
   coinCanvas: {fileID: 1327433799}
   joystickCanvas: {fileID: 706863650}
